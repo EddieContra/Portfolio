@@ -33,7 +33,7 @@
     margin: 0;
     background: rgb(var(--c-bg));
     color: rgb(var(--c-text));
-    font-family: 'Google Sans Flex', ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
     overflow-x: hidden;
     cursor: none;
     transition: background-color .35s ease, color .35s ease;
