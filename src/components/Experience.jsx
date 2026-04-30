@@ -1,51 +1,41 @@
-import { useState } from 'react';
 import { EXPERIENCE } from '../data/experience';
 
 export default function Experience() {
-  const [active, setActive] = useState(0);
-  const cur = EXPERIENCE[active];
-
   return (
-    <section
-      id="experience"
-      className="bg-bg py-32 px-10 max-[1100px]:px-10 max-[768px]:!px-6 max-[480px]:!py-20"
-    >
-      <span className="sec-label">Career Journey</span>
-      <h2 className="sec-title rv">EXPERIENCE &amp;<br />EDUCATION.</h2>
+    <section id="experience" className="py-20 sm:py-28 border-t border-edge">
+      <div className="wrap">
+        <span className="sec-label">Experience &amp; education</span>
+        <h2 className="sec-title rv">Where I've worked</h2>
 
-      <div className="grid grid-cols-[220px_1fr] gap-20 items-start max-[1100px]:gap-12 max-[768px]:grid-cols-1">
-        <div className="border-l border-edge max-[768px]:border-l-0 max-[768px]:border-b max-[768px]:flex max-[768px]:overflow-x-auto">
+        <ol className="relative border-l border-edge space-y-12 ml-2 pl-7 sm:pl-9">
           {EXPERIENCE.map((e, i) => (
-            <button
-              key={e.tab}
-              type="button"
-              onClick={() => setActive(i)}
-              className={[
-                'exp-tab block w-full text-left px-7 py-4 cursor-pointer text-[.83rem] leading-snug transition-all',
-                'border-l-[3px] -ml-px',
-                'max-[768px]:border-l-0 max-[768px]:border-b-[3px] max-[768px]:-mb-px max-[768px]:ml-0 max-[768px]:whitespace-nowrap',
-                i === active
-                  ? 'border-l-accent text-accent bg-accent/[.04] max-[768px]:!border-l-transparent max-[768px]:!border-b-accent'
-                  : 'border-l-transparent text-muted hover:text-text hover:border-l-edge max-[768px]:hover:border-l-transparent max-[768px]:hover:border-b-edge',
-              ].join(' ')}
-            >
-              {e.tab}
-            </button>
-          ))}
-        </div>
+            <li key={e.tab} className={`rv rv-d${(i % 4) + 1} relative`}>
+              <span
+                className="absolute -left-[33px] sm:-left-[41px] top-1.5 w-3 h-3 rounded-full bg-accent ring-4 ring-bg"
+                aria-hidden="true"
+              />
 
-        <div key={active} className="animate-up">
-          <div className="font-disp text-[2.4rem] tracking-wider mb-1.5">{cur.role}</div>
-          <div className="text-accent text-[.78rem] tracking-[2px] uppercase mb-2">{cur.company}</div>
-          <div className="text-muted text-[.78rem] italic mb-7">{cur.date}</div>
-          <ul className="list-none flex flex-col gap-3.5">
-            {cur.points.map((p, i) => (
-              <li key={i} className="text-muted text-[.88rem] leading-[1.75] pl-7 relative before:content-['→'] before:absolute before:left-0 before:text-accent">
-                {p}
-              </li>
-            ))}
-          </ul>
-        </div>
+              <div className="text-xs text-muted tracking-wide mb-1.5 italic">{e.date}</div>
+
+              <h3 className="text-lg sm:text-xl font-bold text-text leading-snug">
+                {e.role}
+              </h3>
+
+              <div className="text-accent text-sm font-medium mb-4 mt-0.5">
+                {e.company}
+              </div>
+
+              <ul className="space-y-2 text-muted text-sm sm:text-[.92rem] leading-relaxed list-none">
+                {e.points.map((p, idx) => (
+                  <li key={idx} className="relative pl-5">
+                    <span className="absolute left-0 top-2 w-1.5 h-1.5 rounded-full bg-edge" aria-hidden="true" />
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );

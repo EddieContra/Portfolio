@@ -6,44 +6,51 @@ export default function Projects() {
   const [active, setActive] = useState(null);
 
   return (
-    <section
-      id="projects"
-      className="bg-bg2 py-32 px-10 max-[1100px]:px-10 max-[768px]:!px-6 max-[480px]:!py-20"
-    >
-      <span className="sec-label">Selected Work</span>
-      <h2 className="sec-title rv">PROJECTS.</h2>
+    <section id="projects" className="py-20 sm:py-28 border-t border-edge">
+      <div className="wrap">
+        <span className="sec-label">Selected work</span>
+        <h2 className="sec-title rv">Projects</h2>
 
-      <div className="grid grid-cols-3 gap-6 max-[1100px]:grid-cols-2 max-[768px]:grid-cols-1">
-        {PROJECTS.map((p, i) => (
-          <button
-            key={p.name}
-            type="button"
-            onClick={() => setActive(p)}
-            className={[
-              'proj-card text-left bg-bg3 border border-edge cursor-pointer overflow-hidden',
-              'transition-all duration-300 hover:border-accent hover:-translate-y-1.5',
-              `rv rv-d${(i % 3) + 1}`,
-            ].join(' ')}
-          >
-            <div className="aspect-video bg-bg2 grid place-items-center text-5xl relative overflow-hidden group">
-              <span>{p.emoji}</span>
-              <div className="absolute inset-0 bg-accent/95 grid place-items-center font-disp text-3xl text-bg tracking-[6px] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                VIEW
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+          {PROJECTS.map((p, i) => (
+            <button
+              key={p.name}
+              type="button"
+              onClick={() => setActive(p)}
+              className={[
+                'group text-left bg-bg2 border border-edge rounded-2xl p-6 cursor-pointer',
+                'transition-all duration-200 hover:border-text hover:-translate-y-0.5',
+                `rv rv-d${(i % 3) + 1}`,
+              ].join(' ')}
+            >
+              <div className="flex items-start gap-4 mb-5">
+                <div
+                  className="w-12 h-12 grid place-items-center rounded-xl bg-bg3 text-2xl shrink-0 group-hover:bg-accent group-hover:text-bg transition-colors"
+                  aria-hidden="true"
+                >
+                  {p.emoji}
+                </div>
+                <div className="min-w-0">
+                  <h3 className="font-bold text-base sm:text-lg text-text leading-tight mb-1">
+                    {p.name}
+                  </h3>
+                  <p className="text-sm text-muted leading-relaxed">{p.brief}</p>
+                </div>
               </div>
-            </div>
-            <div className="p-6">
-              <div className="flex flex-wrap gap-1.5 mb-3">
+
+              <div className="flex flex-wrap gap-1.5">
                 {p.tags.map((t) => (
-                  <span key={t} className="text-[.6rem] tracking-[1.5px] uppercase text-accent bg-accent/10 px-2.5 py-0.5">
+                  <span
+                    key={t}
+                    className="text-[.65rem] tracking-wide uppercase text-accent bg-accent/10 px-2 py-0.5 rounded-full font-medium"
+                  >
                     {t}
                   </span>
                 ))}
               </div>
-              <div className="font-disp text-[1.7rem] tracking-wider mb-2 leading-none">{p.name}</div>
-              <p className="text-[.83rem] text-muted leading-[1.7]">{p.brief}</p>
-            </div>
-          </button>
-        ))}
+            </button>
+          ))}
+        </div>
       </div>
 
       <ProjectModal project={active} onClose={() => setActive(null)} />

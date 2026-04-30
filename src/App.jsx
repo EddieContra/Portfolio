@@ -5,12 +5,12 @@ import ScrollProgress from './components/ScrollProgress';
 import Nav            from './components/Nav';
 import Hero           from './components/Hero';
 import About          from './components/About';
-import Skills         from './components/Skills';
-import Projects       from './components/Projects';
 import Experience     from './components/Experience';
+import Projects       from './components/Projects';
+import Skills         from './components/Skills';
+import Currently      from './components/Currently';
 import Gallery        from './components/Gallery';
 import Testimonials   from './components/Testimonials';
-import Currently      from './components/Currently';
 import Contact        from './components/Contact';
 import Footer         from './components/Footer';
 
@@ -26,12 +26,12 @@ export default function App() {
       <main>
         <Hero />
         <About />
-        <Skills />
-        <Projects />
         <Experience />
+        <Projects />
+        <Skills />
+        <Currently />
         <Gallery />
         <Testimonials />
-        <Currently />
         <Contact />
       </main>
 

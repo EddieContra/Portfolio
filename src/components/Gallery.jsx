@@ -14,48 +14,46 @@ export default function Gallery() {
   useScrollReveal([filter]);
 
   return (
-    <section
-      id="gallery"
-      className="bg-bg2 py-32 px-10 max-[1100px]:px-10 max-[768px]:!px-6 max-[480px]:!py-20"
-    >
-      <span className="sec-label">Creative Portfolio</span>
-      <h2 className="sec-title rv">GALLERY.</h2>
+    <section id="gallery" className="py-20 sm:py-28 border-t border-edge">
+      <div className="wrap">
+        <span className="sec-label">Creative work</span>
+        <h2 className="sec-title rv">Gallery</h2>
 
-      <div className="flex gap-3 flex-wrap mb-10">
-        {GALLERY_FILTERS.map((f) => (
-          <button
-            key={f.key}
-            type="button"
-            onClick={() => setFilter(f.key)}
-            className={[
-              'filt bg-transparent border border-edge px-5 py-2 text-[.7rem] tracking-[1.5px] uppercase cursor-pointer transition-all duration-200 font-sans',
-              filter === f.key
-                ? 'bg-accent text-bg border-accent'
-                : 'text-muted hover:bg-accent hover:text-bg hover:border-accent',
-            ].join(' ')}
-          >
-            {f.label}
-          </button>
-        ))}
-      </div>
+        <div className="flex gap-2 flex-wrap mb-8" role="tablist" aria-label="Filter gallery">
+          {GALLERY_FILTERS.map((f) => (
+            <button
+              key={f.key}
+              type="button"
+              role="tab"
+              aria-selected={filter === f.key}
+              onClick={() => setFilter(f.key)}
+              className={[
+                'px-4 py-1.5 text-xs tracking-wide rounded-full border transition-colors cursor-pointer font-sans',
+                filter === f.key
+                  ? 'bg-text text-bg border-text'
+                  : 'border-edge text-muted hover:border-text hover:text-text',
+              ].join(' ')}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
 
-      <div className="grid grid-cols-4 gap-4 max-[768px]:grid-cols-2 max-[480px]:grid-cols-2">
-        {items.map((g, i) => (
-          <div
-            key={`${g.label}-${i}`}
-            className={[
-              'gal-item aspect-square bg-bg3 grid place-items-center text-4xl relative overflow-hidden cursor-pointer transition-transform duration-300 hover:scale-[1.02] rv',
-              i % 5 === 0 ? 'col-span-2 !aspect-[2/1] max-[768px]:col-span-1 max-[768px]:!aspect-square' : '',
-            ].join(' ')}
-            data-cat={g.cat}
-          >
-            <span>{g.emoji}</span>
-            <div className="absolute inset-0 bg-accent/95 flex flex-col items-center justify-center gap-1 opacity-0 hover:opacity-100 transition-opacity duration-300">
-              <span className="font-disp text-2xl text-bg tracking-[3px]">{g.label}</span>
-              <small className="text-[.65rem] tracking-[2px] uppercase text-bg/70">{g.cat}</small>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+          {items.map((g, i) => (
+            <div
+              key={`${g.label}-${i}`}
+              className="group aspect-square bg-bg2 border border-edge rounded-xl grid place-items-center text-3xl relative overflow-hidden cursor-pointer rv"
+              data-cat={g.cat}
+            >
+              <span aria-hidden="true">{g.emoji}</span>
+              <div className="absolute inset-0 bg-text/95 flex flex-col items-center justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 px-3 text-center">
+                <span className="text-bg font-medium text-sm">{g.label}</span>
+                <small className="text-[.6rem] uppercase tracking-wide text-bg/70">{g.cat}</small>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

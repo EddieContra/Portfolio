@@ -7,73 +7,76 @@ export default function Hero() {
   useEffect(() => {
     const id = setInterval(() => {
       setActiveRole((i) => (i + 1) % HERO_ROLES.length);
-    }, 2000);
+    }, 2200);
     return () => clearInterval(id);
   }, []);
 
   return (
     <section
       id="hero"
-      className="min-h-screen flex flex-col justify-center px-10 pt-40 pb-20 relative overflow-hidden max-[1100px]:px-10 max-[768px]:!px-6 max-[480px]:!px-6"
+      className="min-h-[88vh] flex items-center pt-32 pb-16"
     >
-      <span className="text-[.7rem] tracking-[3.5px] uppercase text-accent mb-5 opacity-0 animate-up [animation-delay:.3s]">
-        Available for Opportunities · Based in Arusha, Tanzania 🇹🇿
-      </span>
-
-      <h1 className="font-disp text-[clamp(4.5rem,16vw,16rem)] leading-[.95] tracking-tight opacity-0 animate-up [animation-delay:.5s]">
-        Ed<em className="text-accent not-italic">die</em>
-      </h1>
-
-      <p className="font-serif italic text-[clamp(1.1rem,2vw,1.8rem)] text-muted mt-7 opacity-0 animate-up [animation-delay:.7s]">
-        CS Graduate · Designer · Educator · Creator
-      </p>
-
-      <div className="flex flex-wrap gap-2.5 mt-5 opacity-0 animate-up [animation-delay:.9s]">
-        {HERO_ROLES.map((r, i) => (
-          <span
-            key={r}
-            className={[
-              'border px-3.5 py-1 text-[.7rem] tracking-[1.5px] uppercase transition-all duration-300',
-              i === activeRole
-                ? 'bg-accent text-bg border-accent font-bold'
-                : 'border-edge text-muted',
-            ].join(' ')}
-          >
-            {r}
+      <div className="wrap w-full">
+        <p className="text-sm text-muted mb-6 flex items-center gap-2 opacity-0 animate-up [animation-delay:.2s]">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
           </span>
-        ))}
-      </div>
+          Available for opportunities · Arusha, Tanzania
+        </p>
 
-      <div className="flex gap-5 flex-wrap mt-12 opacity-0 animate-up [animation-delay:1.1s] max-[480px]:flex-col max-[480px]:items-start">
-        <a href="#projects" className="btn-fill">View My Work</a>
-        <a href="#contact" className="btn-ghost">Let's Talk →</a>
-        <a
-          href={`${import.meta.env.BASE_URL}cv.pdf`}
-          download="Eddie-CV.pdf"
-          className="btn-ghost inline-flex items-center gap-2"
+        <h1 className="font-disp font-extrabold leading-[.95] tracking-tight text-[clamp(3rem,11vw,7.5rem)] opacity-0 animate-up [animation-delay:.4s]">
+          <span className="italic">Eddie</span>
+          <span className="text-accent">.</span>
+        </h1>
+
+        <p className="mt-7 text-lg sm:text-xl md:text-2xl text-muted leading-snug max-w-2xl opacity-0 animate-up [animation-delay:.6s]">
+          Full-stack developer, designer, and educator building thoughtful software and creative learning experiences from{' '}
+          <span className="text-text font-medium">Arusha, Tanzania</span>.
+        </p>
+
+        <div
+          className="flex flex-wrap gap-2 mt-8 opacity-0 animate-up [animation-delay:.8s]"
+          aria-label="Roles I take on"
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-            <polyline points="7 10 12 15 17 10" />
-            <line x1="12" y1="15" x2="12" y2="3" />
-          </svg>
-          Download CV
-        </a>
-      </div>
-
-      <div className="absolute bottom-10 left-10 flex items-center gap-4 text-muted text-[.65rem] tracking-[2.5px] uppercase opacity-0 animate-up [animation-delay:1.6s] max-[1100px]:left-10 max-[768px]:!left-6">
-        <div className="w-[45px] h-[1px] bg-edge overflow-hidden relative">
-          <div className="absolute left-[-100%] top-0 w-full h-full bg-accent" style={{ animation: 'slid 2.2s 2s infinite' }} />
+          {HERO_ROLES.map((r, i) => (
+            <span
+              key={r}
+              aria-current={i === activeRole}
+              className={[
+                'px-3 py-1 text-xs rounded-full border transition-all duration-300',
+                i === activeRole
+                  ? 'bg-accent text-bg border-accent font-semibold'
+                  : 'border-edge text-muted',
+              ].join(' ')}
+            >
+              {r}
+            </span>
+          ))}
         </div>
-        <span>Scroll to explore</span>
-      </div>
 
-      <div
-        aria-hidden="true"
-        className="absolute -bottom-16 -right-12 font-disp text-[clamp(10rem,30vw,32rem)] text-transparent pointer-events-none select-none leading-none tracking-normal"
-        style={{ WebkitTextStroke: '1px rgb(var(--c-text) / .05)' }}
-      >
-        Cs
+        <div className="flex flex-wrap gap-3 mt-10 opacity-0 animate-up [animation-delay:1s]">
+          <a href="#projects" className="btn-fill">
+            View work
+            <span aria-hidden="true">→</span>
+          </a>
+          <a
+            href={`${import.meta.env.BASE_URL}cv.pdf`}
+            download="Eddie-CV.pdf"
+            className="btn-ghost"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            Download CV
+          </a>
+          <a href="#contact" className="btn-ghost">
+            Get in touch
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
       </div>
     </section>
   );

@@ -1,43 +1,39 @@
 export default function About() {
   return (
-    <section
-      id="about"
-      className="bg-bg2 py-32 px-10 grid grid-cols-[1fr_1.2fr] gap-28 items-center
-                 max-[1100px]:grid-cols-1 max-[1100px]:px-10 max-[1100px]:gap-12
-                 max-[768px]:!px-6 max-[480px]:!py-20"
-    >
-      <div className="relative rv max-[768px]:max-w-[300px]">
-        <div className="aspect-[3/4] bg-bg3 grid place-items-center font-disp text-[10rem] text-accent/25 relative z-10">
-          E
-        </div>
-        <div className="absolute inset-0 border-2 border-accent translate-x-[14px] translate-y-[14px] z-0" />
-      </div>
+    <section id="about" className="py-20 sm:py-28 border-t border-edge">
+      <div className="wrap">
+        <span className="sec-label">About</span>
+        <h2 className="sec-title rv">A bit about me</h2>
 
-      <div>
-        <span className="sec-label">About Me</span>
-        <h2 className="sec-title rv">THE<br />STORY<br />SO FAR.</h2>
+        <div className="grid grid-cols-1 md:grid-cols-[10rem_1fr] gap-8 md:gap-12 items-start">
+          <div className="rv">
+            <div className="aspect-square w-32 sm:w-40 rounded-full bg-bg2 border border-edge grid place-items-center font-disp text-5xl font-extrabold italic text-accent">
+              E
+            </div>
+          </div>
 
-        <p className="text-muted leading-[1.95] text-base mb-5 rv">
-          I'm <strong className="text-text">Eddie</strong> — a Computer Science graduate who sits at the intersection of{' '}
-          <strong className="text-text">technology, design, and education</strong>. I build elegant software, craft
-          compelling visuals, and teach the next generation of coders.
-        </p>
+          <div className="space-y-5 text-base sm:text-lg leading-relaxed text-muted rv">
+            <p>
+              I'm <span className="text-text font-semibold">Eddie</span> — a Computer Science graduate sitting at the intersection of{' '}
+              <span className="text-text">technology, design, and education</span>. I build elegant software,
+              craft compelling visuals, and teach the next generation of coders.
+            </p>
+            <p>
+              From shipping <span className="text-text">full-stack web apps</span> to leading sessions for{' '}
+              <span className="text-text">JA Africa's SEP / E3empower initiative</span> in Tanzania, everything I do
+              is driven by purpose and precision.
+            </p>
+            <p>
+              Currently exploring the frontier of <span className="text-text">Machine Learning &amp; AI</span> and
+              actively seeking an internship where I can apply that curiosity at scale.
+            </p>
 
-        <p className="text-muted leading-[1.95] text-base mb-5 rv rv-d1">
-          From developing <strong className="text-text">full-stack web applications</strong> to leading sessions for{' '}
-          <strong className="text-text">JA Africa's SEP initiative</strong> in Tanzania, everything I do is driven by
-          purpose and precision.
-        </p>
-
-        <p className="text-muted leading-[1.95] text-base mb-5 rv rv-d2">
-          Currently exploring the frontier of <strong className="text-text">Machine Learning &amp; AI</strong> and
-          actively seeking an internship where I can apply that curiosity at scale.
-        </p>
-
-        <div className="grid grid-cols-3 gap-6 border-t border-edge pt-10 mt-10 rv rv-d2 max-[768px]:grid-cols-2">
-          <Stat n="8+"  label="Months Interning"  />
-          <Stat n="3+"  label="Years Experience"  />
-          <Stat n="12+" label="Tools Mastered"    />
+            <dl className="grid grid-cols-3 gap-4 sm:gap-8 pt-8 mt-8 border-t border-edge">
+              <Stat n="8+"  label="Months interning"  />
+              <Stat n="3+"  label="Years experience"  />
+              <Stat n="12+" label="Tools mastered"    />
+            </dl>
+          </div>
         </div>
       </div>
     </section>
@@ -47,8 +43,8 @@ export default function About() {
 function Stat({ n, label }) {
   return (
     <div>
-      <h3 className="font-disp text-[3.5rem] text-accent leading-none">{n}</h3>
-      <p className="text-[.65rem] tracking-[2px] uppercase text-muted mt-1">{label}</p>
+      <dt className="font-disp font-extrabold text-3xl sm:text-4xl text-text leading-none">{n}</dt>
+      <dd className="text-xs text-muted mt-2 tracking-wide">{label}</dd>
     </div>
   );
 }

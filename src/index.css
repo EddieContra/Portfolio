@@ -6,24 +6,24 @@
   :root {
     /* LIGHT theme — applied when html does NOT have .dark (default) */
     --c-bg:      255 255 255;
-    --c-bg2:     249 250 251;
+    --c-bg2:     250 250 249; /* near-white card */
     --c-bg3:     243 244 246;
-    --c-accent:  255 107 0;   /* #ff6b00 — warm sunset orange */
+    --c-accent:  255 107 0;   /* #ff6b00 */
     --c-accent2: 255 107 0;
     --c-text:    0 0 0;
     --c-muted:   106 114 130; /* gray-500 */
-    --c-border:  229 231 235; /* gray-200 */
+    --c-border:  232 232 230; /* very light hairline */
   }
 
   .dark {
-    /* DARK theme — applied via .dark on <html> (default) */
+    /* DARK theme — applied via .dark on <html> */
     --c-bg:      8 8 8;
     --c-bg2:     16 16 16;
     --c-bg3:     24 24 24;
-    --c-accent:  200 241 53;
-    --c-accent2: 255 77 0;
+    --c-accent:  200 241 53; /* lime — Eddie's signature dark accent */
+    --c-accent2: 255 107 0;
     --c-text:    240 240 232;
-    --c-muted:   96 96 96;
+    --c-muted:   140 140 140;
     --c-border:  32 32 32;
   }
 
@@ -37,37 +37,49 @@
     overflow-x: hidden;
     cursor: none;
     transition: background-color .35s ease, color .35s ease;
+    font-feature-settings: 'ss01', 'cv11';
   }
 
+  ::selection { background: rgb(var(--c-accent)); color: rgb(var(--c-bg)); }
   *:focus-visible { outline: 2px solid rgb(var(--c-accent)); outline-offset: 3px; }
 }
 
 @layer components {
-  /* Reusable section header label */
-  .sec-label {
-    @apply text-[.65rem] tracking-[3.5px] uppercase text-accent block mb-4;
-  }
-  .sec-title {
-    @apply font-disp leading-[.88] mb-12 tracking-tight text-[clamp(3rem,8vw,7.5rem)];
+  /* Constrained content container — Ankur-style 4xl */
+  .wrap {
+    @apply max-w-4xl mx-auto px-6 sm:px-8;
   }
 
-  /* Buttons */
-  .btn-fill {
-    @apply bg-accent text-bg px-10 py-3.5 font-bold text-[.8rem] tracking-[2px] uppercase
-           inline-block transition-transform duration-200 hover:-translate-y-[3px]
-           hover:shadow-[0_10px_35px_rgb(var(--c-accent)/.25)];
+  /* Section eyebrow label */
+  .sec-label {
+    @apply text-[.7rem] tracking-[.22em] uppercase text-accent block mb-3 font-semibold;
   }
+
+  /* Section heading */
+  .sec-title {
+    @apply font-disp font-extrabold leading-[1.05] mb-10 tracking-tight
+           text-[clamp(2rem,4.5vw,3.25rem)] text-text;
+  }
+
+  /* Primary button — black-on-white in light, white-on-black in dark */
+  .btn-fill {
+    @apply inline-flex items-center gap-2 bg-text text-bg px-5 py-2.5 rounded-full
+           text-sm font-medium transition-colors duration-200 no-underline
+           hover:bg-accent hover:text-bg;
+  }
+
+  /* Ghost / secondary button */
   .btn-ghost {
-    @apply border border-edge text-text px-10 py-3.5 text-[.8rem] tracking-[2px] uppercase
-           inline-block transition-colors duration-200
+    @apply inline-flex items-center gap-2 border border-edge text-text px-5 py-2.5 rounded-full
+           text-sm font-medium transition-colors duration-200 no-underline
            hover:border-accent hover:text-accent;
   }
 
-  /* Pill tag (used in Skills, Project tags, etc.) */
+  /* Pill tag — for skill rows, project tags */
   .tag-pill {
-    @apply bg-bg3 border border-edge px-3.5 py-1.5 text-[.78rem] text-muted
+    @apply bg-bg2 border border-edge px-3 py-1 text-xs text-muted rounded-full
            transition-colors duration-200 cursor-default
-           hover:bg-accent hover:text-bg hover:border-accent;
+           hover:border-accent hover:text-accent;
   }
 }
 
@@ -75,26 +87,20 @@
   /* Scroll-reveal — toggled by useScrollReveal hook */
   .rv {
     opacity: 0;
-    transform: translateY(38px);
-    transition: opacity .85s ease, transform .85s ease;
+    transform: translateY(28px);
+    transition: opacity .8s ease, transform .8s ease;
   }
   .rv.in { opacity: 1; transform: none; }
-  .rv-d1 { transition-delay: .1s; }
-  .rv-d2 { transition-delay: .2s; }
-  .rv-d3 { transition-delay: .3s; }
-  .rv-d4 { transition-delay: .4s; }
+  .rv-d1 { transition-delay: .08s; }
+  .rv-d2 { transition-delay: .16s; }
+  .rv-d3 { transition-delay: .24s; }
+  .rv-d4 { transition-delay: .32s; }
 
   /* Subtle scrollbar in modal */
   .nice-scroll::-webkit-scrollbar { width: 8px; }
   .nice-scroll::-webkit-scrollbar-track { background: transparent; }
   .nice-scroll::-webkit-scrollbar-thumb { background: rgb(var(--c-border)); border-radius: 4px; }
   .nice-scroll::-webkit-scrollbar-thumb:hover { background: rgb(var(--c-accent)); }
-}
-
-/* Scroll bar slid keyframe (used in hero) */
-@keyframes slid {
-  0% { left: -100%; }
-  50%, 100% { left: 100%; }
 }
 
 /* Hide custom cursor on touch devices */

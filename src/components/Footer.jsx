@@ -1,9 +1,17 @@
 export default function Footer() {
+  const year = new Date().getFullYear();
   return (
-    <footer className="bg-bg border-t border-edge py-8 px-10 flex justify-between items-center max-[1100px]:px-10 max-[768px]:!px-6 max-[768px]:flex-col max-[768px]:gap-4 max-[768px]:text-center">
-      <span className="font-disp text-[1.8rem] text-accent tracking-[3px]">E.</span>
-      <p className="text-[.72rem] text-muted">© 2025 Eddie · Designed &amp; Built in Tanzania 🇹🇿</p>
-      <p className="text-[.72rem] text-muted">CS Graduate · Designer · Educator</p>
+    <footer className="py-10 border-t border-edge">
+      <div className="wrap flex justify-between items-center text-xs text-muted gap-4 flex-wrap">
+        <a
+          href="#hero"
+          className="font-disp font-extrabold italic text-text no-underline transition-colors hover:text-accent"
+        >
+          Eddie<span className="text-accent not-italic">.</span>
+        </a>
+        <p>© {year} Emmanuel Edmund · Built in Tanzania 🇹🇿</p>
+        <p className="font-medium">CS · Design · Education</p>
+      </div>
     </footer>
   );
 }
