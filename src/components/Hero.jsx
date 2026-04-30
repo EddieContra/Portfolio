@@ -14,9 +14,20 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-[88vh] flex items-center pt-32 pb-16"
+      className="relative min-h-[88vh] flex items-center pt-32 pb-16 overflow-hidden"
     >
-      <div className="wrap w-full">
+      {/* Decorative gradient blobs — purely visual */}
+      <div
+        aria-hidden="true"
+        className="absolute -top-32 -right-20 w-[34rem] h-[34rem] rounded-full bg-accent/25 blur-[120px] pointer-events-none blob-drift"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute -bottom-40 -left-24 w-[28rem] h-[28rem] rounded-full bg-accent2/20 blur-[110px] pointer-events-none blob-drift"
+        style={{ animationDelay: '-9s', animationDuration: '22s' }}
+      />
+
+      <div className="wrap w-full relative">
         <p className="text-sm text-muted mb-6 flex items-center gap-2 opacity-0 animate-up [animation-delay:.2s]">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />

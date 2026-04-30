@@ -19,7 +19,7 @@ export default function Testimonials() {
         <h2 className="sec-title rv">Testimonials</h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-14 items-start">
-          <blockquote key={active} className="rv">
+          <blockquote key={active} className="animate-up">
             <p className="text-lg sm:text-xl md:text-2xl text-text leading-relaxed">
               <span className="text-accent font-bold mr-1" aria-hidden="true">&ldquo;</span>
               {t.quote}

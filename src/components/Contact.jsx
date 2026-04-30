@@ -1,16 +1,18 @@
+import Icon from './Icon';
+
 const SOCIALS = [
-  { label: 'GH', title: 'GitHub',    href: 'https://github.com/EddieContra' },
-  { label: 'LI', title: 'LinkedIn',  href: 'https://linkedin.com/in/whoiseddiee' },
-  { label: 'IG', title: 'Instagram', href: 'https://instagram.com/whoiseddiee' },
-  { label: 'WA', title: 'WhatsApp',  href: 'https://wa.me/255745225985' },
-  { label: 'PN', title: 'Pinterest', href: 'https://pinterest.com/whoiseddiee' },
-  { label: '𝕏',  title: 'Twitter/X', href: 'https://x.com/whoiseddiee' },
+  { icon: 'github',    title: 'GitHub',    href: 'https://github.com/EddieContra' },
+  { icon: 'linkedin',  title: 'LinkedIn',  href: 'https://linkedin.com/in/whoiseddiee' },
+  { icon: 'instagram', title: 'Instagram', href: 'https://instagram.com/whoiseddiee' },
+  { icon: 'whatsapp',  title: 'WhatsApp',  href: 'https://wa.me/255745225985' },
+  { icon: 'pinterest', title: 'Pinterest', href: 'https://pinterest.com/whoiseddiee' },
+  { icon: 'x',         title: 'Twitter / X', href: 'https://x.com/whoiseddiee' },
 ];
 
 const CONTACTS = [
-  { icon: '✉',  label: 'Email',     value: 'emmanueledmund00@gmail.com', href: 'mailto:emmanueledmund00@gmail.com' },
-  { icon: '💬', label: 'WhatsApp',  value: '+255 745 225 985',           href: 'https://wa.me/255745225985' },
-  { icon: '◎',  label: 'Location',  value: 'Arusha, Tanzania' },
+  { icon: 'mail',          label: 'Email',    value: 'emmanueledmund00@gmail.com', href: 'mailto:emmanueledmund00@gmail.com' },
+  { icon: 'messageCircle', label: 'WhatsApp', value: '+255 745 225 985',           href: 'https://wa.me/255745225985' },
+  { icon: 'mapPin',        label: 'Location', value: 'Arusha, Tanzania' },
 ];
 
 export default function Contact() {
@@ -25,7 +27,7 @@ export default function Contact() {
           The fastest way to reach me is email or WhatsApp.
         </p>
 
-        <div className="space-y-3 mb-10">
+        <div className="space-y-3 mb-12">
           {CONTACTS.map((c, i) => (
             <ContactRow key={c.label} index={i} {...c} />
           ))}
@@ -40,9 +42,9 @@ export default function Contact() {
               rel="noopener noreferrer"
               title={s.title}
               aria-label={s.title}
-              className="w-10 h-10 grid place-items-center border border-edge rounded-full text-muted text-xs font-bold transition-colors hover:bg-text hover:text-bg hover:border-text"
+              className="w-10 h-10 grid place-items-center border border-edge rounded-full text-muted transition-colors hover:bg-text hover:text-bg hover:border-text"
             >
-              {s.label}
+              <Icon name={s.icon} size={16} />
             </a>
           ))}
         </div>
@@ -56,14 +58,15 @@ function ContactRow({ icon, label, value, href, index }) {
   const inner = (
     <>
       <span
-        className="text-base shrink-0 w-10 h-10 grid place-items-center bg-bg2 border border-edge rounded-full transition-colors group-hover:border-accent"
-        aria-hidden="true"
+        className="shrink-0 w-10 h-10 grid place-items-center bg-bg2 border border-edge rounded-full text-muted transition-colors group-hover:border-accent group-hover:text-accent"
       >
-        {icon}
+        <Icon name={icon} size={18} />
       </span>
       <div>
         <div className="text-[.65rem] tracking-wide uppercase text-muted">{label}</div>
-        <div className="text-text text-sm font-medium transition-colors group-hover:text-accent">{value}</div>
+        <div className="text-text text-sm font-medium transition-colors group-hover:text-accent">
+          {value}
+        </div>
       </div>
     </>
   );
