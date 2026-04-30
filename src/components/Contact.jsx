@@ -1,10 +1,12 @@
 import { useState } from 'react';
 
 const SOCIALS = [
-  { label: 'GH', title: 'GitHub',     href: 'https://github.com/EddieContra' },
-  { label: 'LI', title: 'LinkedIn',   href: '#' },
-  { label: 'IG', title: 'Instagram',  href: '#' },
-  { label: '𝕏',  title: 'Twitter/X',  href: '#' },
+  { label: 'GH', title: 'GitHub',    href: 'https://github.com/EddieContra' },
+  { label: 'LI', title: 'LinkedIn',  href: 'https://linkedin.com/in/whoiseddiee' },
+  { label: 'IG', title: 'Instagram', href: 'https://instagram.com/whoiseddiee' },
+  { label: 'WA', title: 'WhatsApp',  href: 'https://wa.me/255745225985' },
+  { label: 'PN', title: 'Pinterest', href: 'https://pinterest.com/whoiseddiee' },
+  { label: '𝕏',  title: 'Twitter/X', href: 'https://x.com/whoiseddiee' },
 ];
 
 export default function Contact() {
@@ -43,6 +45,8 @@ export default function Contact() {
                 href={s.href}
                 title={s.title}
                 aria-label={s.title}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-11 h-11 grid place-items-center border border-edge no-underline text-muted text-[.7rem] font-bold tracking-wider transition-colors duration-200 hover:bg-accent hover:text-bg hover:border-accent"
               >
                 {s.label}
