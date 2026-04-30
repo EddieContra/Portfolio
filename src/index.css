@@ -4,15 +4,15 @@
 
 @layer base {
   :root {
-    /* LIGHT theme — applied when html does NOT have .dark */
-    --c-bg:      248 247 242;
-    --c-bg2:     255 255 255;
-    --c-bg3:     232 230 220;
-    --c-accent:  133 168 11;
-    --c-accent2: 255 77 0;
-    --c-text:    18 18 18;
-    --c-muted:   112 112 112;
-    --c-border:  215 211 200;
+    /* LIGHT theme — applied when html does NOT have .dark (default) */
+    --c-bg:      255 255 255;
+    --c-bg2:     249 250 251;
+    --c-bg3:     243 244 246;
+    --c-accent:  255 107 0;   /* #ff6b00 — warm sunset orange */
+    --c-accent2: 255 107 0;
+    --c-text:    0 0 0;
+    --c-muted:   106 114 130; /* gray-500 */
+    --c-border:  229 231 235; /* gray-200 */
   }
 
   .dark {
@@ -33,7 +33,7 @@
     margin: 0;
     background: rgb(var(--c-bg));
     color: rgb(var(--c-text));
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Google Sans Flex', ui-sans-serif, system-ui, sans-serif;
     overflow-x: hidden;
     cursor: none;
     transition: background-color .35s ease, color .35s ease;

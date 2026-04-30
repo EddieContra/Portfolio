@@ -15,9 +15,9 @@ export default {
         edge:    'rgb(var(--c-border)  / <alpha-value>)',
       },
       fontFamily: {
-        disp:  ['"Bebas Neue"', 'sans-serif'],
-        serif: ['"DM Serif Display"', 'serif'],
-        sans:  ['"DM Sans"', 'sans-serif'],
+        disp:  ['"Quintessential"', 'serif'],
+        serif: ['"Quintessential"', 'serif'],
+        sans:  ['"Google Sans Flex"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       keyframes: {
         up:    { '0%': { opacity: '0', transform: 'translateY(28px)' }, '100%': { opacity: '1', transform: 'none' } },

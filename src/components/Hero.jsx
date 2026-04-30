@@ -20,8 +20,8 @@ export default function Hero() {
         Available for Opportunities · Based in Arusha, Tanzania 🇹🇿
       </span>
 
-      <h1 className="font-disp text-[clamp(5rem,18vw,19rem)] leading-[.82] tracking-[-3px] opacity-0 animate-up [animation-delay:.5s]">
-        ED<em className="text-accent not-italic">DIE</em>
+      <h1 className="font-disp text-[clamp(4.5rem,16vw,16rem)] leading-[.95] tracking-tight opacity-0 animate-up [animation-delay:.5s]">
+        Ed<em className="text-accent not-italic">die</em>
       </h1>
 
       <p className="font-serif italic text-[clamp(1.1rem,2vw,1.8rem)] text-muted mt-7 opacity-0 animate-up [animation-delay:.7s]">
@@ -70,10 +70,10 @@ export default function Hero() {
 
       <div
         aria-hidden="true"
-        className="absolute -bottom-16 -right-12 font-disp text-[clamp(10rem,30vw,38rem)] text-transparent pointer-events-none select-none leading-none tracking-[-5px]"
-        style={{ WebkitTextStroke: '1px rgb(var(--c-text) / .04)' }}
+        className="absolute -bottom-16 -right-12 font-disp text-[clamp(10rem,30vw,32rem)] text-transparent pointer-events-none select-none leading-none tracking-normal"
+        style={{ WebkitTextStroke: '1px rgb(var(--c-text) / .05)' }}
       >
-        CS
+        Cs
       </div>
     </section>
   );
