@@ -4,88 +4,87 @@
 
 @layer base {
   :root {
-    /* LIGHT theme — applied when html does NOT have .dark (default) */
+    /* LIGHT theme — pure monochrome (default) */
     --c-bg:      255 255 255;
-    --c-bg2:     250 250 249; /* near-white card */
-    --c-bg3:     243 244 246;
-    --c-accent:  255 107 0;   /* #ff6b00 */
-    --c-accent2: 255 107 0;
+    --c-bg2:     250 250 250;
+    --c-bg3:     245 245 245;
     --c-text:    0 0 0;
-    --c-muted:   106 114 130; /* gray-500 */
-    --c-border:  232 232 230; /* very light hairline */
+    --c-muted:   100 100 100;
+    --c-border:  0 0 0;        /* heavy black borders */
+    /* "accent" is text color in this aesthetic — no separate hue */
+    --c-accent:  0 0 0;
+    --c-accent2: 0 0 0;
   }
 
   .dark {
-    /* DARK theme — applied via .dark on <html> */
-    --c-bg:      8 8 8;
-    --c-bg2:     16 16 16;
-    --c-bg3:     24 24 24;
-    --c-accent:  200 241 53; /* lime — Eddie's signature dark accent */
-    --c-accent2: 255 107 0;
-    --c-text:    240 240 232;
-    --c-muted:   140 140 140;
-    --c-border:  32 32 32;
+    /* DARK theme — pure monochrome inverted */
+    --c-bg:      0 0 0;
+    --c-bg2:     12 12 12;
+    --c-bg3:     20 20 20;
+    --c-text:    255 255 255;
+    --c-muted:   160 160 160;
+    --c-border:  255 255 255;
+    --c-accent:  255 255 255;
+    --c-accent2: 255 255 255;
   }
 
   *, *::before, *::after { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
     margin: 0;
-    background-color: rgb(var(--c-bg));
-    /* Subtle dot grid — adds texture, fades into background */
-    background-image:
-      radial-gradient(circle at 1px 1px, rgb(var(--c-text) / 0.045) 1px, transparent 0);
-    background-size: 28px 28px;
-    background-attachment: fixed;
+    background: rgb(var(--c-bg));
     color: rgb(var(--c-text));
-    font-family: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
     overflow-x: hidden;
     cursor: none;
     transition: background-color .35s ease, color .35s ease;
     font-feature-settings: 'ss01', 'cv11';
   }
 
-  ::selection { background: rgb(var(--c-accent)); color: rgb(var(--c-bg)); }
-  *:focus-visible { outline: 2px solid rgb(var(--c-accent)); outline-offset: 3px; }
+  ::selection { background: rgb(var(--c-text)); color: rgb(var(--c-bg)); }
+  *:focus-visible { outline: 2px solid rgb(var(--c-text)); outline-offset: 3px; }
 }
 
 @layer components {
-  /* Constrained content container — Ankur-style 4xl */
+  /* Constrained content container */
   .wrap {
-    @apply max-w-4xl mx-auto px-6 sm:px-8;
+    @apply max-w-5xl mx-auto px-6 sm:px-8;
   }
 
-  /* Section eyebrow label */
+  /* Section eyebrow label — small uppercase */
   .sec-label {
-    @apply text-[.7rem] tracking-[.22em] uppercase text-accent block mb-3 font-semibold;
+    @apply text-[.7rem] tracking-[.22em] uppercase text-text block mb-3 font-semibold;
   }
 
-  /* Section heading */
+  /* Section heading — bold wide display */
   .sec-title {
-    @apply font-disp font-extrabold leading-[1.05] mb-10 tracking-tight
-           text-[clamp(2rem,4.5vw,3.25rem)] text-text;
+    @apply font-disp leading-[.95] mb-10 tracking-tight uppercase
+           text-[clamp(2.25rem,7vw,5.5rem)] text-text;
   }
 
-  /* Primary button — black-on-white in light, white-on-black in dark */
+  /* Brutalist primary button — invert on hover */
   .btn-fill {
-    @apply inline-flex items-center gap-2 bg-text text-bg px-5 py-2.5 rounded-full
-           text-sm font-medium transition-colors duration-200 no-underline
-           hover:bg-accent hover:text-bg;
+    @apply inline-flex items-center gap-2 bg-text text-bg border-2 border-text px-6 py-3
+           text-sm font-bold tracking-wide uppercase transition-colors duration-200
+           no-underline hover:bg-bg hover:text-text;
   }
 
-  /* Ghost / secondary button */
+  /* Ghost button — invert on hover (the signature Dave-Lee-style move) */
   .btn-ghost {
-    @apply inline-flex items-center gap-2 border border-edge text-text px-5 py-2.5 rounded-full
-           text-sm font-medium transition-colors duration-200 no-underline
-           hover:border-accent hover:text-accent;
+    @apply inline-flex items-center gap-2 bg-bg text-text border-2 border-text px-6 py-3
+           text-sm font-bold tracking-wide uppercase transition-colors duration-200
+           no-underline hover:bg-text hover:text-bg;
   }
 
-  /* Pill tag — for skill rows, project tags */
+  /* Pill tag — sharp, no rounded */
   .tag-pill {
-    @apply bg-bg2 border border-edge px-3 py-1 text-xs text-muted rounded-full
+    @apply bg-bg text-text border-2 border-text px-3 py-1 text-xs font-medium uppercase tracking-wide
            transition-colors duration-200 cursor-default
-           hover:border-accent hover:text-accent;
+           hover:bg-text hover:text-bg;
   }
+
+  /* Heavy section divider */
+  .div-thick { @apply border-t-2 border-text; }
 }
 
 @layer utilities {
@@ -104,17 +103,33 @@
   /* Subtle scrollbar in modal */
   .nice-scroll::-webkit-scrollbar { width: 8px; }
   .nice-scroll::-webkit-scrollbar-track { background: transparent; }
-  .nice-scroll::-webkit-scrollbar-thumb { background: rgb(var(--c-border)); border-radius: 4px; }
-  .nice-scroll::-webkit-scrollbar-thumb:hover { background: rgb(var(--c-accent)); }
+  .nice-scroll::-webkit-scrollbar-thumb { background: rgb(var(--c-border) / .25); }
+  .nice-scroll::-webkit-scrollbar-thumb:hover { background: rgb(var(--c-text)); }
+
+  /* Hover arrow indicator — appears after links */
+  .hover-arrow::after {
+    content: '↗';
+    display: inline-block;
+    margin-left: .35em;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity .25s ease, transform .25s ease;
+  }
+  .hover-arrow:hover::after { opacity: 1; transform: translateX(0); }
 }
 
-/* Decorative drifting blob — used behind hero */
-@keyframes drift {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33%      { transform: translate(-30px, 20px) scale(1.08); }
-  66%      { transform: translate(20px, -25px) scale(0.95); }
+/* MARQUEE — scrolling text strip */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
-.blob-drift { animation: drift 18s ease-in-out infinite; }
+.marquee-track {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: marquee 32s linear infinite;
+  will-change: transform;
+}
+.marquee-track:hover { animation-play-state: paused; }
 
 /* Hide custom cursor on touch devices */
 @media (hover: none), (pointer: coarse) {
@@ -123,6 +138,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .blob-drift { animation: none; }
+  .marquee-track { animation: none; transform: none; }
   .rv { transition: none; opacity: 1 !important; transform: none !important; }
 }
