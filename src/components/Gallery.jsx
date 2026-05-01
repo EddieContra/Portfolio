@@ -14,13 +14,13 @@ export default function Gallery() {
   useScrollReveal([filter]);
 
   return (
-    <section id="gallery" className="py-20 sm:py-28 div-thick">
+    <section id="gallery" className="py-20 sm:py-28 border-t border-edge">
       <div className="wrap">
         <span className="sec-label">Creative work</span>
         <h2 className="sec-title rv">Gallery</h2>
 
-        <div className="flex gap-0 flex-wrap mb-8 border-2 border-text" role="tablist" aria-label="Filter gallery">
-          {GALLERY_FILTERS.map((f, i) => (
+        <div className="flex gap-2 flex-wrap mb-8" role="tablist" aria-label="Filter gallery">
+          {GALLERY_FILTERS.map((f) => (
             <button
               key={f.key}
               type="button"
@@ -28,11 +28,10 @@ export default function Gallery() {
               aria-selected={filter === f.key}
               onClick={() => setFilter(f.key)}
               className={[
-                'px-4 sm:px-5 py-2 text-xs uppercase tracking-[.15em] font-bold transition-colors cursor-pointer font-sans',
-                i < GALLERY_FILTERS.length - 1 ? 'border-r-2 border-text' : '',
+                'px-4 py-1.5 text-xs tracking-wide rounded-full border transition-colors cursor-pointer font-sans',
                 filter === f.key
-                  ? 'bg-text text-bg'
-                  : 'bg-bg text-text hover:bg-text hover:text-bg',
+                  ? 'bg-text text-bg border-text'
+                  : 'border-edge text-muted hover:border-text hover:text-text',
               ].join(' ')}
             >
               {f.label}
@@ -40,26 +39,17 @@ export default function Gallery() {
           ))}
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-0 border-2 border-text">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
           {items.map((g, i) => (
             <div
               key={`${g.label}-${i}`}
-              className={[
-                'group aspect-square bg-bg grid place-items-center text-3xl relative overflow-hidden cursor-pointer rv',
-                'border-text',
-                // gridlines for desktop (4 cols)
-                'lg:[&:not(:nth-child(4n))]:border-r-2',
-                'sm:max-lg:[&:not(:nth-child(3n))]:border-r-2',
-                'max-sm:[&:nth-child(odd)]:border-r-2',
-                // bottom borders (everything except last row)
-                'border-b-2 last:border-b-0',
-              ].join(' ')}
+              className="group aspect-square bg-bg2 border border-edge rounded-xl grid place-items-center text-3xl relative overflow-hidden cursor-pointer rv"
               data-cat={g.cat}
             >
               <span aria-hidden="true">{g.emoji}</span>
               <div className="absolute inset-0 bg-text/95 flex flex-col items-center justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 px-3 text-center">
-                <span className="text-bg font-bold uppercase tracking-wide text-xs sm:text-sm">{g.label}</span>
-                <small className="text-[.55rem] uppercase tracking-[.2em] text-bg/70">{g.cat}</small>
+                <span className="text-bg font-medium text-sm">{g.label}</span>
+                <small className="text-[.6rem] uppercase tracking-wide text-bg/70">{g.cat}</small>
               </div>
             </div>
           ))}

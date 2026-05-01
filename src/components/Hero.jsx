@@ -14,21 +14,36 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-[80vh] flex items-center pt-16 pb-20 sm:pt-20 sm:pb-24"
+      className="relative min-h-[88vh] flex items-center pt-32 pb-16 overflow-hidden"
     >
-      <div className="wrap w-full">
-        <p className="text-xs font-bold tracking-[.22em] uppercase mb-6 flex items-center gap-3 opacity-0 animate-up [animation-delay:.2s]">
-          <span className="w-2 h-2 bg-text inline-block" aria-hidden="true" />
-          Available — Arusha, Tanzania
+      {/* Decorative gradient blobs — purely visual */}
+      <div
+        aria-hidden="true"
+        className="absolute -top-32 -right-20 w-[34rem] h-[34rem] rounded-full bg-accent/25 blur-[120px] pointer-events-none blob-drift"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute -bottom-40 -left-24 w-[28rem] h-[28rem] rounded-full bg-accent2/20 blur-[110px] pointer-events-none blob-drift"
+        style={{ animationDelay: '-9s', animationDuration: '22s' }}
+      />
+
+      <div className="wrap w-full relative">
+        <p className="text-sm text-muted mb-6 flex items-center gap-2 opacity-0 animate-up [animation-delay:.2s]">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
+          </span>
+          Available for opportunities · Arusha, Tanzania
         </p>
 
-        <h1 className="font-disp uppercase tracking-tighter leading-[.85] text-[clamp(4rem,15vw,11rem)] opacity-0 animate-up [animation-delay:.4s]">
-          Eddie<span aria-hidden="true">.</span>
+        <h1 className="font-disp font-extrabold leading-[.95] tracking-tight text-[clamp(3rem,11vw,7.5rem)] opacity-0 animate-up [animation-delay:.4s]">
+          <span className="italic">Eddie</span>
+          <span className="text-accent">.</span>
         </h1>
 
-        <p className="mt-7 text-lg sm:text-xl md:text-2xl max-w-2xl leading-snug opacity-0 animate-up [animation-delay:.6s]">
-          Full-stack developer, designer, and educator building thoughtful software and creative
-          learning experiences from <span className="font-bold">Arusha, Tanzania</span>.
+        <p className="mt-7 text-lg sm:text-xl md:text-2xl text-muted leading-snug max-w-2xl opacity-0 animate-up [animation-delay:.6s]">
+          Full-stack developer, designer, and educator building thoughtful software and creative learning experiences from{' '}
+          <span className="text-text font-medium">Arusha, Tanzania</span>.
         </p>
 
         <div
@@ -40,8 +55,10 @@ export default function Hero() {
               key={r}
               aria-current={i === activeRole}
               className={[
-                'px-3 py-1 text-[.7rem] uppercase font-bold tracking-[.12em] border-2 border-text transition-colors duration-300',
-                i === activeRole ? 'bg-text text-bg' : 'bg-bg text-text',
+                'px-3 py-1 text-xs rounded-full border transition-all duration-300',
+                i === activeRole
+                  ? 'bg-accent text-bg border-accent font-semibold'
+                  : 'border-edge text-muted',
               ].join(' ')}
             >
               {r}
@@ -51,12 +68,12 @@ export default function Hero() {
 
         <div className="flex flex-wrap gap-3 mt-10 opacity-0 animate-up [animation-delay:1s]">
           <a href="#projects" className="btn-fill">
-            View Work
+            View work
             <span aria-hidden="true">→</span>
           </a>
           <a
             href={`${import.meta.env.BASE_URL}cv.pdf`}
-            download="Emmanuel-Kiishweko-CV.pdf"
+            download="Eddie-CV.pdf"
             className="btn-ghost"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -67,7 +84,7 @@ export default function Hero() {
             Download CV
           </a>
           <a href="#contact" className="btn-ghost">
-            Get in Touch
+            Get in touch
             <span aria-hidden="true">↗</span>
           </a>
         </div>
