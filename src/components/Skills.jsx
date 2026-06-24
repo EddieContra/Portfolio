@@ -1,4 +1,5 @@
 import { SKILL_GROUPS } from '../data/skills';
+import Icon from './Icon';
 
 export default function Skills() {
   return (
@@ -13,8 +14,8 @@ export default function Skills() {
               key={g.title}
               className={`grid grid-cols-1 sm:grid-cols-[14rem_1fr] gap-3 sm:gap-10 py-6 first:pt-0 last:pb-0 rv rv-d${(i % 4) + 1}`}
             >
-              <div className="text-sm font-semibold text-text flex items-center gap-2 sm:pt-1">
-                <span aria-hidden="true">{g.icon}</span>
+              <div className="text-sm font-semibold text-text flex items-center gap-2.5 sm:pt-1">
+                <Icon name={g.icon} size={18} className="text-accent shrink-0" />
                 <span>{g.title}</span>
               </div>
               <div className="flex flex-wrap gap-2">

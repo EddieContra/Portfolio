@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import Icon from './Icon';
 
 export default function ProjectModal({ project, onClose }) {
   useEffect(() => {
@@ -40,8 +41,8 @@ export default function ProjectModal({ project, onClose }) {
           </button>
         </div>
         <div className="p-8">
-          <div className="w-full aspect-video bg-bg3 grid place-items-center text-7xl mb-6">
-            {project.emoji}
+          <div className="w-full aspect-video bg-bg3 grid place-items-center text-accent mb-6">
+            <Icon name={project.icon} size={72} />
           </div>
           <p className="text-muted leading-[1.85] text-[.93rem] mb-6">{project.full}</p>
           <div className="flex gap-4 flex-wrap">

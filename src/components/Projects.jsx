@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { PROJECTS } from '../data/projects';
 import ProjectModal from './ProjectModal';
+import Icon from './Icon';
 
 export default function Projects() {
   const [active, setActive] = useState(null);
@@ -25,10 +26,10 @@ export default function Projects() {
             >
               <div className="flex items-start gap-4 mb-5">
                 <div
-                  className="w-12 h-12 grid place-items-center rounded-xl bg-bg3 text-2xl shrink-0 group-hover:bg-accent group-hover:text-bg transition-colors"
+                  className="w-12 h-12 grid place-items-center rounded-xl bg-bg3 text-accent shrink-0 group-hover:bg-accent group-hover:text-bg transition-colors"
                   aria-hidden="true"
                 >
-                  {p.emoji}
+                  <Icon name={p.icon} size={24} />
                 </div>
                 <div className="min-w-0">
                   <h3 className="font-bold text-base sm:text-lg text-text leading-tight mb-1">

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useStuckNav } from '../hooks/useStuckNav';
+import { useActiveSection } from '../hooks/useActiveSection';
 import ThemeToggle from './ThemeToggle';
 
 const LINKS = [
@@ -10,8 +11,11 @@ const LINKS = [
   { href: '#contact',    label: 'Contact' },
 ];
 
+const SECTION_IDS = LINKS.map((l) => l.href.slice(1));
+
 export default function Nav() {
   const stuck = useStuckNav();
+  const active = useActiveSection(SECTION_IDS);
   const [mob, setMob] = useState(false);
 
   const closeMob = () => {
@@ -29,7 +33,7 @@ export default function Nav() {
       <nav
         className={[
           'fixed top-0 left-0 right-0 z-[200] transition-all duration-300',
-          stuck ? 'bg-bg/85 backdrop-blur-md border-b border-edge' : '',
+          stuck ? 'bg-bg/85 backdrop-blur-md border-b border-edge shadow-[0_1px_20px_-12px_rgba(0,0,0,0.45)]' : '',
         ].join(' ')}
       >
         <div className={[
@@ -45,16 +49,27 @@ export default function Nav() {
 
           <div className="flex items-center gap-7 max-[768px]:hidden">
             <ul className="flex gap-7 list-none items-center m-0 p-0">
-              {LINKS.map((l) => (
-                <li key={l.href}>
-                  <a
-                    href={l.href}
-                    className="text-muted no-underline text-sm transition-colors hover:text-text"
-                  >
-                    {l.label}
-                  </a>
-                </li>
-              ))}
+              {LINKS.map((l) => {
+                const isActive = active === l.href.slice(1);
+                return (
+                  <li key={l.href}>
+                    <a
+                      href={l.href}
+                      aria-current={isActive ? 'page' : undefined}
+                      className={[
+                        'relative text-sm no-underline transition-colors duration-200',
+                        'after:absolute after:left-0 after:-bottom-1.5 after:h-[2px] after:rounded-full',
+                        'after:bg-accent after:transition-all after:duration-300',
+                        isActive
+                          ? 'text-text after:w-full'
+                          : 'text-muted hover:text-text after:w-0 hover:after:w-full',
+                      ].join(' ')}
+                    >
+                      {l.label}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
             <ThemeToggle />
           </div>
@@ -83,16 +98,24 @@ export default function Nav() {
           mob ? 'translate-x-0' : 'translate-x-full',
         ].join(' ')}
       >
-        {LINKS.map((l) => (
-          <a
-            key={l.href}
-            href={l.href}
-            onClick={closeMob}
-            className="font-disp text-4xl font-extrabold text-text no-underline italic hover:text-accent transition-colors"
-          >
-            {l.label}
-          </a>
-        ))}
+        {LINKS.map((l, i) => {
+          const isActive = active === l.href.slice(1);
+          return (
+            <a
+              key={l.href}
+              href={l.href}
+              onClick={closeMob}
+              style={{ transitionDelay: mob ? `${120 + i * 60}ms` : '0ms' }}
+              className={[
+                'font-disp text-4xl font-extrabold no-underline italic transition-all duration-500',
+                mob ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4',
+                isActive ? 'text-accent' : 'text-text hover:text-accent',
+              ].join(' ')}
+            >
+              {l.label}
+            </a>
+          );
+        })}
       </div>
     </>
   );

@@ -1,6 +1,6 @@
 export const PROJECTS = [
   {
-    emoji: '⚛️',
+    icon: 'atom',
     tags: ['React', 'JavaScript', 'Dashboard'],
     name: 'React.js Dashboard',
     brief: 'A fully featured analytics dashboard with real-time data visualization and responsive design.',
@@ -9,7 +9,7 @@ export const PROJECTS = [
     live: '#',
   },
   {
-    emoji: '🌐',
+    icon: 'globe',
     tags: ['HTML', 'CSS', 'Education'],
     name: 'Web Dev Exercises',
     brief: '30+ structured HTML & CSS exercises covering foundational web concepts for student learners.',
@@ -18,7 +18,7 @@ export const PROJECTS = [
     live: '#',
   },
   {
-    emoji: '🖥️',
+    icon: 'monitor',
     tags: ['Curriculum', 'Education', 'Design'],
     name: 'Computer Basics Course',
     brief: 'A complete computer fundamentals curriculum designed for absolute beginners.',
@@ -27,7 +27,7 @@ export const PROJECTS = [
     live: '#',
   },
   {
-    emoji: '🤖',
+    icon: 'cpu',
     tags: ['Arduino', 'Robotics', 'Hardware'],
     name: 'Arduino Robotics',
     brief: 'Hands-on robotics projects using Arduino to teach embedded systems and STEM concepts.',
@@ -36,7 +36,7 @@ export const PROJECTS = [
     live: null,
   },
   {
-    emoji: '🎮',
+    icon: 'gamepad',
     tags: ['Scratch', 'Game Dev', 'Education'],
     name: 'Scratch Pong Game',
     brief: 'A fully playable Pong game in Scratch to teach programming logic and game development.',
@@ -45,7 +45,7 @@ export const PROJECTS = [
     live: '#',
   },
   {
-    emoji: '🌍',
+    icon: 'users',
     tags: ['NGO', 'Design', 'Education'],
     name: 'JA Africa — E3empower',
     brief: 'Educational material design for JA Africa\'s Social Equity Programme in Tanzania.',

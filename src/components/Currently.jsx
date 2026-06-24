@@ -1,4 +1,5 @@
 import { NOW_CARDS } from '../data/now';
+import Icon from './Icon';
 
 export default function Currently() {
   return (
@@ -13,7 +14,9 @@ export default function Currently() {
               key={c.title}
               className={`flex gap-4 items-start p-5 rounded-2xl border border-edge bg-bg2 transition-colors hover:border-accent/50 rv rv-d${i + 1}`}
             >
-              <div className="text-2xl shrink-0 mt-0.5" aria-hidden="true">{c.icon}</div>
+              <div className="grid place-items-center w-11 h-11 shrink-0 rounded-xl bg-bg3 text-accent">
+                <Icon name={c.icon} size={22} />
+              </div>
               <div className="min-w-0">
                 <div className="text-[.65rem] tracking-[.18em] uppercase text-accent mb-1 font-semibold">
                   {c.label}
