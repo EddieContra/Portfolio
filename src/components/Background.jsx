@@ -13,15 +13,23 @@ const LINK_DIST = 130;     // px — connect dots closer than this
 const CURSOR_DIST = 170;   // px — connect dots to the cursor within this
 const SPEED = 0.18;        // base drift speed
 
-function readAccent() {
-  const raw = getComputedStyle(document.documentElement)
-    .getPropertyValue('--c-accent')
-    .trim();
-  // stored as space-separated rgb, e.g. "200 241 53"
-  const parts = raw.split(/\s+/).map(Number);
-  return parts.length === 3 && parts.every((n) => !Number.isNaN(n))
-    ? parts
-    : [255, 107, 0];
+function parseRgb(raw, fallback) {
+  // tokens are space-separated rgb, e.g. "200 241 53"
+  const parts = raw.trim().split(/\s+/).map(Number);
+  return parts.length === 3 && parts.every((n) => !Number.isNaN(n)) ? parts : fallback;
+}
+
+// Picks the constellation color + opacities per theme. On dark the lime accent
+// reads well on near-black, so keep it punchy. On light the bright orange accent
+// fought the text and washed out on white — use a soft neutral gray at lower
+// opacity so the field stays subtly visible without hurting readability.
+function readPalette() {
+  const style = getComputedStyle(document.documentElement);
+  const isDark = document.documentElement.classList.contains('dark');
+  if (isDark) {
+    return { color: parseRgb(style.getPropertyValue('--c-accent'), [200, 241, 53]), dotA: 0.55, lineA: 0.22, cursorA: 0.5 };
+  }
+  return { color: parseRgb(style.getPropertyValue('--c-muted'), [106, 114, 130]), dotA: 0.4, lineA: 0.1, cursorA: 0.32 };
 }
 
 export default function Background() {
@@ -36,7 +44,7 @@ export default function Background() {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const coarse = window.matchMedia('(pointer: coarse)').matches;
 
-    let accent = readAccent();
+    let palette = readPalette();
     let dots = [];
     let w = 0, h = 0, dpr = 1;
     let raf = 0;
@@ -74,7 +82,7 @@ export default function Background() {
 
     const draw = () => {
       ctx.clearRect(0, 0, w, h);
-      const [r, g, b] = accent;
+      const { color: [r, g, b], dotA, lineA, cursorA } = palette;
 
       for (let i = 0; i < dots.length; i++) {
         const d = dots[i];
@@ -89,7 +97,7 @@ export default function Background() {
         // dot
         ctx.beginPath();
         ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${r},${g},${b},0.55)`;
+        ctx.fillStyle = `rgba(${r},${g},${b},${dotA})`;
         ctx.fill();
 
         // links to nearby dots
@@ -99,7 +107,7 @@ export default function Background() {
           const dy = d.y - e.y;
           const dist = Math.hypot(dx, dy);
           if (dist < LINK_DIST) {
-            const alpha = (1 - dist / LINK_DIST) * 0.22;
+            const alpha = (1 - dist / LINK_DIST) * lineA;
             ctx.strokeStyle = `rgba(${r},${g},${b},${alpha})`;
             ctx.lineWidth = 1;
             ctx.beginPath();
@@ -115,7 +123,7 @@ export default function Background() {
           const mdy = d.y - mouse.y;
           const mdist = Math.hypot(mdx, mdy);
           if (mdist < CURSOR_DIST) {
-            const alpha = (1 - mdist / CURSOR_DIST) * 0.5;
+            const alpha = (1 - mdist / CURSOR_DIST) * cursorA;
             ctx.strokeStyle = `rgba(${r},${g},${b},${alpha})`;
             ctx.lineWidth = 1;
             ctx.beginPath();
@@ -156,9 +164,9 @@ export default function Background() {
       else start();
     };
 
-    // Re-read accent whenever the theme class flips
+    // Re-read palette whenever the theme class flips
     const observer = new MutationObserver(() => {
-      accent = readAccent();
+      palette = readPalette();
       if (reduced) draw(); // refresh the static frame
     });
     observer.observe(document.documentElement, {
