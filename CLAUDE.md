@@ -81,7 +81,8 @@ toggles `.in` on viewport entry. All motion respects `prefers-reduced-motion`.
 | Testimonials | `src/data/testimonials.js` |
 | Skill cards | `src/data/skills.js` |
 | "Currently" cards & hero role rotator | `src/data/now.js` |
-| Email + socials | `src/components/Contact.jsx` |
+| Email + social links | `src/data/socials.js` (shared by Contact + mobile nav) |
+| Contact rows (email/WhatsApp/location) | `src/components/Contact.jsx` |
 | CV file | `public/cv.pdf` |
 
 See the `update-portfolio` skill (`.claude/skills/update-portfolio/`) for the exact object
