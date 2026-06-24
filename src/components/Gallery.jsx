@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { GALLERY, GALLERY_FILTERS } from '../data/gallery';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import Icon from './Icon';
 
 export default function Gallery() {
   const [filter, setFilter] = useState('all');
@@ -43,10 +44,10 @@ export default function Gallery() {
           {items.map((g, i) => (
             <div
               key={`${g.label}-${i}`}
-              className="group aspect-square bg-bg2 border border-edge rounded-xl grid place-items-center text-3xl relative overflow-hidden cursor-pointer rv"
+              className="group aspect-square bg-bg2 border border-edge rounded-xl grid place-items-center text-muted relative overflow-hidden cursor-pointer rv transition-colors group-hover:text-accent"
               data-cat={g.cat}
             >
-              <span aria-hidden="true">{g.emoji}</span>
+              <Icon name={g.icon} size={30} className="transition-colors group-hover:text-accent" />
               <div className="absolute inset-0 bg-text/95 flex flex-col items-center justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 px-3 text-center">
                 <span className="text-bg font-medium text-sm">{g.label}</span>
                 <small className="text-[.6rem] uppercase tracking-wide text-bg/70">{g.cat}</small>

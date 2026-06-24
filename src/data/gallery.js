@@ -1,16 +1,16 @@
 export const GALLERY = [
-  { emoji: '🎨', label: 'Brand Identity',  cat: 'design' },
-  { emoji: '📸', label: 'Landscape',       cat: 'photo'  },
-  { emoji: '🖼️', label: 'Poster Design',   cat: 'design' },
-  { emoji: '🌄', label: 'Golden Hour',     cat: 'photo'  },
-  { emoji: '✏️', label: 'Logo Design',     cat: 'design' },
-  { emoji: '🎬', label: 'Short Film',      cat: 'video'  },
-  { emoji: '📱', label: 'UI Mockup',       cat: 'design' },
-  { emoji: '🌿', label: 'Nature Shot',     cat: 'photo'  },
-  { emoji: '📖', label: 'Course Material', cat: 'edu'    },
-  { emoji: '🎥', label: 'Event Reel',      cat: 'video'  },
-  { emoji: '🏷️', label: 'Brochure',        cat: 'design' },
-  { emoji: '🖱️', label: 'Web UI Design',   cat: 'design' },
+  { icon: 'palette',    label: 'Brand Identity',  cat: 'design' },
+  { icon: 'camera',     label: 'Landscape',       cat: 'photo'  },
+  { icon: 'image',      label: 'Poster Design',   cat: 'design' },
+  { icon: 'sunrise',    label: 'Golden Hour',     cat: 'photo'  },
+  { icon: 'pencil',     label: 'Logo Design',     cat: 'design' },
+  { icon: 'film',       label: 'Short Film',      cat: 'video'  },
+  { icon: 'smartphone', label: 'UI Mockup',       cat: 'design' },
+  { icon: 'leaf',       label: 'Nature Shot',     cat: 'photo'  },
+  { icon: 'book',       label: 'Course Material', cat: 'edu'    },
+  { icon: 'video',      label: 'Event Reel',      cat: 'video'  },
+  { icon: 'fileText',   label: 'Brochure',        cat: 'design' },
+  { icon: 'layout',     label: 'Web UI Design',   cat: 'design' },
 ];
 
 export const GALLERY_FILTERS = [

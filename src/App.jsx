@@ -1,5 +1,6 @@
 import { useScrollReveal } from './hooks/useScrollReveal';
 
+import Background     from './components/Background';
 import Cursor         from './components/Cursor';
 import ScrollProgress from './components/ScrollProgress';
 import Nav            from './components/Nav';
@@ -19,6 +20,7 @@ export default function App() {
 
   return (
     <>
+      <Background />
       <Cursor />
       <ScrollProgress />
       <Nav />
