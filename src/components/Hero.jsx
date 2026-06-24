@@ -14,7 +14,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-[88vh] flex items-center pt-32 pb-16 overflow-hidden"
+      className="relative min-h-[88vh] flex items-center pt-28 sm:pt-32 pb-16 overflow-hidden"
     >
       {/* Decorative gradient blobs — purely visual */}
       <div

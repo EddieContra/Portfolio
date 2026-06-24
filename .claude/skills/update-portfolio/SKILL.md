@@ -28,7 +28,8 @@ To change content, edit the matching data file — the components rarely need to
 | Testimonials | `src/data/testimonials.js` | `quote, name, role, avatar` (2-letter initials) |
 | "Currently" cards | `src/data/now.js` | `icon, label, title, sub` |
 | Hero role rotator | `src/data/now.js` | `HERO_ROLES` — array of strings |
-| Email + socials | `src/components/Contact.jsx` | `CONTACTS[]`, `SOCIALS[]` (use `icon` names) |
+| Email + social links | `src/data/socials.js` | `EMAIL` string, `SOCIALS[]` (`icon` names) — shared by Contact + mobile nav |
+| Contact rows | `src/components/Contact.jsx` | `CONTACTS[]` (email/WhatsApp/location) |
 | CV download | drop file at `public/cv.pdf` | linked from the Hero button |
 
 ## Object shapes (copy these)

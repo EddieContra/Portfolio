@@ -5,14 +5,14 @@
 @layer base {
   :root {
     /* LIGHT theme — applied when html does NOT have .dark (default) */
-    --c-bg:      247 246 242; /* warm off-white page (softer than pure white) */
-    --c-bg2:     253 252 250; /* cards — gently brighter than the page */
-    --c-bg3:     238 237 232; /* recessed chips / icon tiles */
+    --c-bg:      245 246 247; /* cool off-white page (softer than pure white) */
+    --c-bg2:     252 252 253; /* cards — gently brighter than the page */
+    --c-bg3:     236 238 240; /* recessed chips / icon tiles */
     --c-accent:  255 107 0;   /* #ff6b00 */
     --c-accent2: 255 107 0;
     --c-text:    0 0 0;
     --c-muted:   106 114 130; /* gray-500 */
-    --c-border:  228 227 221; /* hairline, tuned for the off-white bg */
+    --c-border:  224 226 229; /* hairline, tuned for the cool off-white bg */
   }
 
   .dark {
@@ -29,6 +29,8 @@
 
   *, *::before, *::after { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
+  /* Keep section headings clear of the fixed nav when jumping to an anchor */
+  section[id] { scroll-margin-top: 4.5rem; }
   body {
     margin: 0;
     background-color: rgb(var(--c-bg));

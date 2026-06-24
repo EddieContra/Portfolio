@@ -1,17 +1,9 @@
 import Icon from './Icon';
-
-const SOCIALS = [
-  { icon: 'github',    title: 'GitHub',    href: 'https://github.com/EddieContra' },
-  { icon: 'linkedin',  title: 'LinkedIn',  href: 'https://linkedin.com/in/whoiseddiee' },
-  { icon: 'instagram', title: 'Instagram', href: 'https://instagram.com/whoiseddiee' },
-  { icon: 'whatsapp',  title: 'WhatsApp',  href: 'https://wa.me/255745225985' },
-  { icon: 'pinterest', title: 'Pinterest', href: 'https://pinterest.com/whoiseddiee' },
-  { icon: 'x',         title: 'Twitter / X', href: 'https://x.com/whoiseddiee' },
-];
+import { SOCIALS, EMAIL } from '../data/socials';
 
 const CONTACTS = [
-  { icon: 'mail',          label: 'Email',    value: 'emmanueledmund00@gmail.com', href: 'mailto:emmanueledmund00@gmail.com' },
-  { icon: 'messageCircle', label: 'WhatsApp', value: '+255 745 225 985',           href: 'https://wa.me/255745225985' },
+  { icon: 'mail',          label: 'Email',    value: EMAIL,             href: `mailto:${EMAIL}` },
+  { icon: 'messageCircle', label: 'WhatsApp', value: '+255 745 225 985', href: 'https://wa.me/255745225985' },
   { icon: 'mapPin',        label: 'Location', value: 'Arusha, Tanzania' },
 ];
 
