@@ -2,13 +2,13 @@ export const EXPERIENCE = [
   {
     tab: 'Current Role',
     role: 'Educator & Designer',
-    company: 'Tech & Creative Company',
+    company: 'E3empower Africa',
     date: '2025 — Present',
     points: [
       'Teaching Python, JavaScript, HTML/CSS, and web technologies to diverse learners',
       'Creating graphic and design assets using Adobe Suite, Figma, Canva, and Affinity',
       'Developing curriculum and educational content used in live and virtual sessions',
-      'Producing newsletters covering tech hub installations and training programmes',
+      'Producing newsletters, covering tech hub installations and training programmes',
     ],
   },
   {
@@ -26,7 +26,7 @@ export const EXPERIENCE = [
   {
     tab: 'Internship',
     role: 'Software Engineering Intern',
-    company: 'Tech Company',
+    company: 'TTCL (Tanzania)',
     date: '8 months',
     points: [
       'Developed and maintained web applications using React.js and modern JavaScript',
@@ -38,7 +38,7 @@ export const EXPERIENCE = [
   {
     tab: 'Education',
     role: 'BSc Computer Science',
-    company: 'University',
+    company: 'Institute of Accountancy Arusha (IAA)',
     date: 'Graduated',
     points: [
       "Bachelor's degree with strong foundations in algorithms, data structures & systems",
