@@ -20,8 +20,8 @@ export const NOW_CARDS = [
   {
     icon: 'camera',
     label: 'Also Exploring',
-    title: 'Photography & Violin',
-    sub: "Capturing Tanzania's beauty through a lens, and learning the violin — two new creative challenges I'm loving.",
+    title: 'Photography & Chess',
+    sub: "Capturing Tanzania's beauty through a lens, and sharpening my game over the chessboard — two challenges I'm loving.",
   },
 ];
 
