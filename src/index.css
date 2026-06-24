@@ -5,14 +5,14 @@
 @layer base {
   :root {
     /* LIGHT theme — applied when html does NOT have .dark (default) */
-    --c-bg:      255 255 255;
-    --c-bg2:     250 250 249; /* near-white card */
-    --c-bg3:     243 244 246;
+    --c-bg:      247 246 242; /* warm off-white page (softer than pure white) */
+    --c-bg2:     253 252 250; /* cards — gently brighter than the page */
+    --c-bg3:     238 237 232; /* recessed chips / icon tiles */
     --c-accent:  255 107 0;   /* #ff6b00 */
     --c-accent2: 255 107 0;
     --c-text:    0 0 0;
     --c-muted:   106 114 130; /* gray-500 */
-    --c-border:  232 232 230; /* very light hairline */
+    --c-border:  228 227 221; /* hairline, tuned for the off-white bg */
   }
 
   .dark {
