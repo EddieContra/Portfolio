@@ -48,6 +48,15 @@ export default function Gallery() {
               data-cat={g.cat}
             >
               <Icon name={g.icon} size={30} className="transition-colors group-hover:text-accent" />
+              {g.img && (
+                <img
+                  src={`${import.meta.env.BASE_URL}${g.img}`}
+                  alt={g.label}
+                  loading="lazy"
+                  onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              )}
               <div className="absolute inset-0 bg-text/95 flex flex-col items-center justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 px-3 text-center">
                 <span className="text-bg font-medium text-sm">{g.label}</span>
                 <small className="text-[.6rem] uppercase tracking-wide text-bg/70">{g.cat}</small>

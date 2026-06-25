@@ -25,7 +25,7 @@ export default function About() {  return (
 
           <div className="space-y-5 text-base sm:text-lg leading-relaxed text-muted rv">
             <p>
-              I'm <span className="text-text font-semibold">Eddie</span> — a Computer Science graduate sitting at the intersection of{' '}
+              I'm <span className="text-text font-semibold">Eddie</span>, a Computer Science graduate sitting at the intersection of{' '}
               <span className="text-text">technology, design, and education</span>. I build elegant software,
               craft compelling visuals, and teach the next generation of coders.
             </p>
@@ -36,7 +36,7 @@ export default function About() {  return (
             </p>
             <p>
               Right now I'm building <span className="text-text">AI agents</span> and teaching an{' '}
-              <span className="text-text">AI Fundamentals</span> course — and I'm open to{' '}
+              <span className="text-text">AI Fundamentals</span> course, and I'm open to{' '}
               <span className="text-text">full-time roles or freelance projects</span> where I can apply that at scale.
             </p>
 

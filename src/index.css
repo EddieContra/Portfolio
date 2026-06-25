@@ -13,6 +13,8 @@
     --c-text:    0 0 0;
     --c-muted:   106 114 130; /* gray-500 */
     --c-border:  207 212 218; /* hairline, tuned for the muted-gray bg */
+    --c-aura1:   60 120 255;  /* aurora wash: cool blue (light) */
+    --c-aura2:   150 110 255; /* aurora wash: soft violet (light) */
   }
 
   .dark {
@@ -25,6 +27,8 @@
     --c-text:    240 240 232;
     --c-muted:   140 140 140;
     --c-border:  32 32 32;
+    --c-aura1:   200 241 53;  /* aurora wash: lime (dark) */
+    --c-aura2:   60 170 255;  /* aurora wash: cyan (dark) */
   }
 
   *, *::before, *::after { box-sizing: border-box; }
@@ -109,13 +113,48 @@
   .nice-scroll::-webkit-scrollbar-thumb:hover { background: rgb(var(--c-accent)); }
 }
 
-/* Decorative drifting blob — used behind hero */
-@keyframes drift {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33%      { transform: translate(-30px, 20px) scale(1.08); }
-  66%      { transform: translate(20px, -25px) scale(0.95); }
+/* Page-wide liquid aurora: soft drifting colour washes behind everything.
+   Transform-only animation (the blur is rasterised once into a layer) so it
+   stays smooth, even on mobile. Colours come from the theme aura vars. */
+.aurora { position: fixed; inset: 0; overflow: hidden; pointer-events: none; }
+.aura-blob {
+  position: absolute;
+  width: 62vmax;
+  height: 62vmax;
+  border-radius: 50%;
+  filter: blur(100px);
+  will-change: transform;
 }
-.blob-drift { animation: drift 18s ease-in-out infinite; }
+.aura-1 {
+  top: -18%; left: -12%;
+  background: radial-gradient(circle at 50% 50%, rgb(var(--c-aura1) / .9), transparent 60%);
+  opacity: .20;
+  animation: aura-1 30s ease-in-out infinite;
+}
+.aura-2 {
+  top: 20%; right: -18%;
+  background: radial-gradient(circle at 50% 50%, rgb(var(--c-aura2) / .9), transparent 60%);
+  opacity: .18;
+  animation: aura-2 38s ease-in-out infinite;
+}
+.aura-3 {
+  bottom: -22%; left: 26%;
+  background: radial-gradient(circle at 50% 50%, rgb(var(--c-aura1) / .8), transparent 60%);
+  opacity: .15;
+  animation: aura-3 46s ease-in-out infinite;
+}
+@keyframes aura-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(14vw, 10vh) scale(1.18); }
+}
+@keyframes aura-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(-12vw, 8vh) scale(1.12); }
+}
+@keyframes aura-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(10vw, -12vh) scale(1.1); }
+}
 
 /* Hide custom cursor on touch devices */
 @media (hover: none), (pointer: coarse) {
@@ -124,6 +163,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .blob-drift { animation: none; }
+  .aura-blob { animation: none; }
   .rv { transition: none; opacity: 1 !important; transform: none !important; }
 }

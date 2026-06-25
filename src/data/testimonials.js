@@ -4,8 +4,9 @@ export const TESTIMONIALS = [
     quote:
       "Eddie has a rare ability to make complex programming concepts feel approachable. The students walked away genuinely excited to keep learning.",
     name: 'Programme Lead',
-    role: 'JA Africa — SEP Tanzania',
+    role: 'JA Africa · SEP Tanzania',
     avatar: 'JA',
+    img: 'images/testimonials/ja-africa.jpg',
   },
   {
     quote:
@@ -13,13 +14,15 @@ export const TESTIMONIALS = [
     name: 'Senior Coordinator',
     role: 'E3empower Initiative',
     avatar: 'E3',
+    img: 'images/testimonials/e3empower.jpg',
   },
   {
     quote:
-      "Beyond the code, Eddie sees the bigger picture — design, story, impact. Hire him before someone else does.",
+      "Beyond the code, Eddie sees the bigger picture: design, story, impact. Hire him before someone else does.",
     name: 'Engineering Mentor',
     role: 'Internship Supervisor',
     avatar: 'EM',
+    img: 'images/testimonials/mentor.jpg',
   },
   {
     quote:
@@ -27,5 +30,6 @@ export const TESTIMONIALS = [
     name: 'Student',
     role: 'Computer Basics Cohort',
     avatar: 'ST',
+    img: 'images/testimonials/student.jpg',
   },
 ];

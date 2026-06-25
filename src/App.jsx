@@ -1,5 +1,6 @@
 import { useScrollReveal } from './hooks/useScrollReveal';
 
+import Aurora         from './components/Aurora';
 import Background     from './components/Background';
 import Cursor         from './components/Cursor';
 import ScrollProgress from './components/ScrollProgress';
@@ -20,6 +21,7 @@ export default function App() {
 
   return (
     <>
+      <Aurora />
       <Background />
       <Cursor />
       <ScrollProgress />

@@ -26,10 +26,19 @@ export default function Projects() {
             >
               <div className="flex items-start gap-4 mb-5">
                 <div
-                  className="w-12 h-12 grid place-items-center rounded-xl bg-bg3 text-accent shrink-0 group-hover:bg-accent group-hover:text-bg transition-colors"
+                  className="relative w-12 h-12 grid place-items-center rounded-xl bg-bg3 text-accent shrink-0 overflow-hidden group-hover:bg-accent group-hover:text-bg transition-colors"
                   aria-hidden="true"
                 >
                   <Icon name={p.icon} size={24} />
+                  {p.img && (
+                    <img
+                      src={`${import.meta.env.BASE_URL}${p.img}`}
+                      alt=""
+                      loading="lazy"
+                      onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  )}
                 </div>
                 <div className="min-w-0">
                   <h3 className="font-bold text-base sm:text-lg text-text leading-tight mb-1">

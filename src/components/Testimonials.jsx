@@ -26,8 +26,17 @@ export default function Testimonials() {
               <span className="text-accent font-bold ml-1" aria-hidden="true">&rdquo;</span>
             </p>
             <footer className="mt-6 flex items-center gap-3">
-              <div className="w-10 h-10 grid place-items-center bg-text text-bg font-bold rounded-full text-sm">
+              <div className="relative w-10 h-10 grid place-items-center bg-text text-bg font-bold rounded-full text-sm overflow-hidden">
                 {t.avatar}
+                {t.img && (
+                  <img
+                    src={`${import.meta.env.BASE_URL}${t.img}`}
+                    alt={t.name}
+                    loading="lazy"
+                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                )}
               </div>
               <div>
                 <div className="text-text font-medium text-sm">{t.name}</div>
