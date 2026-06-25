@@ -1,21 +1,21 @@
 export const NOW_CARDS = [
   {
     icon: 'sparkles',
-    label: 'Learning',
-    title: 'ML & AI Engineering',
-    sub: 'Diving into machine learning algorithms, neural networks, and AI model deployment to prepare for the next frontier.',
+    label: 'Building',
+    title: 'AI Agents',
+    sub: 'Designing and shipping AI agents — tool-using, LLM-powered assistants with retrieval, function calling, and multi-step orchestration that automate real workflows.',
   },
   {
     icon: 'briefcase',
     label: 'Working On',
-    title: 'Teaching & Design Projects',
-    sub: 'Creating educational content, teaching multiple programming languages, and delivering graphic design work for clients.',
+    title: 'AI Fundamentals Course',
+    sub: 'Creating and teaching an AI Fundamentals course that\'s gaining strong momentum — alongside ongoing design and development work for clients.',
   },
   {
     icon: 'search',
     label: 'Open To',
-    title: 'Internship Opportunities',
-    sub: "Actively seeking ML/AI or software engineering internships. Let's build something meaningful together.",
+    title: 'Full-time Roles & Freelance',
+    sub: "Looking for a full-time software / AI engineering role — or freelance project work. Let's build something meaningful together.",
   },
   {
     icon: 'camera',
@@ -27,8 +27,8 @@ export const NOW_CARDS = [
 
 export const HERO_ROLES = [
   'Full-Stack Developer',
+  'AI Engineer',
   'Graphic Designer',
   'Educator',
   'Photographer',
-  'ML Enthusiast',
 ];

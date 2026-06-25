@@ -1,5 +1,23 @@
 export const PROJECTS = [
   {
+    icon: 'sparkles',
+    tags: ['AI', 'LLMs', 'Agents'],
+    name: 'AI Agents',
+    brief: 'Autonomous, tool-using LLM agents that reason in multiple steps to automate real tasks.',
+    full: 'I design and build AI agents — autonomous assistants powered by large language models that do more than chat. The work spans prompt and tool design, function calling, retrieval-augmented generation (RAG), multi-step planning and orchestration, and wiring agents into real APIs and workflows so they can take useful, reliable actions. The goal is practical automation: agents that fetch, reason over, and act on information end to end.',
+    github: '#',
+    live: '#',
+  },
+  {
+    icon: 'cpu',
+    tags: ['AI', 'Education', 'Course'],
+    name: 'AI Fundamentals Course',
+    brief: 'A beginner-friendly course on how modern AI works — gaining strong momentum.',
+    full: 'Designed and delivered an AI Fundamentals course that makes modern AI approachable for newcomers: how models learn, what LLMs are, prompting, and hands-on, practical applications. It has been gaining strong momentum with learners eager to understand and actually build with AI, pairing clear explanations with project-based practice.',
+    github: null,
+    live: '#',
+  },
+  {
     icon: 'atom',
     tags: ['React', 'JavaScript', 'Dashboard'],
     name: 'React.js Dashboard',

@@ -27,7 +27,7 @@ export const EXPERIENCE = [
     tab: 'Internship',
     role: 'Software Engineering Intern',
     company: 'TTCL (Tanzania)',
-    date: '8 months',
+    date: '3 months',
     points: [
       'Developed and maintained web applications using React.js and modern JavaScript',
       'Collaborated with senior engineers on full-stack development features',
@@ -39,7 +39,7 @@ export const EXPERIENCE = [
     tab: 'Education',
     role: 'BSc Computer Science',
     company: 'Institute of Accountancy Arusha (IAA)',
-    date: 'Graduated',
+    date: '2021 — 2024',
     points: [
       "Bachelor's degree with strong foundations in algorithms, data structures & systems",
       'Studied machine learning, web development, databases, and software engineering',
