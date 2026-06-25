@@ -1,5 +1,6 @@
-export default function About() {
-  return (
+import { useCountUp } from '../hooks/useCountUp';
+
+export default function About() {  return (
     <section id="about" className="py-20 sm:py-28 border-t border-edge">
       <div className="wrap">
         <span className="sec-label">About</span>
@@ -52,9 +53,21 @@ export default function About() {
 }
 
 function Stat({ n, label }) {
+  // Split the numeric part from any suffix (e.g. "12+" → 12 and "+") so the
+  // number can roll up while the suffix stays put.
+  const match = String(n).match(/^(\d+)(.*)$/);
+  const target = match ? parseInt(match[1], 10) : 0;
+  const suffix = match ? match[2] : String(n);
+  const [value, ref] = useCountUp(target);
+
   return (
     <div>
-      <dt className="font-disp font-extrabold text-3xl sm:text-4xl text-text leading-none">{n}</dt>
+      <dt
+        ref={ref}
+        className="font-disp font-extrabold text-3xl sm:text-4xl text-text leading-none tabular-nums"
+      >
+        {value}{suffix}
+      </dt>
       <dd className="text-xs text-muted mt-2 tracking-wide">{label}</dd>
     </div>
   );
