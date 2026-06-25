@@ -41,8 +41,17 @@ export default function ProjectModal({ project, onClose }) {
           </button>
         </div>
         <div className="p-8">
-          <div className="w-full aspect-video bg-bg3 grid place-items-center text-accent mb-6">
+          <div className="relative w-full aspect-video bg-bg3 grid place-items-center text-accent mb-6 overflow-hidden">
             <Icon name={project.icon} size={72} />
+            {project.img && (
+              <img
+                src={`${import.meta.env.BASE_URL}${project.img}`}
+                alt={project.name}
+                loading="lazy"
+                onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            )}
           </div>
           <p className="text-muted leading-[1.85] text-[.93rem] mb-6">{project.full}</p>
           <div className="flex gap-4 flex-wrap">

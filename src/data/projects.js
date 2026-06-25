@@ -1,6 +1,7 @@
 export const PROJECTS = [
   {
     icon: 'sparkles',
+    img: 'images/projects/ai-agents.jpg',
     tags: ['AI', 'LLMs', 'Agents'],
     name: 'AI Agents',
     brief: 'Autonomous, tool-using LLM agents that reason in multiple steps to automate real tasks.',
@@ -10,6 +11,7 @@ export const PROJECTS = [
   },
   {
     icon: 'cpu',
+    img: 'images/projects/ai-fundamentals.jpg',
     tags: ['AI', 'Education', 'Course'],
     name: 'AI Fundamentals Course',
     brief: 'A beginner-friendly course on how modern AI works, gaining strong momentum.',
@@ -19,6 +21,7 @@ export const PROJECTS = [
   },
   {
     icon: 'atom',
+    img: 'images/projects/react-dashboard.jpg',
     tags: ['React', 'JavaScript', 'Dashboard'],
     name: 'React.js Dashboard',
     brief: 'A fully featured analytics dashboard with real-time data visualization and responsive design.',
@@ -28,6 +31,7 @@ export const PROJECTS = [
   },
   {
     icon: 'globe',
+    img: 'images/projects/web-dev-exercises.jpg',
     tags: ['HTML', 'CSS', 'Education'],
     name: 'Web Dev Exercises',
     brief: '30+ structured HTML & CSS exercises covering foundational web concepts for student learners.',
@@ -37,6 +41,7 @@ export const PROJECTS = [
   },
   {
     icon: 'monitor',
+    img: 'images/projects/computer-basics.jpg',
     tags: ['Curriculum', 'Education', 'Design'],
     name: 'Computer Basics Course',
     brief: 'A complete computer fundamentals curriculum designed for absolute beginners.',
@@ -46,6 +51,7 @@ export const PROJECTS = [
   },
   {
     icon: 'cpu',
+    img: 'images/projects/arduino-robotics.jpg',
     tags: ['Arduino', 'Robotics', 'Hardware'],
     name: 'Arduino Robotics',
     brief: 'Hands-on robotics projects using Arduino to teach embedded systems and STEM concepts.',
@@ -55,6 +61,7 @@ export const PROJECTS = [
   },
   {
     icon: 'gamepad',
+    img: 'images/projects/scratch-pong.jpg',
     tags: ['Scratch', 'Game Dev', 'Education'],
     name: 'Scratch Pong Game',
     brief: 'A fully playable Pong game in Scratch to teach programming logic and game development.',
@@ -64,6 +71,7 @@ export const PROJECTS = [
   },
   {
     icon: 'users',
+    img: 'images/projects/ja-africa-e3empower.jpg',
     tags: ['NGO', 'Design', 'Education'],
     name: 'JA Africa · E3empower',
     brief: 'Educational material design for JA Africa\'s Social Equity Programme in Tanzania.',

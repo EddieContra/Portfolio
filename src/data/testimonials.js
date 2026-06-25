@@ -6,6 +6,7 @@ export const TESTIMONIALS = [
     name: 'Programme Lead',
     role: 'JA Africa · SEP Tanzania',
     avatar: 'JA',
+    img: 'images/testimonials/ja-africa.jpg',
   },
   {
     quote:
@@ -13,6 +14,7 @@ export const TESTIMONIALS = [
     name: 'Senior Coordinator',
     role: 'E3empower Initiative',
     avatar: 'E3',
+    img: 'images/testimonials/e3empower.jpg',
   },
   {
     quote:
@@ -20,6 +22,7 @@ export const TESTIMONIALS = [
     name: 'Engineering Mentor',
     role: 'Internship Supervisor',
     avatar: 'EM',
+    img: 'images/testimonials/mentor.jpg',
   },
   {
     quote:
@@ -27,5 +30,6 @@ export const TESTIMONIALS = [
     name: 'Student',
     role: 'Computer Basics Cohort',
     avatar: 'ST',
+    img: 'images/testimonials/student.jpg',
   },
 ];
