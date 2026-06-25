@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 // Counts up from 0 to `target` once the element scrolls into view (easeOutCubic).
 // Returns [displayValue, ref] — attach the ref to the element you want observed.
 // Respects prefers-reduced-motion (jumps straight to the final value).
-export function useCountUp(target, { duration = 1400 } = {}) {
+export function useCountUp(target, { duration = 2200 } = {}) {
   const ref = useRef(null);
   const [value, setValue] = useState(0);
 

@@ -16,15 +16,25 @@ export default function Hero() {
       id="hero"
       className="relative min-h-[88vh] flex items-center pt-28 sm:pt-32 pb-16 overflow-hidden"
     >
-      {/* Decorative gradient blobs — purely visual */}
+      {/* Animated conic "aurora" — a slow sweep of light behind the hero.
+          Outer div positions, inner div rotates (so the spin transform doesn't
+          fight the centering translate). Theme-aware via the accent CSS vars. */}
       <div
         aria-hidden="true"
-        className="absolute -top-32 -right-20 w-[34rem] h-[34rem] rounded-full bg-accent/25 blur-[120px] pointer-events-none blob-drift"
-      />
+        className="absolute left-[24%] top-[42%] -translate-x-1/2 -translate-y-1/2 w-[44rem] h-[44rem] max-w-[140vw] max-h-[140vw] pointer-events-none"
+      >
+        <div
+          className="w-full h-full rounded-full blur-[80px] opacity-[.22] animate-[spin_26s_linear_infinite] motion-reduce:animate-none"
+          style={{
+            background:
+              'conic-gradient(from 0deg, transparent 0deg, rgb(var(--c-accent) / 0.9) 60deg, transparent 150deg, rgb(var(--c-accent2) / 0.6) 250deg, transparent 360deg)',
+          }}
+        />
+      </div>
+      {/* Soft focal glow for depth */}
       <div
         aria-hidden="true"
-        className="absolute -bottom-40 -left-24 w-[28rem] h-[28rem] rounded-full bg-accent2/20 blur-[110px] pointer-events-none blob-drift"
-        style={{ animationDelay: '-9s', animationDuration: '22s' }}
+        className="absolute left-[26%] top-[42%] -translate-x-1/2 -translate-y-1/2 w-[26rem] h-[26rem] max-w-[85vw] rounded-full bg-accent blur-[100px] opacity-[.14] pointer-events-none"
       />
 
       <div className="wrap w-full relative">
