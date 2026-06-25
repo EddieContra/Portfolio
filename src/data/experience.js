@@ -1,26 +1,26 @@
 export const EXPERIENCE = [
   {
     tab: 'Current Role',
-    role: 'Program Instructor & Lead Material Designer',
-    company: 'E3empower · Tanzania',
+    role: 'Educator & Designer',
+    company: 'E3empower Africa',
     date: '2025 — Present',
     points: [
-      'Leading material design — producing posters, banners, social graphics, videos, and photography for programmes',
-      'Instructing programming and digital-skills sessions (Python, JavaScript, HTML/CSS, and web technologies)',
-      'Designing learning materials with Adobe Suite, Figma, Canva, and Affinity',
-      'Developing curriculum and producing newsletters covering tech-hub installations and training programmes',
+      'Teaching Python, JavaScript, HTML/CSS, and web technologies to diverse learners',
+      'Creating graphic and design assets using Adobe Suite, Figma, Canva, and Affinity',
+      'Developing curriculum and educational content used in live and virtual sessions',
+      'Producing newsletters, covering tech hub installations and training programmes',
     ],
   },
   {
     tab: 'JA Africa',
-    role: 'Programme Contributor',
+    role: 'Program Instructor & Lead Material Designer',
     company: 'JA Africa — SEP Tanzania',
     date: '2024 — 2025',
     points: [
-      'Contributed to the Social Equity Programme (SEP) E3empower initiative across Tanzania',
-      'Designed and produced educational materials for youth entrepreneurship training',
-      'Delivered engaging sessions focused on digital skills and technology literacy',
-      'Collaborated with teams to expand programme reach and improve material quality',
+      'Led material design for the SEP / E3empower programme — posters, banners, social graphics, videos, and photography',
+      'Instructed sessions on digital skills, technology literacy, and youth entrepreneurship across Tanzania',
+      'Designed and produced educational materials used throughout the training programme',
+      'Collaborated with teams to expand programme reach and raise material quality',
     ],
   },
   {
