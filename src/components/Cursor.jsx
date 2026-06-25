@@ -11,6 +11,10 @@ export default function Cursor() {
     const ring = ringRef.current;
     if (!dot || !ring) return;
 
+    // Touch devices hide the custom cursor via CSS — don't run the rAF loop or
+    // attach listeners there, so phones aren't burning a frame loop for nothing.
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+
     let mx = 0, my = 0, rx = 0, ry = 0;
     let raf;
 

@@ -5,14 +5,14 @@
 @layer base {
   :root {
     /* LIGHT theme — applied when html does NOT have .dark (default) */
-    --c-bg:      245 246 247; /* cool off-white page (softer than pure white) */
-    --c-bg2:     252 252 253; /* cards — gently brighter than the page */
-    --c-bg3:     236 238 240; /* recessed chips / icon tiles */
+    --c-bg:      231 233 237; /* muted cool gray page (#e7e9ed) */
+    --c-bg2:     243 244 246; /* cards — lighter than the page so they read as raised */
+    --c-bg3:     221 224 229; /* recessed chips / icon tiles */
     --c-accent:  255 107 0;   /* #ff6b00 */
     --c-accent2: 255 107 0;
     --c-text:    0 0 0;
     --c-muted:   106 114 130; /* gray-500 */
-    --c-border:  224 226 229; /* hairline, tuned for the cool off-white bg */
+    --c-border:  207 212 218; /* hairline, tuned for the muted-gray bg */
   }
 
   .dark {
@@ -38,7 +38,6 @@
     background-image:
       radial-gradient(circle at 1px 1px, rgb(var(--c-text) / 0.045) 1px, transparent 0);
     background-size: 28px 28px;
-    background-attachment: fixed;
     color: rgb(var(--c-text));
     font-family: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
     overflow-x: hidden;

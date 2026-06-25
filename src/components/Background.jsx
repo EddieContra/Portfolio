@@ -57,8 +57,9 @@ export default function Background() {
 
     const targetCount = () => {
       const area = window.innerWidth * window.innerHeight;
-      // ~1 dot per 14k px², capped for performance / mobile
-      return Math.min(90, Math.max(28, Math.round(area / 14000)));
+      // fewer dots (and a tighter cap) on phones to keep scrolling smooth
+      const cap = window.innerWidth < 640 ? 40 : 90;
+      return Math.min(cap, Math.max(24, Math.round(area / 16000)));
     };
 
     const makeDots = () => {
@@ -72,7 +73,9 @@ export default function Background() {
       }));
     };
 
-    const resize = () => {
+    let lastW = 0;
+
+    const sizeCanvas = () => {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       w = window.innerWidth;
       h = window.innerHeight;
@@ -81,7 +84,24 @@ export default function Background() {
       canvas.style.width = w + 'px';
       canvas.style.height = h + 'px';
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      makeDots();
+    };
+
+    // Mobile browsers fire `resize` constantly as the URL bar shows/hides — that
+    // only changes height. Re-seeding the dots on every one of those caused the
+    // field to reset/glitch, so only rebuild on an actual WIDTH change. Debounced
+    // so rapid events coalesce. In reduced-motion mode there's no rAF loop, so we
+    // must redraw here or the canvas would stay blank after a resize.
+    let resizeTimer;
+    const applyResize = () => {
+      const widthChanged = window.innerWidth !== lastW;
+      lastW = window.innerWidth;
+      sizeCanvas();
+      if (widthChanged) makeDots();
+      if (reduced) draw();
+    };
+    const onResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(applyResize, 120);
     };
 
     const draw = () => {
@@ -178,7 +198,9 @@ export default function Background() {
       attributeFilter: ['class'],
     });
 
-    resize();
+    lastW = window.innerWidth;
+    sizeCanvas();
+    makeDots();
     if (reduced) {
       running = false;
       draw(); // one static frame
@@ -186,7 +208,7 @@ export default function Background() {
       tick();
     }
 
-    window.addEventListener('resize', resize);
+    window.addEventListener('resize', onResize);
     document.addEventListener('visibilitychange', onVisibility);
     if (!coarse) {
       window.addEventListener('mousemove', onMove, { passive: true });
@@ -195,8 +217,9 @@ export default function Background() {
 
     return () => {
       stop();
+      clearTimeout(resizeTimer);
       observer.disconnect();
-      window.removeEventListener('resize', resize);
+      window.removeEventListener('resize', onResize);
       document.removeEventListener('visibilitychange', onVisibility);
       window.removeEventListener('mousemove', onMove);
       document.removeEventListener('mouseleave', onLeave);
