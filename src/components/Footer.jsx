@@ -9,7 +9,7 @@ export default function Footer() {
         >
           Eddie<span className="text-accent not-italic">.</span>
         </a>
-        <p>© {year} Emmanuel Edmund · Built in Tanzania 🇹🇿</p>
+        <p>© {year} Emmanuel Edmund</p>
         <p className="font-medium">CS · Design · Education</p>
       </div>
     </footer>
