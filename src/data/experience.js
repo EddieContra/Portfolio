@@ -1,14 +1,14 @@
 export const EXPERIENCE = [
   {
     tab: 'Current Role',
-    role: 'Educator & Designer',
-    company: 'E3empower Africa',
+    role: 'Program Instructor & Lead Material Designer',
+    company: 'E3empower · Tanzania',
     date: '2025 — Present',
     points: [
-      'Teaching Python, JavaScript, HTML/CSS, and web technologies to diverse learners',
-      'Creating graphic and design assets using Adobe Suite, Figma, Canva, and Affinity',
-      'Developing curriculum and educational content used in live and virtual sessions',
-      'Producing newsletters, covering tech hub installations and training programmes',
+      'Leading material design — producing posters, banners, social graphics, videos, and photography for programmes',
+      'Instructing programming and digital-skills sessions (Python, JavaScript, HTML/CSS, and web technologies)',
+      'Designing learning materials with Adobe Suite, Figma, Canva, and Affinity',
+      'Developing curriculum and producing newsletters covering tech-hub installations and training programmes',
     ],
   },
   {

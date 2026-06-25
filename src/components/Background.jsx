@@ -57,9 +57,9 @@ export default function Background() {
 
     const targetCount = () => {
       const area = window.innerWidth * window.innerHeight;
-      // fewer dots (and a tighter cap) on phones to keep scrolling smooth
-      const cap = window.innerWidth < 640 ? 40 : 90;
-      return Math.min(cap, Math.max(24, Math.round(area / 16000)));
+      // denser field, but keep a tighter cap on phones for smooth scrolling
+      const cap = window.innerWidth < 640 ? 52 : 120;
+      return Math.min(cap, Math.max(30, Math.round(area / 13000)));
     };
 
     const makeDots = () => {
