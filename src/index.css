@@ -11,7 +11,7 @@
     --c-accent:  255 107 0;   /* #ff6b00 */
     --c-accent2: 255 107 0;
     --c-text:    0 0 0;
-    --c-muted:   106 114 130; /* gray-500 */
+    --c-muted:   88 96 112;   /* secondary text, darkened for AA on the gray bg */
     --c-border:  207 212 218; /* hairline, tuned for the muted-gray bg */
     --c-aura1:   60 120 255;  /* aurora wash: cool blue (light) */
     --c-aura2:   150 110 255; /* aurora wash: soft violet (light) */
