@@ -3,7 +3,7 @@ export const EXPERIENCE = [
     tab: 'Current Role',
     role: 'Educator & Designer',
     company: 'E3empower Africa',
-    date: '2025 — Present',
+    date: '2025 – Present',
     points: [
       'Teaching Python, JavaScript, HTML/CSS, and web technologies to diverse learners',
       'Creating graphic and design assets using Adobe Suite, Figma, Canva, and Affinity',
@@ -14,10 +14,10 @@ export const EXPERIENCE = [
   {
     tab: 'JA Africa',
     role: 'Program Instructor & Lead Material Designer',
-    company: 'JA Africa — SEP Tanzania',
-    date: '2024 — 2025',
+    company: 'JA Africa · SEP Tanzania',
+    date: '2024 – 2025',
     points: [
-      'Led material design for the SEP / E3empower programme — posters, banners, social graphics, videos, and photography',
+      'Led material design for the SEP / E3empower programme: posters, banners, social graphics, videos, and photography',
       'Instructed sessions on digital skills, technology literacy, and youth entrepreneurship across Tanzania',
       'Designed and produced educational materials used throughout the training programme',
       'Collaborated with teams to expand programme reach and raise material quality',
@@ -39,7 +39,7 @@ export const EXPERIENCE = [
     tab: 'Education',
     role: 'BSc Computer Science',
     company: 'Institute of Accountancy Arusha (IAA)',
-    date: '2021 — 2024',
+    date: '2021 – 2024',
     points: [
       "Bachelor's degree with strong foundations in algorithms, data structures & systems",
       'Studied machine learning, web development, databases, and software engineering',

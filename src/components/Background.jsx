@@ -13,9 +13,9 @@ const LINK_DIST = 130;     // px — connect dots closer than this
 const CURSOR_DIST = 170;   // px — connect dots to the cursor within this
 const SPEED = 0.18;        // base drift speed
 
-// Light-theme dot color. Matches the custom cursor, which reads as blue on a
-// white page (its mix-blend-difference inverts the orange accent over white).
-const LIGHT_DOT = [0, 148, 255];
+// Light-theme dot color — a deep blue that stays legible on the muted-gray page
+// and echoes the custom cursor.
+const LIGHT_DOT = [20, 115, 235];
 
 function parseRgb(raw, fallback) {
   // tokens are space-separated rgb, e.g. "200 241 53"
@@ -33,7 +33,7 @@ function readPalette() {
   if (isDark) {
     return { color: parseRgb(style.getPropertyValue('--c-accent'), [200, 241, 53]), dotA: 0.55, lineA: 0.22, cursorA: 0.5 };
   }
-  return { color: LIGHT_DOT, dotA: 0.42, lineA: 0.12, cursorA: 0.4 };
+  return { color: LIGHT_DOT, dotA: 0.62, lineA: 0.2, cursorA: 0.5 };
 }
 
 export default function Background() {

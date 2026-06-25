@@ -4,7 +4,7 @@ export const TESTIMONIALS = [
     quote:
       "Eddie has a rare ability to make complex programming concepts feel approachable. The students walked away genuinely excited to keep learning.",
     name: 'Programme Lead',
-    role: 'JA Africa — SEP Tanzania',
+    role: 'JA Africa · SEP Tanzania',
     avatar: 'JA',
   },
   {
@@ -16,7 +16,7 @@ export const TESTIMONIALS = [
   },
   {
     quote:
-      "Beyond the code, Eddie sees the bigger picture — design, story, impact. Hire him before someone else does.",
+      "Beyond the code, Eddie sees the bigger picture: design, story, impact. Hire him before someone else does.",
     name: 'Engineering Mentor',
     role: 'Internship Supervisor',
     avatar: 'EM',
