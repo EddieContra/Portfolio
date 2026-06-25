@@ -7,7 +7,12 @@ export const SKILL_GROUPS = [
   {
     icon: 'layers',
     title: 'Frameworks & Libraries',
-    tags: ['React.js', 'Tailwind CSS', 'Node.js', 'Machine Learning', 'Arduino'],
+    tags: ['React.js', 'Tailwind CSS', 'Node.js', 'Arduino'],
+  },
+  {
+    icon: 'sparkles',
+    title: 'AI & Machine Learning',
+    tags: ['AI Agents', 'LLMs', 'RAG', 'Prompt Engineering', 'Function Calling', 'Machine Learning'],
   },
   {
     icon: 'palette',

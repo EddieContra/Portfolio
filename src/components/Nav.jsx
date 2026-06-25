@@ -15,6 +15,9 @@ const LINKS = [
 
 const SECTION_IDS = LINKS.map((l) => l.href.slice(1));
 
+// The mobile overlay covers the logo, so it needs its own way back to the top.
+const MOBILE_LINKS = [{ href: '#hero', label: 'Home' }, ...LINKS];
+
 export default function Nav() {
   const stuck = useStuckNav();
   const active = useActiveSection(SECTION_IDS);
@@ -105,7 +108,7 @@ export default function Nav() {
           <span className="sec-label">Navigation</span>
 
           <nav className="flex flex-col mt-3 divide-y divide-edge">
-            {LINKS.map((l, i) => {
+            {MOBILE_LINKS.map((l, i) => {
               const isActive = active === l.href.slice(1);
               return (
                 <a
@@ -145,7 +148,7 @@ export default function Nav() {
 
           <div
             className="mt-auto pt-8 transition-all duration-500"
-            style={{ transitionDelay: mob ? `${140 + LINKS.length * 55}ms` : '0ms' }}
+            style={{ transitionDelay: mob ? `${140 + MOBILE_LINKS.length * 55}ms` : '0ms' }}
           >
             <a
               href={`mailto:${EMAIL}`}

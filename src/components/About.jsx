@@ -7,8 +7,18 @@ export default function About() {
 
         <div className="grid grid-cols-1 md:grid-cols-[10rem_1fr] gap-8 md:gap-12 items-start">
           <div className="rv">
-            <div className="aspect-square w-32 sm:w-40 rounded-full bg-bg2 border border-edge grid place-items-center font-disp text-5xl font-extrabold italic text-accent">
-              E
+            <div className="relative aspect-square w-32 sm:w-40 rounded-full overflow-hidden bg-bg2 border border-edge">
+              {/* Fallback shows until the photo is added at public/me.jpg */}
+              <span className="absolute inset-0 grid place-items-center font-disp text-5xl font-extrabold italic text-accent">
+                E
+              </span>
+              <img
+                src={`${import.meta.env.BASE_URL}me.jpg`}
+                alt="Eddie"
+                loading="lazy"
+                onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                className="relative w-full h-full object-cover object-[center_30%]"
+              />
             </div>
           </div>
 
@@ -24,14 +34,15 @@ export default function About() {
               is driven by purpose and precision.
             </p>
             <p>
-              Currently exploring the frontier of <span className="text-text">Machine Learning &amp; AI</span> and
-              actively seeking an internship where I can apply that curiosity at scale.
+              Right now I'm building <span className="text-text">AI agents</span> and teaching an{' '}
+              <span className="text-text">AI Fundamentals</span> course — and I'm open to{' '}
+              <span className="text-text">full-time roles or freelance projects</span> where I can apply that at scale.
             </p>
 
             <dl className="grid grid-cols-3 gap-4 sm:gap-8 pt-8 mt-8 border-t border-edge">
-              <Stat n="8+"  label="Months interning"  />
-              <Stat n="3+"  label="Years experience"  />
-              <Stat n="12+" label="Tools mastered"    />
+              <Stat n="3"   label="Months at TTCL"   />
+              <Stat n="3+"  label="Years experience" />
+              <Stat n="12+" label="Tools mastered"   />
             </dl>
           </div>
         </div>

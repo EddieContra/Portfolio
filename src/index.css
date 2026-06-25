@@ -63,8 +63,8 @@
 
   /* Section heading */
   .sec-title {
-    @apply font-disp font-extrabold leading-[1.05] mb-10 tracking-tight
-           text-[clamp(2rem,4.5vw,3.25rem)] text-text;
+    @apply font-disp font-extrabold leading-[1.08] mb-8 tracking-tight
+           text-[clamp(1.6rem,4vw,2.5rem)] text-text;
   }
 
   /* Primary button — black-on-white in light, white-on-black in dark */
