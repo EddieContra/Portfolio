@@ -2,14 +2,14 @@ export const NOW_CARDS = [
   {
     icon: 'sparkles',
     label: 'Building',
-    title: 'AI Agents',
-    sub: 'Designing and shipping AI agents: tool-using, LLM-powered assistants with retrieval, function calling, and multi-step orchestration that automate real workflows.',
+    title: 'Agentic Lead-Response System',
+    sub: 'An AI agent on the Anthropic API that reads inbound enquiries, drafts replies in a business’s own voice, and sends them after human approval. Live pilot with a wedding photography studio.',
   },
   {
     icon: 'briefcase',
     label: 'Working On',
-    title: 'AI Fundamentals Course',
-    sub: 'Creating and teaching an AI Fundamentals course that\'s gaining strong momentum, alongside ongoing design and development work for clients.',
+    title: 'Advanced AI Agents Course',
+    sub: 'Teaching and refining a 10-lesson Advanced AI Agents course at E3Empower, covering the agentic loop, tool use, memory and RAG, MCP, multi-agent systems, safety and evaluation.',
   },
   {
     icon: 'search',
@@ -26,9 +26,9 @@ export const NOW_CARDS = [
 ];
 
 export const HERO_ROLES = [
+  'AI & Automation Developer',
   'Full-Stack Developer',
-  'AI Engineer',
+  'Programming Instructor',
   'Graphic Designer',
-  'Educator',
   'Photographer',
 ];

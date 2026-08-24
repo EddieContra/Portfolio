@@ -2,7 +2,8 @@ import Icon from './Icon';
 import { SOCIALS, EMAIL } from '../data/socials';
 
 const CONTACTS = [
-  { icon: 'mail',          label: 'Email',    value: EMAIL,             href: `mailto:${EMAIL}` },
+  { icon: 'mail',          label: 'Email',    value: EMAIL,              href: `mailto:${EMAIL}` },
+  { icon: 'smartphone',    label: 'Phone',    value: '+255 742 165 407', href: 'tel:+255742165407' },
   { icon: 'messageCircle', label: 'WhatsApp', value: '+255 745 225 985', href: 'https://wa.me/255745225985' },
   { icon: 'mapPin',        label: 'Location', value: 'Arusha, Tanzania' },
 ];
