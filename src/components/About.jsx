@@ -16,9 +16,11 @@ export default function About() {  return (
               <img
                 src={`${import.meta.env.BASE_URL}me.jpg`}
                 alt="Eddie"
+                width="640"
+                height="640"
                 loading="lazy"
                 onError={(e) => { e.currentTarget.style.display = 'none'; }}
-                className="relative w-full h-full object-cover object-[center_30%]"
+                className="relative w-full h-full object-cover object-center"
               />
             </div>
           </div>
