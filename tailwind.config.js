@@ -14,8 +14,8 @@ export default {
         edge:   'rgb(var(--c-border)  / <alpha-value>)',
       },
       fontFamily: {
-        disp: ['"Fraunces"', 'Georgia', 'ui-serif', 'serif'],
-        sans: ['"Inter"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        disp: ['"Montserrat"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['"Montserrat"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       keyframes: {
         up:    { '0%': { opacity: '0', transform: 'translateY(28px)' }, '100%': { opacity: '1', transform: 'none' } },
