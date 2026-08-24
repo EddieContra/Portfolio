@@ -31,7 +31,7 @@ export default function Hero() {
         </h1>
 
         <p className="mt-7 text-lg sm:text-xl md:text-2xl text-muted leading-snug max-w-2xl opacity-0 animate-up [animation-delay:.6s]">
-          Full-stack developer, designer, and educator building thoughtful software and creative learning experiences from{' '}
+          AI &amp; automation developer, programming instructor, and designer building production AI agents and creative learning experiences from{' '}
           <span className="text-text font-medium">Arusha, Tanzania</span>.
         </p>
 

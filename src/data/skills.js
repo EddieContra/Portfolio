@@ -2,22 +2,27 @@ export const SKILL_GROUPS = [
   {
     icon: 'code',
     title: 'Programming Languages',
-    tags: ['Python', 'JavaScript', 'TypeScript', 'HTML5', 'CSS3', 'Bash', 'Scratch'],
+    tags: ['Python', 'JavaScript', 'TypeScript', 'Java', 'C++', 'Bash', 'HTML5', 'CSS3'],
   },
   {
     icon: 'layers',
-    title: 'Frameworks & Libraries',
-    tags: ['React.js', 'Tailwind CSS', 'Node.js', 'Arduino'],
+    title: 'Frameworks & Backend',
+    tags: ['React.js', 'Tailwind CSS', 'Node.js', 'REST APIs', 'SQL', 'MongoDB', 'Arduino'],
   },
   {
     icon: 'sparkles',
-    title: 'AI & Machine Learning',
-    tags: ['AI Agents', 'LLMs', 'RAG', 'Prompt Engineering', 'Function Calling', 'Machine Learning'],
+    title: 'AI & Agents',
+    tags: ['Anthropic API', 'LLM Agents', 'Tool Use / Function Calling', 'RAG', 'MCP', 'Multi-Agent', 'Prompt Design', 'Agent Evaluation'],
+  },
+  {
+    icon: 'cpu',
+    title: 'Automation & Data',
+    tags: ['Gmail API', 'HubSpot CRM', 'Workflow Automation', 'Pandas', 'NumPy', 'Matplotlib'],
   },
   {
     icon: 'palette',
     title: 'Design & Creative Suite',
-    tags: ['Adobe Illustrator', 'Photoshop', 'Premiere Pro', 'Lightroom', 'Figma', 'Canva', 'Affinity'],
+    tags: ['Adobe Illustrator', 'Photoshop', 'Premiere Pro', 'Lightroom', 'Affinity', 'Figma', 'Canva'],
   },
   {
     icon: 'camera',
@@ -29,8 +34,8 @@ export const SKILL_GROUPS = [
     title: 'Education & Community',
     wide: true,
     tags: [
-      'Computer Studies', 'Curriculum Design', 'Mentoring', 'Material Production',
-      'Workshop Facilitation', 'Social Equity Programs', 'Community Training', 'Newsletter Production',
+      'Curriculum Design', 'Programming Instruction', 'Workshop Facilitation', 'Mentoring',
+      'Material Production', 'Social Equity Programs', 'Community Training', 'Newsletter Production',
     ],
   },
 ];
