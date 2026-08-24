@@ -9,7 +9,7 @@ export default function Experience() {
 
         <ol className="relative border-l border-edge space-y-12 ml-2 pl-7 sm:pl-9">
           {EXPERIENCE.map((e, i) => (
-            <li key={e.tab} className={`rv rv-d${(i % 4) + 1} relative`}>
+            <li key={`${e.role}-${e.company}`} className={`rv rv-d${(i % 4) + 1} relative`}>
               <span
                 className="absolute -left-[33px] sm:-left-[41px] top-1.5 w-3 h-3 rounded-full bg-accent ring-4 ring-bg"
                 aria-hidden="true"

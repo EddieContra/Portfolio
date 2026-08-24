@@ -38,6 +38,7 @@ const LINE_ICONS = {
   ),
   arrowRight: <path d="M5 12h14M13 5l7 7-7 7" />,
   arrowUpRight: <path d="M7 17 17 7M7 7h10v10" />,
+  close: <path d="M18 6 6 18M6 6l12 12" />,
 
   // --- content icons (replace former emojis) ---
   code: (

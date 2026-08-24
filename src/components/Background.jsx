@@ -13,8 +13,7 @@ const LINK_DIST = 130;     // px — connect dots closer than this
 const CURSOR_DIST = 170;   // px — connect dots to the cursor within this
 const SPEED = 0.18;        // base drift speed
 
-// Light-theme dot color — a deep blue that stays legible on the muted-gray page
-// and echoes the custom cursor.
+// Light-theme dot color — a deep blue that stays legible on the muted-gray page.
 const LIGHT_DOT = [20, 115, 235];
 
 function parseRgb(raw, fallback) {
@@ -24,9 +23,8 @@ function parseRgb(raw, fallback) {
 }
 
 // Picks the constellation color + opacities per theme. On dark the lime accent
-// reads well on near-black, so keep it punchy. On light, use a blue matching the
-// cursor at lower opacity so the field stays visible on white without hurting
-// readability.
+// reads well on near-black, so keep it punchy. On light, use a blue at lower
+// opacity so the field stays visible on white without hurting readability.
 function readPalette() {
   const style = getComputedStyle(document.documentElement);
   const isDark = document.documentElement.classList.contains('dark');

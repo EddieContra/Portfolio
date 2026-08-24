@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { GALLERY, GALLERY_FILTERS } from '../data/gallery';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import { useModalFocus } from '../hooks/useModalFocus';
 import Icon from './Icon';
 
 export default function Gallery() {
@@ -80,8 +81,11 @@ export default function Gallery() {
 function Lightbox({ items, index, onIndex, onClose }) {
   const g = items[index];
   const many = items.length > 1;
+  const boxRef = useRef(null);
   const prev = () => onIndex((index - 1 + items.length) % items.length);
   const next = () => onIndex((index + 1) % items.length);
+
+  useModalFocus(boxRef);
 
   useEffect(() => {
     const onKey = (e) => {
@@ -100,22 +104,26 @@ function Lightbox({ items, index, onIndex, onClose }) {
 
   return (
     <div
+      ref={boxRef}
+      role="dialog"
+      aria-modal="true"
+      aria-label={g.label}
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
       className="fixed inset-0 z-[500] bg-black/90 backdrop-blur-md flex items-center justify-center p-6 animate-[up_.3s_ease_forwards]"
     >
       <button
         onClick={onClose}
         aria-label="Close"
-        className="absolute top-5 right-5 text-bg/80 hover:text-accent transition-colors text-2xl leading-none cursor-pointer"
+        className="absolute top-5 right-5 w-11 h-11 grid place-items-center rounded-full border border-white/20 text-white/85 hover:text-accent hover:border-accent transition-colors cursor-pointer"
       >
-        ✕
+        <Icon name="close" size={18} />
       </button>
 
       {many && (
         <button
           onClick={prev}
           aria-label="Previous"
-          className="absolute left-3 sm:left-6 w-11 h-11 grid place-items-center rounded-full border border-white/20 text-bg/80 hover:text-accent hover:border-accent transition-colors cursor-pointer"
+          className="absolute left-3 sm:left-6 w-11 h-11 grid place-items-center rounded-full border border-white/20 text-white/85 hover:text-accent hover:border-accent transition-colors cursor-pointer"
         >
           <Icon name="arrowRight" size={20} className="rotate-180" />
         </button>
@@ -124,7 +132,7 @@ function Lightbox({ items, index, onIndex, onClose }) {
         <button
           onClick={next}
           aria-label="Next"
-          className="absolute right-3 sm:right-6 w-11 h-11 grid place-items-center rounded-full border border-white/20 text-bg/80 hover:text-accent hover:border-accent transition-colors cursor-pointer"
+          className="absolute right-3 sm:right-6 w-11 h-11 grid place-items-center rounded-full border border-white/20 text-white/85 hover:text-accent hover:border-accent transition-colors cursor-pointer"
         >
           <Icon name="arrowRight" size={20} />
         </button>
@@ -143,8 +151,8 @@ function Lightbox({ items, index, onIndex, onClose }) {
           )}
         </div>
         <figcaption className="text-center">
-          <div className="text-bg font-medium">{g.label}</div>
-          <div className="text-bg/60 text-xs uppercase tracking-wide mt-0.5">{g.cat}</div>
+          <div className="text-white font-medium">{g.label}</div>
+          <div className="text-white/60 text-xs uppercase tracking-wide mt-0.5">{g.cat}</div>
         </figcaption>
       </figure>
     </div>

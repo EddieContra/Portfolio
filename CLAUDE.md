@@ -27,7 +27,7 @@ file — not the component.
 
 ```
 src/
-├── App.jsx                # composes overlays (Background, Cursor, ScrollProgress, Nav) + sections
+├── App.jsx                # composes overlays (Background, ScrollProgress, Nav) + sections
 ├── main.jsx               # React entry, imports index.css
 ├── index.css              # Tailwind layers + theme tokens (CSS variables) + keyframes
 ├── components/            # one file per section, plus shared utilities
