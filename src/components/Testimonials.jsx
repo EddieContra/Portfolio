@@ -3,12 +3,14 @@ import { TESTIMONIALS } from '../data/testimonials';
 
 export default function Testimonials() {
   const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
   const total = TESTIMONIALS.length;
 
   useEffect(() => {
+    if (paused || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const id = setInterval(() => setActive((i) => (i + 1) % total), 6000);
     return () => clearInterval(id);
-  }, [total]);
+  }, [total, paused]);
 
   const t = TESTIMONIALS[active];
 
@@ -18,7 +20,13 @@ export default function Testimonials() {
         <span className="sec-label">Kind words</span>
         <h2 className="sec-title rv">Testimonials</h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-14 items-start">
+        <div
+          className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-14 items-start"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onFocusCapture={() => setPaused(true)}
+          onBlurCapture={() => setPaused(false)}
+        >
           <blockquote key={active} className="animate-up">
             <p className="text-lg sm:text-xl md:text-2xl text-text leading-relaxed">
               <span className="text-accent font-bold mr-1" aria-hidden="true">&ldquo;</span>

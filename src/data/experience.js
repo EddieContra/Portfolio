@@ -1,6 +1,5 @@
 export const EXPERIENCE = [
   {
-    tab: 'Consultancy',
     role: 'Founder & AI Automation Consultant',
     company: 'Independent Consultancy',
     date: '2026 – Present',
@@ -12,7 +11,6 @@ export const EXPERIENCE = [
     ],
   },
   {
-    tab: 'E3Empower',
     role: 'Programming Instructor, AI Curriculum Developer & Graphics Designer',
     company: 'E3Empower',
     date: 'Jan 2025 – Present',
@@ -24,7 +22,6 @@ export const EXPERIENCE = [
     ],
   },
   {
-    tab: 'Freelance',
     role: 'Freelance Designer & Digital Marketing Consultant',
     company: 'Self-employed',
     date: '2024 – Present',
@@ -35,7 +32,6 @@ export const EXPERIENCE = [
     ],
   },
   {
-    tab: 'TTCL',
     role: 'Network Trainee (Practical Field Training)',
     company: 'TTCL (Tanzania Telecommunications Co. Ltd.)',
     date: 'Jul 2023 – Sep 2023',
@@ -46,7 +42,6 @@ export const EXPERIENCE = [
     ],
   },
   {
-    tab: 'Education',
     role: 'BSc Computer Science',
     company: 'Institute of Accountancy Arusha (IAA)',
     date: '2021 – 2024',

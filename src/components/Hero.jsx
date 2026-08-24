@@ -5,6 +5,7 @@ export default function Hero() {
   const [activeRole, setActiveRole] = useState(0);
 
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const id = setInterval(() => {
       setActiveRole((i) => (i + 1) % HERO_ROLES.length);
     }, 2200);
