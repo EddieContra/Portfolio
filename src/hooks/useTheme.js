@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 const STORAGE_KEY = 'theme';
 
 function getInitial() {
-  if (typeof window === 'undefined') return 'light';
+  if (typeof window === 'undefined') return 'dark';
   return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
 }
 

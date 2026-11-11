@@ -12,6 +12,7 @@ export const SKILL_GROUPS = [
   {
     icon: 'sparkles',
     title: 'AI & Agents',
+    featured: true, // large hero tile in the bento grid
     tags: ['Anthropic API', 'LLM Agents', 'Tool Use / Function Calling', 'RAG', 'MCP', 'Multi-Agent', 'Prompt Design', 'Agent Evaluation'],
   },
   {

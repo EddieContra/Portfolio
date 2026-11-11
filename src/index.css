@@ -4,108 +4,168 @@
 
 @layer base {
   :root {
-    /* LIGHT theme — applied when html does NOT have .dark (default) */
-    --c-bg:      231 233 237; /* muted cool gray page (#e7e9ed) */
-    --c-bg2:     243 244 246; /* cards — lighter than the page so they read as raised */
-    --c-bg3:     221 224 229; /* recessed chips / icon tiles */
-    --c-accent:  255 107 0;   /* #ff6b00 */
-    --c-text:    0 0 0;
-    --c-muted:   88 96 112;   /* secondary text, darkened for AA on the gray bg */
-    --c-border:  207 212 218; /* hairline, tuned for the muted-gray bg */
+    /* LIGHT theme — Apple light (applied when <html> lacks .dark) */
+    --c-bg:      255 255 255; /* #ffffff */
+    --c-bg2:     245 245 247; /* #f5f5f7 — Apple section gray */
+    --c-bg3:     232 232 237; /* #e8e8ed */
+    --c-accent:  0 113 227;   /* #0071e3 — Apple blue */
+    --c-text:    29 29 31;    /* #1d1d1f */
+    --c-muted:   110 110 115; /* #6e6e73 */
+    --c-border:  210 210 215; /* #d2d2d7 */
+    --glass:     255 255 255;
   }
 
   .dark {
-    /* DARK theme — applied via .dark on <html> */
-    --c-bg:      8 8 8;
-    --c-bg2:     16 16 16;
-    --c-bg3:     24 24 24;
-    --c-accent:  200 241 53; /* lime — Eddie's signature dark accent */
-    --c-text:    240 240 232;
-    --c-muted:   140 140 140;
-    --c-border:  32 32 32;
+    /* DARK theme — default, cinematic black */
+    --c-bg:      0 0 0;       /* #000000 */
+    --c-bg2:     22 22 23;    /* #161617 */
+    --c-bg3:     29 29 31;    /* #1d1d1f */
+    --c-accent:  41 151 255;  /* #2997ff — Apple's dark-mode blue */
+    --c-text:    245 245 247; /* #f5f5f7 */
+    --c-muted:   134 134 139; /* #86868b */
+    --c-border:  42 42 44;    /* #2a2a2c */
+    --glass:     22 22 23;
   }
 
   *, *::before, *::after { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  /* Keep section headings clear of the fixed nav when jumping to an anchor */
-  section[id] { scroll-margin-top: 4.5rem; }
+  html { -webkit-text-size-adjust: 100%; }
+  /* Lenis drives smooth scrolling; native smooth-scroll only as a fallback. */
+  html:not(.lenis) { scroll-behavior: smooth; }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-stopped { overflow: hidden; }
+  section[id] { scroll-margin-top: 3rem; }
+
   body {
     margin: 0;
     background-color: rgb(var(--c-bg));
-    /* Subtle dot grid — adds texture, fades into background */
-    background-image:
-      radial-gradient(circle at 1px 1px, rgb(var(--c-text) / 0.045) 1px, transparent 0);
-    background-size: 28px 28px;
     color: rgb(var(--c-text));
-    font-family: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.47;
+    letter-spacing: -0.012em;
     overflow-x: hidden;
-    transition: background-color .35s ease, color .35s ease;
-    font-feature-settings: 'ss01', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color .5s ease, color .5s ease;
   }
 
-  ::selection { background: rgb(var(--c-accent)); color: rgb(var(--c-bg)); }
-  *:focus-visible { outline: 2px solid rgb(var(--c-accent)); outline-offset: 3px; }
+  ::selection { background: rgb(var(--c-accent) / .3); color: rgb(var(--c-text)); }
+  *:focus-visible { outline: 2px solid rgb(var(--c-accent)); outline-offset: 3px; border-radius: 6px; }
 }
 
 @layer components {
-  /* Constrained content container — Ankur-style 4xl */
-  .wrap {
-    @apply max-w-4xl mx-auto px-6 sm:px-8;
-  }
+  .wrap { @apply max-w-[1080px] mx-auto px-6 sm:px-8; }
 
-  /* Section eyebrow label */
+  /* Apple eyebrow */
   .sec-label {
-    @apply text-[.7rem] tracking-[.22em] uppercase text-accent block mb-3 font-semibold;
+    @apply block text-[.95rem] sm:text-[1.05rem] font-semibold text-accent mb-3 tracking-tightish;
   }
 
-  /* Section heading */
+  /* Apple headline */
   .sec-title {
-    @apply font-disp font-extrabold leading-[1.08] mb-8 tracking-tight
-           text-[clamp(1.6rem,4vw,2.5rem)] text-text;
+    @apply font-disp font-bold leading-[1.05] mb-10 sm:mb-14 tracking-apple text-text
+           text-[clamp(2.4rem,6.5vw,4.75rem)];
   }
 
-  /* Primary button — black-on-white in light, white-on-black in dark */
+  .lede { @apply text-[clamp(1.1rem,2vw,1.5rem)] leading-[1.4] text-muted font-medium tracking-tightish; }
+
+  /* Primary pill — Apple blue */
   .btn-fill {
-    @apply inline-flex items-center gap-2 bg-text text-bg px-5 py-2.5 rounded-full
-           text-sm font-medium transition-colors duration-200 no-underline
-           hover:bg-accent hover:text-bg;
+    @apply inline-flex items-center gap-2 bg-accent text-white px-6 py-3 rounded-full
+           text-[.95rem] font-medium no-underline transition-all duration-300 ease-apple
+           hover:brightness-110 hover:scale-[1.03] active:scale-[.98];
   }
 
-  /* Ghost / secondary button */
+  /* Outline pill */
   .btn-ghost {
-    @apply inline-flex items-center gap-2 border border-edge text-text px-5 py-2.5 rounded-full
-           text-sm font-medium transition-colors duration-200 no-underline
-           hover:border-accent hover:text-accent;
+    @apply inline-flex items-center gap-2 border border-accent text-accent px-6 py-3 rounded-full
+           text-[.95rem] font-medium no-underline transition-all duration-300 ease-apple
+           hover:bg-accent hover:text-white active:scale-[.98];
   }
 
-  /* Pill tag — for skill rows, project tags */
+  /* "Learn more ›" link */
+  .btn-link {
+    @apply inline-flex items-center gap-1 text-accent text-[.95rem] sm:text-[1.05rem] font-normal no-underline
+           hover:underline underline-offset-4;
+  }
+
+  /* Translucent card */
+  .glass {
+    background: rgb(var(--glass) / .72);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+    @apply border border-edge/70 rounded-[28px];
+  }
+
+  /* Solid Apple tile */
+  .tile { @apply bg-bg2 rounded-[28px] overflow-hidden; }
+
   .tag-pill {
-    @apply bg-bg2 border border-edge px-3 py-1 text-xs text-muted rounded-full
-           transition-colors duration-200 cursor-default
-           hover:border-accent hover:text-accent;
+    @apply bg-bg3/70 px-3 py-1 text-[.8rem] text-text/80 rounded-full transition-colors duration-200 cursor-default
+           hover:bg-accent/15 hover:text-accent;
   }
 }
 
 @layer utilities {
-  /* Scroll-reveal — toggled by useScrollReveal hook */
+  /* Big gradient headline text */
+  .text-gradient {
+    background: linear-gradient(100deg, rgb(var(--c-text)) 0%, rgb(var(--c-text)) 30%, rgb(var(--c-accent)) 62%, #a78bfa 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  .text-chrome {
+    background: linear-gradient(180deg, rgb(var(--c-text)) 25%, rgb(var(--c-muted)) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Cursor spotlight — useTilt sets --mx / --my */
+  .spotlight { position: relative; isolation: isolate; }
+  .spotlight::after {
+    content: '';
+    position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 1;
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgb(var(--c-accent) / .16), transparent 45%);
+    opacity: var(--spot, 0);
+    transition: opacity .4s ease;
+  }
+
+  /* 3D helpers */
+  .preserve-3d { transform-style: preserve-3d; }
+  .persp { perspective: 1200px; }
+
+  /* Ambient glow behind sections */
+  .glow-top {
+    background-image: radial-gradient(60% 50% at 50% 0%, rgb(var(--c-accent) / .10), transparent 70%);
+  }
+
+  /* Scroll-reveal — toggled by useScrollReveal */
   .rv {
     opacity: 0;
-    transform: translateY(28px);
-    transition: opacity .8s ease, transform .8s ease;
+    transform: translateY(40px);
+    filter: blur(10px);
+    transition: opacity 1.1s cubic-bezier(.16,1,.3,1), transform 1.1s cubic-bezier(.16,1,.3,1), filter 1.1s cubic-bezier(.16,1,.3,1);
+    will-change: opacity, transform, filter;
   }
-  .rv.in { opacity: 1; transform: none; }
+  .rv.in { opacity: 1; transform: none; filter: blur(0); }
   .rv-d1 { transition-delay: .08s; }
   .rv-d2 { transition-delay: .16s; }
   .rv-d3 { transition-delay: .24s; }
   .rv-d4 { transition-delay: .32s; }
 
-  /* Subtle scrollbar in modal */
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+
   .nice-scroll::-webkit-scrollbar { width: 8px; }
   .nice-scroll::-webkit-scrollbar-track { background: transparent; }
   .nice-scroll::-webkit-scrollbar-thumb { background: rgb(var(--c-border)); border-radius: 4px; }
-  .nice-scroll::-webkit-scrollbar-thumb:hover { background: rgb(var(--c-accent)); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .rv { transition: none; opacity: 1 !important; transform: none !important; }
+  .rv { transition: none; opacity: 1 !important; transform: none !important; filter: none !important; }
+  .animate-up, .animate-sheet { animation-duration: 1ms !important; }
+  .animate-shimmer, .animate-float { animation: none !important; }
 }

@@ -4,7 +4,9 @@ Guidance for Claude Code (and humans) working in this repository.
 
 ## What this is
 
-Eddie's personal portfolio — a single-page site built with **Vite + React 18 + Tailwind CSS 3**.
+Eddie's personal portfolio — a cinematic, Apple-styled single-page site built with **Vite + React 18 +
+Tailwind CSS 3**, with **GSAP ScrollTrigger + Lenis** for scroll choreography and **Three.js (React Three
+Fiber)** for the 3D hero.
 Auto-deployed to GitHub Pages via Actions on every push to `main`.
 Live: <https://eddiecontra.github.io/Portfolio/>
 
@@ -27,17 +29,24 @@ file — not the component.
 
 ```
 src/
-├── App.jsx                # composes overlays (Background, ScrollProgress, Nav) + sections
+├── App.jsx                # inits smooth scroll; composes ScrollProgress, Nav + chapters
 ├── main.jsx               # React entry, imports index.css
-├── index.css              # Tailwind layers + theme tokens (CSS variables) + keyframes
-├── components/            # one file per section, plus shared utilities
-│   ├── Background.jsx     # site-wide constellation canvas (theme-aware, reduced-motion safe)
+├── index.css              # Tailwind layers + theme tokens (CSS variables) + Apple utilities
+├── lib/motion.js          # GSAP/ScrollTrigger registration, Lenis smooth scroll, scrollTo, lockScroll, MQ
+├── components/
+│   ├── three/HeroScene.jsx    # R3F chrome torus-knot scene (lazy chunk); supportsWebGL.js gate
+│   ├── Hero.jsx           # 3D stage + headline; static CSS orb fallback (reduced motion / no WebGL)
+│   ├── About.jsx          # manifesto (RevealText) + portrait + stats + "Right now" cards (NOW_CARDS)
+│   ├── Experience.jsx     # sticky timeline, rail fills on scroll
+│   ├── Projects.jsx       # pinned horizontal showcase (desktop) / stack (mobile) + ProjectModal sheet
+│   ├── ProjectArt.jsx     # generated "app screen" artwork used when a project has no image
+│   ├── Skills.jsx         # bento grid (featured / wide tiles)
+│   ├── Gallery.jsx        # segmented filter + grid + lightbox
+│   ├── RevealText.jsx     # word-by-word "highlight as you read" paragraph
 │   ├── Icon.jsx           # ALL inline SVG icons (brand + line). Use this, never emojis.
-│   ├── ThemeToggle.jsx    # animated sliding light/dark switch
-│   ├── Nav.jsx            # sticky nav with scroll-spy active highlighting
-│   └── …                  # Hero, About, Skills, Projects, Gallery, etc.
+│   └── …                  # Nav, ThemeToggle, Testimonials, Contact, Footer, ScrollProgress
 ├── data/                  # content modules — edit these to update the site
-└── hooks/                 # useTheme, useStuckNav, useScrollReveal, useActiveSection
+└── hooks/                 # useTheme, useTilt, useReducedMotion, useScrollReveal, useActiveSection, …
 ```
 
 ## Conventions
@@ -48,13 +57,20 @@ exposed as Tailwind utilities in `tailwind.config.js`:
 
 | Utility | Meaning |
 |---|---|
-| `bg-bg` / `bg-bg2` / `bg-bg3` | page / card / raised surfaces |
+| `bg-bg` / `bg-bg2` / `bg-bg3` | page / tile / raised surfaces (black · #161617 · #1d1d1f in dark) |
 | `text-text` / `text-muted` | primary / secondary text |
-| `text-accent`, `bg-accent` | accent (orange in light, lime in dark) |
+| `text-accent`, `bg-accent` | Apple blue (#0071e3 light, #2997ff dark) |
 | `border-edge` | hairline borders |
 
-Always style with these utilities so light/dark both work. The `.dark` class is toggled on
-`<html>` by `useTheme`; a script in `index.html` restores it before first paint (no flash).
+Always style with these utilities so light/dark both work. **Dark is the default**; the `.dark`
+class is toggled on `<html>` by `useTheme`, and a script in `index.html` restores it before first
+paint (no flash). Typography uses the system SF stack with Inter as the web fallback.
+
+Shared component classes in `index.css`: `.sec-label` / `.sec-title` (eyebrow + headline), `.lede`,
+`.btn-fill` (blue pill), `.btn-ghost` (outline pill), `.btn-link` ("Learn more ›"), `.tile`, `.glass`,
+`.spotlight` (cursor glow, driven by `useTilt`), `.text-gradient`, `.text-chrome`. Decorative artwork
+(the `ProjectArt` palettes, the featured Skills tile, gallery category tints) intentionally uses fixed
+colors; everything else uses tokens.
 
 ### Icons — `Icon.jsx`, not emojis
 Icons are inline SVGs in `src/components/Icon.jsx`, rendered as `<Icon name="…" size={n} />`.
@@ -68,8 +84,14 @@ When content needs a new icon, add a line entry to `LINE_ICONS` and reference it
 the data file — do not paste an emoji into JSX or data.
 
 ### Animations / motion
-Scroll-reveal: add the `rv` class (and optional `rv-d1`..`rv-d4` stagger) — `useScrollReveal`
-toggles `.in` on viewport entry. All motion respects `prefers-reduced-motion`.
+- Scroll-reveal: add `rv` (optional `rv-d1`..`rv-d4` stagger) — fades/lifts/un-blurs on viewport entry.
+  Don't put `rv` on an element that also has its own transform/transition; wrap it instead.
+- Scroll-driven effects use `useGSAP` + `gsap.matchMedia()` with `MQ.motion` / `MQ.desktop` from
+  `src/lib/motion.js`, so they're skipped under `prefers-reduced-motion` and reverted on unmount.
+- 3D tilt + spotlight on cards: `const ref = useTilt()` on an element with `spotlight`.
+- Modals/menus lock scroll with `lockScroll(true|false)` (pauses Lenis too); scrollable overlays need
+  `data-lenis-prevent`.
+- Three.js is only imported by `three/HeroScene.jsx`, which is `React.lazy`-loaded — keep it that way.
 
 ## Updating content
 
@@ -80,7 +102,7 @@ toggles `.in` on viewport entry. All motion respects `prefers-reduced-motion`.
 | Gallery items | `src/data/gallery.js` |
 | Testimonials | `src/data/testimonials.js` |
 | Skill cards | `src/data/skills.js` |
-| "Currently" cards & hero role rotator | `src/data/now.js` |
+| "Right now" cards (in About) & hero role rotator | `src/data/now.js` |
 | Email + social links | `src/data/socials.js` (shared by Contact + mobile nav) |
 | Contact rows (email/WhatsApp/location) | `src/components/Contact.jsx` |
 | CV file | `public/cv.pdf` |

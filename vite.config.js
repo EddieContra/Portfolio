@@ -5,4 +5,6 @@ export default defineConfig({
   base: '/Portfolio/',
   plugins: [react()],
   server: { port: 5173, open: true },
+  // three.js is lazy-loaded in its own chunk after first paint
+  build: { chunkSizeWarningLimit: 900 },
 });
