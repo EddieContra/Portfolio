@@ -2,8 +2,7 @@ import { useTheme } from '../hooks/useTheme';
 
 // Sliding pill switch. The knob carries the active icon (sun in light, moon in
 // dark) and slides across a track that shows faint hint icons underneath.
-// Contrast: knob is bg-bg with an accent ring so the accent icon reads in both
-// themes; track border (edge) keeps it visible over the translucent stuck-nav.
+// Apple-style minimal switch: neutral track, raised knob.
 export default function ThemeToggle({ className = '' }) {
   const { isDark, toggle } = useTheme();
 
@@ -16,33 +15,33 @@ export default function ThemeToggle({ className = '' }) {
       aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
       title={isDark ? 'Light mode' : 'Dark mode'}
       className={[
-        'group relative inline-flex items-center w-14 h-7 shrink-0 rounded-full',
-        'border border-edge bg-bg3 dark:bg-bg2 px-1 cursor-pointer',
-        'transition-colors duration-300 hover:border-accent',
+        'group relative inline-flex items-center w-11 h-6 shrink-0 rounded-full',
+        'bg-bg3 px-0.5 cursor-pointer',
+        'transition-colors duration-300 hover:bg-edge',
         className,
       ].join(' ')}
     >
       {/* hint icons behind the knob */}
-      <span className="pointer-events-none absolute inset-0 flex items-center justify-between px-1.5 text-muted">
-        <SunIcon size={12} />
-        <MoonIcon size={12} />
+      <span className="pointer-events-none absolute inset-0 flex items-center justify-between px-[5px] text-muted">
+        <SunIcon size={11} />
+        <MoonIcon size={11} />
       </span>
 
       {/* sliding knob */}
       <span
         className={[
           'relative z-10 grid place-items-center w-5 h-5 rounded-full',
-          'bg-bg text-accent shadow-sm ring-1 ring-accent/60',
-          'transition-transform duration-300 ease-[cubic-bezier(.5,1.6,.5,1)]',
-          isDark ? 'translate-x-7' : 'translate-x-0',
+          'bg-bg text-text shadow-[0_2px_6px_rgba(0,0,0,.25)]',
+          'transition-transform duration-500 ease-apple',
+          isDark ? 'translate-x-5' : 'translate-x-0',
         ].join(' ')}
       >
         {/* both icons stacked, cross-fade + rotate on toggle */}
         <span className={`absolute transition-all duration-300 ${isDark ? 'opacity-0 -rotate-90 scale-50' : 'opacity-100 rotate-0 scale-100'}`}>
-          <SunIcon size={13} />
+          <SunIcon size={12} />
         </span>
         <span className={`absolute transition-all duration-300 ${isDark ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-50'}`}>
-          <MoonIcon size={13} />
+          <MoonIcon size={12} />
         </span>
       </span>
     </button>

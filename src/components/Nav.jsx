@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useStuckNav } from '../hooks/useStuckNav';
 import { useActiveSection } from '../hooks/useActiveSection';
 import { SOCIALS, EMAIL } from '../data/socials';
+import { lockScroll } from '../lib/motion';
 import ThemeToggle from './ThemeToggle';
 import Icon from './Icon';
 
@@ -9,6 +10,7 @@ const LINKS = [
   { href: '#about',      label: 'About' },
   { href: '#experience', label: 'Work' },
   { href: '#projects',   label: 'Projects' },
+  { href: '#skills',     label: 'Skills' },
   { href: '#gallery',    label: 'Gallery' },
   { href: '#contact',    label: 'Contact' },
 ];
@@ -25,35 +27,35 @@ export default function Nav() {
 
   const closeMob = () => {
     setMob(false);
-    document.body.style.overflow = '';
+    lockScroll(false);
   };
   const toggleMob = () => {
     const next = !mob;
     setMob(next);
-    document.body.style.overflow = next ? 'hidden' : '';
+    lockScroll(next);
   };
 
   return (
     <>
       <nav
         className={[
-          'fixed top-0 left-0 right-0 z-[200] transition-all duration-300',
-          stuck ? 'bg-bg/85 backdrop-blur-md border-b border-edge shadow-[0_1px_20px_-12px_rgba(0,0,0,0.45)]' : '',
+          'fixed top-0 left-0 right-0 z-[200] transition-colors duration-500',
+          stuck || mob
+            ? 'bg-bg/70 backdrop-blur-xl backdrop-saturate-150 border-b border-edge/60'
+            : 'bg-transparent border-b border-transparent',
         ].join(' ')}
+        style={{ WebkitBackdropFilter: stuck || mob ? 'saturate(180%) blur(20px)' : undefined }}
       >
-        <div className={[
-          'wrap flex justify-between items-center transition-all duration-300',
-          stuck ? 'py-3' : 'py-5',
-        ].join(' ')}>
+        <div className="wrap h-12 flex justify-between items-center">
           <a
             href="#hero"
-            className="font-disp font-extrabold text-xl text-text no-underline tracking-tight italic"
+            className="font-disp font-semibold text-[1.05rem] text-text no-underline tracking-tight"
           >
-            Eddie<span className="text-accent not-italic">.</span>
+            Eddie<span className="text-accent">.</span>
           </a>
 
-          <div className="flex items-center gap-7 max-[768px]:hidden">
-            <ul className="flex gap-7 list-none items-center m-0 p-0">
+          <div className="flex items-center gap-8 max-[768px]:hidden">
+            <ul className="flex gap-8 list-none items-center m-0 p-0">
               {LINKS.map((l) => {
                 const isActive = active === l.href.slice(1);
                 return (
@@ -62,12 +64,8 @@ export default function Nav() {
                       href={l.href}
                       aria-current={isActive ? 'page' : undefined}
                       className={[
-                        'relative text-sm no-underline transition-colors duration-200',
-                        'after:absolute after:left-0 after:-bottom-1.5 after:h-[2px] after:rounded-full',
-                        'after:bg-accent after:transition-all after:duration-300',
-                        isActive
-                          ? 'text-text after:w-full'
-                          : 'text-muted hover:text-text after:w-0 hover:after:w-full',
+                        'text-[.78rem] tracking-[.01em] no-underline transition-colors duration-300',
+                        isActive ? 'text-text' : 'text-text/60 hover:text-text',
                       ].join(' ')}
                     >
                       {l.label}
@@ -86,11 +84,10 @@ export default function Nav() {
               onClick={toggleMob}
               aria-label="Menu"
               aria-expanded={mob}
-              className="flex flex-col gap-[5px] cursor-pointer z-[300] bg-transparent border-none p-0"
+              className="flex flex-col gap-[5px] cursor-pointer z-[300] bg-transparent border-none p-2 -mr-2"
             >
-              <span className={`w-[24px] h-[2px] bg-text block transition-all duration-300 ${mob ? 'translate-y-[7px] rotate-45' : ''}`} />
-              <span className={`w-[24px] h-[2px] bg-text block transition-all duration-300 ${mob ? 'opacity-0' : ''}`} />
-              <span className={`w-[24px] h-[2px] bg-text block transition-all duration-300 ${mob ? '-translate-y-[7px] -rotate-45' : ''}`} />
+              <span className={`w-[18px] h-[1.5px] bg-text block transition-all duration-500 ease-apple ${mob ? 'translate-y-[3.25px] rotate-45' : ''}`} />
+              <span className={`w-[18px] h-[1.5px] bg-text block transition-all duration-500 ease-apple ${mob ? '-translate-y-[3.25px] -rotate-45' : ''}`} />
             </button>
           </div>
         </div>
@@ -98,16 +95,14 @@ export default function Nav() {
 
       <div
         className={[
-          'fixed inset-0 z-[250] bg-bg/95 backdrop-blur-xl flex flex-col',
-          'transition-transform duration-500 ease-[cubic-bezier(.77,0,.175,1)]',
-          mob ? 'translate-x-0' : 'translate-x-full',
+          'fixed inset-0 z-[150] bg-bg/90 backdrop-blur-2xl flex flex-col',
+          'transition-[opacity,visibility] duration-500 ease-apple',
+          mob ? 'opacity-100 visible' : 'opacity-0 invisible',
         ].join(' ')}
         aria-hidden={!mob}
       >
-        <div className="flex flex-col h-full px-8 pt-24 pb-10">
-          <span className="sec-label">Navigation</span>
-
-          <nav className="flex flex-col mt-3 divide-y divide-edge">
+        <div className="flex flex-col h-full px-8 pt-20 pb-10">
+          <nav className="flex flex-col mt-3">
             {MOBILE_LINKS.map((l, i) => {
               const isActive = active === l.href.slice(1);
               return (
@@ -118,15 +113,14 @@ export default function Nav() {
                   aria-current={isActive ? 'page' : undefined}
                   style={{ transitionDelay: mob ? `${140 + i * 55}ms` : '0ms' }}
                   className={[
-                    'group flex items-center justify-between py-4 no-underline transition-all duration-500',
-                    mob ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-6',
+                    'group flex items-center justify-between py-2.5 no-underline transition-all duration-700 ease-apple',
+                    mob ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 -translate-y-2 blur-sm',
                   ].join(' ')}
                 >
                   <span className="flex items-baseline gap-4">
-                    <span className="text-xs font-mono text-muted w-6">{`0${i + 1}`}</span>
                     <span
                       className={[
-                        'font-disp text-3xl font-extrabold italic tracking-tight transition-colors',
+                        'font-disp text-[2rem] font-semibold tracking-apple transition-colors',
                         isActive ? 'text-accent' : 'text-text group-hover:text-accent',
                       ].join(' ')}
                     >
@@ -147,7 +141,7 @@ export default function Nav() {
           </nav>
 
           <div
-            className="mt-auto pt-8 transition-all duration-500"
+            className={`mt-auto pt-8 transition-all duration-700 ease-apple ${mob ? 'opacity-100' : 'opacity-0'}`}
             style={{ transitionDelay: mob ? `${140 + MOBILE_LINKS.length * 55}ms` : '0ms' }}
           >
             <a
@@ -164,7 +158,7 @@ export default function Nav() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.title}
-                  className="w-9 h-9 grid place-items-center border border-edge rounded-full text-muted transition-colors hover:bg-text hover:text-bg hover:border-text"
+                  className="w-10 h-10 grid place-items-center rounded-full bg-bg3 text-muted transition-colors hover:bg-accent hover:text-white"
                 >
                   <Icon name={s.icon} size={15} />
                 </a>

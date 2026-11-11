@@ -22,11 +22,11 @@ To change content, edit the matching data file — the components rarely need to
 | Content | File | Key fields |
 |---|---|---|
 | Projects | `src/data/projects.js` | `icon, tags[], name, brief, full, github, live` |
-| Skill groups | `src/data/skills.js` | `icon, title, tags[]` (`wide` optional) |
+| Skill groups | `src/data/skills.js` | `icon, title, tags[]` (`wide` = full-row bento tile, `featured` = large 4×2 tile) |
 | Gallery items | `src/data/gallery.js` | `icon, label, cat` (+ `GALLERY_FILTERS`) |
 | Experience tabs | `src/data/experience.js` | `tab, role, company, date, points[]` |
 | Testimonials | `src/data/testimonials.js` | `quote, name, role, avatar` (2-letter initials) |
-| "Currently" cards | `src/data/now.js` | `icon, label, title, sub` |
+| "Currently" cards (shown as "Right now" inside About) | `src/data/now.js` | `icon, label, title, sub` |
 | Hero role rotator | `src/data/now.js` | `HERO_ROLES` — array of strings |
 | Email + social links | `src/data/socials.js` | `EMAIL` string, `SOCIALS[]` (`icon` names) — shared by Contact + mobile nav |
 | Contact rows | `src/components/Contact.jsx` | `CONTACTS[]` (email/WhatsApp/location) |
