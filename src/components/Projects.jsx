@@ -57,13 +57,13 @@ export default function Projects() {
 
   return (
     <section id="projects" ref={sectionRef} className="relative">
-      <div ref={pinRef} className="relative md:h-[100svh] md:flex md:flex-col md:justify-center py-28 md:py-0 overflow-hidden">
+      <div ref={pinRef} className="relative md:h-[100svh] md:flex md:flex-col md:justify-center py-28 md:py-0 overflow-hidden md:motion-reduce:h-auto md:motion-reduce:py-28">
         <div className="wrap w-full flex items-end justify-between gap-6 md:mb-10">
           <div>
             <span className="sec-label rv">Selected work</span>
             <h2 className="sec-title rv rv-d1 !mb-10 md:!mb-0">Projects.</h2>
           </div>
-          <div className="hidden md:flex flex-col items-end gap-3 pb-2" aria-hidden="true">
+          <div className="hidden md:flex md:motion-reduce:hidden flex-col items-end gap-3 pb-2" aria-hidden="true">
             <div className="text-sm text-muted tabular-nums">
               <span ref={countRef} className="text-text font-semibold">01</span> / {pad(total)}
             </div>
@@ -75,7 +75,7 @@ export default function Projects() {
 
         <div
           ref={trackRef}
-          className="flex flex-col md:flex-row gap-5 md:gap-7 px-6 sm:px-8 md:pl-[max(2rem,calc((100vw-1080px)/2+2rem))] md:pr-[12vw] will-change-transform"
+          className="flex flex-col md:flex-row gap-5 md:gap-7 px-6 sm:px-8 md:pl-[max(2rem,calc((100vw-1080px)/2+2rem))] md:pr-[12vw] will-change-transform md:motion-reduce:grid md:motion-reduce:grid-cols-2 md:motion-reduce:max-w-[1080px] md:motion-reduce:mx-auto md:motion-reduce:px-8"
         >
           {PROJECTS.map((p, i) => (
             <ProjectCard
@@ -102,7 +102,7 @@ function ProjectCard({ project, index, onOpen, onFocus }) {
   const tiltRef = useTilt({ max: 6, scale: 1.01 });
 
   return (
-    <div className="persp shrink-0 md:w-[min(64vw,720px,calc((100svh-330px)*1.45))] rv">
+    <div className="persp shrink-0 md:w-[min(64vw,720px,calc((100svh-330px)*1.45))] md:motion-reduce:w-auto rv">
       <button
         ref={tiltRef}
         type="button"

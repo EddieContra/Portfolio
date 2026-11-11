@@ -15,29 +15,33 @@ function damp(cur, tgt, lambda, dt) {
   return THREE.MathUtils.damp(cur, tgt, lambda, dt);
 }
 
+function layout(compact) {
+  return compact ? { x: 0, y: 1.05, s: 0.68 } : { x: 1.55, y: 0, s: 1 };
+}
+
 function Knot({ progress, compact }) {
   const group = useRef();
   const mesh = useRef();
+  const start = layout(compact);
 
   useFrame((state, dt) => {
     const p = progress.current || 0;
     const g = group.current;
     if (!g) return;
+    const L = layout(compact);
     // cursor-follow tilt
     g.rotation.y = damp(g.rotation.y, state.pointer.x * 0.55, 3, dt);
     g.rotation.x = damp(g.rotation.x, -state.pointer.y * 0.35, 3, dt);
     // scroll choreography
-    const baseX = compact ? 0 : 1.55;
-    g.position.x = damp(g.position.x, baseX - p * (compact ? 0 : 1.2), 4, dt);
-    g.position.y = damp(g.position.y, (compact ? 0.35 : 0) - p * 1.4, 4, dt);
-    const s = (compact ? 0.78 : 1) * (1 + p * 0.35);
-    g.scale.setScalar(damp(g.scale.x, s, 4, dt));
+    g.position.x = damp(g.position.x, L.x - p * (compact ? 0 : 1.2), 4, dt);
+    g.position.y = damp(g.position.y, L.y - p * 1.4, 4, dt);
+    g.scale.setScalar(damp(g.scale.x, L.s * (1 + p * 0.35), 4, dt));
     if (mesh.current) mesh.current.rotation.z += dt * 0.12;
     state.camera.position.z = damp(state.camera.position.z, 7 - p * 2.2, 4, dt);
   });
 
   return (
-    <group ref={group}>
+    <group ref={group} position={[start.x, start.y, 0]} scale={start.s}>
       <Float>
         <mesh ref={mesh} rotation={[0.4, 0.2, 0]}>
           <torusKnotGeometry args={[1.05, 0.34, 320, 64, 2, 3]} />
