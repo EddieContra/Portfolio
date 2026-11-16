@@ -49,14 +49,14 @@ export default function Hero() {
           {HERO.status}
         </p>
 
-        <h1 className="font-disp text-[clamp(4.75rem,21vw,13.5rem)] font-extrabold italic leading-[.82] tracking-[-0.055em] text-text animate-fade-up [animation-delay:60ms]">
+        <h1 className="font-disp text-[clamp(4.75rem,21vw,13.5rem)] font-extrabold italic leading-[.82] tracking-[-0.055em] text-text animate-slide-up">
           {SITE.name}
           <span className="not-italic text-accent" aria-hidden="true">.</span>
         </h1>
 
         <RoleTicker reduced={reduced} />
 
-        <p className="mt-6 max-w-2xl text-[clamp(1.05rem,1.7vw,1.3rem)] leading-relaxed text-muted animate-fade-up [animation-delay:240ms]">
+        <p className="mt-6 max-w-2xl text-[clamp(1.05rem,1.7vw,1.3rem)] leading-relaxed text-muted animate-slide-up">
           <Rich text={HERO.intro} />
         </p>
 

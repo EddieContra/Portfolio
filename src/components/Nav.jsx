@@ -57,7 +57,7 @@ export default function Nav() {
                 <li key={link.id}>
                   <a
                     href={`#${link.id}`}
-                    aria-current={current ? 'true' : undefined}
+                    aria-current={current ? 'location' : undefined}
                     className={[
                       'relative flex h-11 items-center rounded-full px-4 text-sm font-medium no-underline transition-colors duration-200',
                       current ? 'text-text' : 'text-muted hover:text-text',
@@ -118,7 +118,7 @@ function MobileMenu({ active, onClose }) {
                 key={link.id}
                 href={`#${link.id}`}
                 onClick={onClose}
-                aria-current={current ? 'true' : undefined}
+                aria-current={current ? 'location' : undefined}
                 style={{ animationDelay: `${80 + i * 45}ms` }}
                 className="group flex min-h-[3.75rem] items-center justify-between border-b border-edge no-underline animate-fade-up"
               >

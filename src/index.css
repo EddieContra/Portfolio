@@ -185,7 +185,7 @@
   /* Word-by-word highlight: the paragraph gets --p (0..1) and --n (word count)
      from useScrollProgress; each word carries its index in --i. */
   .reveal-words [data-w] {
-    opacity: clamp(.25, calc(var(--p, 1) * (var(--n) + 3) - var(--i)), 1);
+    opacity: clamp(.45, calc(var(--p, 1) * (var(--n) + 3) - var(--i)), 1);
   }
 
   .preserve-3d { transform-style: preserve-3d; }

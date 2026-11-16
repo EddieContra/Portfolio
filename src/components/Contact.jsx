@@ -52,7 +52,7 @@ export default function Contact() {
 
         <a
           href={`mailto:${EMAIL}`}
-          className="rv group mt-10 inline-flex max-w-full items-center gap-3 font-disp text-[clamp(1.05rem,4.4vw,2.4rem)] font-bold tracking-tight text-text no-underline sm:gap-4"
+          className="rv group mt-10 inline-flex max-w-full items-center gap-3 font-disp text-[clamp(.9rem,3.9vw,2.4rem)] font-bold tracking-tight text-text no-underline sm:gap-4"
         >
           <span className="min-w-0 break-all underline decoration-accent decoration-2 underline-offset-[.25em]">{EMAIL}</span>
           <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-accent text-accent-on transition-transform duration-300 ease-out group-hover:-translate-y-1 group-hover:translate-x-1 sm:h-14 sm:w-14">
@@ -97,7 +97,7 @@ function ContactRow({ icon, label, value, href }) {
       </span>
       <span className="min-w-0">
         <span className="block text-xs text-muted">{label}</span>
-        <span className="block break-words text-[.92rem] font-semibold text-text">{value}</span>
+        <span className="block text-[.84rem] font-semibold text-text [overflow-wrap:anywhere] sm:text-[.92rem]">{value}</span>
       </span>
     </>
   );

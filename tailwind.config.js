@@ -5,6 +5,8 @@ const MONTSERRAT = ['"Montserrat"', '"Montserrat Fallback"', 'ui-sans-serif', 's
 export default {
   content: ['./index.html', './src/**/*.{js,jsx}'],
   darkMode: 'class',
+  // :hover styles only where a real hover exists (no sticky hover after a tap)
+  future: { hoverOnlyWhenSupported: true },
   theme: {
     extend: {
       colors: {
@@ -29,6 +31,7 @@ export default {
       },
       keyframes: {
         'fade-up':  { from: { opacity: '0', transform: 'translate3d(0, 20px, 0)' }, to: { opacity: '1', transform: 'none' } },
+        'slide-up': { from: { transform: 'translate3d(0, 20px, 0)' }, to: { transform: 'none' } },
         'fade-in':  { from: { opacity: '0' }, to: { opacity: '1' } },
         'rise':     { from: { transform: 'translate3d(0, 105%, 0)' }, to: { transform: 'none' } },
         'sheet-up': { from: { opacity: '0', transform: 'translate3d(0, 28px, 0) scale(.98)' }, to: { opacity: '1', transform: 'none' } },
@@ -37,6 +40,7 @@ export default {
       },
       animation: {
         'fade-up':  'fade-up .8s cubic-bezier(.22,1,.36,1) both',
+        'slide-up': 'slide-up .8s cubic-bezier(.22,1,.36,1) both',
         'fade-in':  'fade-in .5s ease both',
         'rise':     'rise .95s cubic-bezier(.22,1,.36,1) both',
         'sheet-up': 'sheet-up .45s cubic-bezier(.22,1,.36,1) both',

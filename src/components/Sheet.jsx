@@ -41,7 +41,7 @@ export default function Sheet({
           'relative animate-sheet-up',
           full
             ? 'h-full w-full bg-bg'
-            : 'w-full sm:max-w-[820px] max-h-[92svh] sm:max-h-[88svh] overflow-y-auto overscroll-contain nice-scroll bg-bg2 border border-edge rounded-t-card sm:rounded-card shadow-2xl shadow-black/40',
+            : 'w-full sm:max-w-[820px] max-h-[92dvh] sm:max-h-[88dvh] overflow-y-auto overscroll-contain nice-scroll bg-bg2 border border-edge rounded-t-card sm:rounded-card shadow-2xl shadow-black/40',
           className,
         ].join(' ')}
       >

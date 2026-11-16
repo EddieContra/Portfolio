@@ -4,10 +4,11 @@ Personal portfolio site built with **Vite + React + Tailwind CSS**.
 Live at: <https://eddiecontra.github.io/Portfolio/>
 
 ## Stack
-- ⚛️  React 18
-- ⚡ Vite 6
-- 🎨 Tailwind CSS 3 (with CSS-variable theming for light/dark modes)
-- 🚀 Auto-deployed to GitHub Pages via Actions on every push to `main`
+- React 18, Vite 6, Tailwind CSS 3 (CSS-variable theming for light/dark modes)
+- No animation or 3D libraries: scroll effects use a small in-house helper on native scrolling,
+  and the hero's contour-line mountain is a few KB of plain WebGL
+- Self-hosted Montserrat (`public/fonts/`)
+- Auto-deployed to GitHub Pages via Actions on every push to `main`
 
 ## Getting started
 
@@ -22,54 +23,45 @@ npm run preview  # preview the production build locally
 
 ```
 src/
-├── App.jsx                 # composes all sections
-├── main.jsx                # React entry
-├── index.css               # Tailwind + theme tokens
-├── components/             # one file per section + utilities
-│   ├── Cursor.jsx          # custom cursor + ring follower
-│   ├── ScrollProgress.jsx
-│   ├── ThemeToggle.jsx     # light/dark switcher
-│   ├── ProjectModal.jsx
-│   ├── Nav.jsx
-│   ├── Hero.jsx
-│   ├── About.jsx
-│   ├── Skills.jsx
-│   ├── Projects.jsx
-│   ├── Experience.jsx
-│   ├── Gallery.jsx
-│   ├── Testimonials.jsx
-│   ├── Currently.jsx
-│   ├── Contact.jsx
-│   └── Footer.jsx
-├── data/                   # plain JS modules — swap copy / projects / etc. here
-│   ├── projects.js
-│   ├── experience.js
-│   ├── skills.js
-│   ├── gallery.js
-│   ├── testimonials.js
-│   └── now.js
-└── hooks/
-    ├── useScrollReveal.js
-    ├── useTheme.js
-    └── useStuckNav.js
+├── App.jsx          # composes all sections
+├── index.css        # fonts, theme tokens, shared classes
+├── data/            # ALL content — edit these to update the site
+├── components/      # one file per section + shared pieces (Icon, Sheet, ContourArt, …)
+├── hooks/           # theme, scroll progress, reveal, tilt, media queries
+├── lib/             # scroll helper, contour generator, device capability check, assets
+└── webgl/terrain.js # the hero scene
 ```
+
+`CLAUDE.md` has the full file map and the conventions (tokens, icons, motion, accessibility).
 
 ## Updating content
 
 | What | Where |
 |---|---|
+| Name, nav, hero + about text, stats, section headings | `src/data/site.js` |
 | Projects | `src/data/projects.js` |
-| Experience tabs | `src/data/experience.js` |
+| Experience timeline | `src/data/experience.js` |
 | Gallery items | `src/data/gallery.js` |
 | Testimonials | `src/data/testimonials.js` |
-| Skill cards | `src/data/skills.js` |
-| "Currently" cards & hero role rotator | `src/data/now.js` |
-| Email + socials | `src/components/Contact.jsx` |
+| Skill tiles | `src/data/skills.js` |
+| "Currently" cards & hero role ticker | `src/data/now.js` |
+| Email + socials | `src/data/socials.js` |
+| Contact intro + rows | `src/data/contact.js` |
 
-## Adding your CV
+## Images and CV
 
-Drop your CV as `public/cv.pdf` — the "Download CV" button in the hero links there.
+- Drop your CV at `public/cv.pdf` — the "Download CV" button in the hero links there.
+- Project, gallery and testimonial images are optional. Until a file exists under `public/images/`
+  (filenames are listed in `public/images/README.md`) the site shows generated contour artwork in
+  its place; add the file and rebuild to replace it.
 
 ## Theme tokens
 
-All colors live in CSS variables in `src/index.css` and are consumed via Tailwind utilities (`bg-bg`, `text-accent`, `border-edge`, etc.). Edit the `:root` and `.dark` blocks to retune the palette.
+All colors live in CSS variables in `src/index.css` and are consumed via Tailwind utilities
+(`bg-bg`, `text-text`, `bg-accent`, `text-accent-ink`, `border-edge`, …). Edit the `:root` and
+`.dark` blocks to retune the palette.
+
+## Testing the hero scene
+
+The live WebGL scene only runs on devices that pass a capability check; everyone else sees a static
+contour map. Add `?scene=on` or `?scene=off` to the URL to force either one.

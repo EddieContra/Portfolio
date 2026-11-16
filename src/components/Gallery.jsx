@@ -62,7 +62,7 @@ function Tile({ item, large, onOpen }) {
         <img src={src} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
       ) : (
         <>
-          <ContourArt seed={item.id + 31} width={300} height={300} cols={22} levels={7} peaks={2} className="absolute inset-0 h-full w-full text-accent opacity-60 transition-transform duration-700 ease-out group-hover:scale-110" />
+          <ContourArt seed={item.id + 31} width={300} height={300} cols={20} levels={5} peaks={2} className="absolute inset-0 h-full w-full text-accent opacity-45 transition-transform duration-700 ease-out group-hover:scale-110" />
           <span className="absolute inset-0 grid place-items-center text-text">
             <Icon name={item.icon} size={large ? 44 : 28} />
           </span>
