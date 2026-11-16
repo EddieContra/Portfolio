@@ -39,6 +39,21 @@ const LINE_ICONS = {
   arrowRight: <path d="M5 12h14M13 5l7 7-7 7" />,
   arrowUpRight: <path d="M7 17 17 7M7 7h10v10" />,
   close: <path d="M18 6 6 18M6 6l12 12" />,
+  // UI controls
+  arrowLeft: <path d="M19 12H5M11 5l-7 7 7 7" />,
+  arrowDown: <path d="M12 5v14M5 13l7 7 7-7" />,
+  plus: <path d="M12 5v14M5 12h14" />,
+  menu: <path d="M4 8h16M4 16h16" />,
+  play: <path d="M7 4.5v15l12-7.5-12-7.5Z" />,
+  pause: <path d="M8 5v14M16 5v14" />,
+  sun: (
+    <>
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+    </>
+  ),
+  moon: <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />,
+  quote: <path d="M10 7H6a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h2v1a3 3 0 0 1-3 3M20 7h-4a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h2v1a3 3 0 0 1-3 3" />,
 
   // --- content icons (replace former emojis) ---
   code: (

@@ -1,26 +1,21 @@
 import { useEffect } from 'react';
 
 /**
- * Watches all `.rv` elements in the document and adds `.in` when they
- * enter the viewport. Re-observes on every render so it picks up
- * elements added by filters/tabs/etc.
+ * Adds `.in` to every `.rv` element as it enters the viewport (see index.css).
+ * Pass deps to re-scan after the DOM changes (e.g. a filter swaps the items).
  */
 export function useScrollReveal(deps = []) {
   useEffect(() => {
     const els = document.querySelectorAll('.rv:not(.in)');
-    if (!els.length) return;
+    if (!els.length) return undefined;
 
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add('in');
-            io.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
-    );
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
 
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();

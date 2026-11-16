@@ -1,84 +1,119 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { HERO, SITE } from '../data/site';
 import { HERO_ROLES } from '../data/now';
+import { publicUrl } from '../lib/assets';
+import { Rich } from '../lib/rich';
+import { useScrollProgress } from '../hooks/useScrollProgress';
+import { useReducedMotion } from '../hooks/useMediaQuery';
+import { useInView } from '../hooks/useInView';
+import HeroBackdrop from './HeroBackdrop';
+import Icon from './Icon';
 
 export default function Hero() {
-  const [activeRole, setActiveRole] = useState(0);
+  const sectionRef = useRef(null);
+  const progress = useRef(0);
+  const reduced = useReducedMotion();
+  const active = useInView(sectionRef, { once: false });
 
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const id = setInterval(() => {
-      setActiveRole((i) => (i + 1) % HERO_ROLES.length);
-    }, 2200);
-    return () => clearInterval(id);
-  }, []);
+  // --p runs 0 → 1 while the hero scrolls out; the copy drifts up and fades
+  // (see the inline styles below) and the scene tips into a top-down map.
+  useScrollProgress(sectionRef, {
+    start: 0,
+    end: 0,
+    enabled: !reduced,
+    onProgress: (p) => { progress.current = reduced ? 0 : p; },
+  });
 
   return (
     <section
       id="hero"
-      className="relative min-h-[88vh] flex items-center pt-28 sm:pt-32 pb-16 overflow-hidden"
+      ref={sectionRef}
+      aria-label="Introduction"
+      className="relative flex min-h-[100svh] flex-col justify-end overflow-clip"
+      style={{ '--p': 0 }}
     >
-      <div className="wrap w-full relative">
-        <p className="text-sm text-muted mb-6 flex items-center gap-2 opacity-0 animate-up [animation-delay:.2s]">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
+      <HeroBackdrop progress={progress} active={active} />
+
+      <div
+        className="wrap relative pb-10 pt-32 sm:pb-14 motion-safe:will-change-transform"
+        style={reduced ? undefined : {
+          opacity: 'calc(1 - var(--p) * 1.7)',
+          transform: 'translate3d(0, calc(var(--p) * -72px), 0)',
+        }}
+      >
+        <p className="mb-5 flex items-center gap-3 text-sm text-muted animate-fade-up sm:mb-6">
+          <span className="relative flex h-2.5 w-2.5 shrink-0">
+            <span className="absolute inset-0 rounded-full bg-accent motion-safe:animate-pulse-ring" />
+            <span className="relative h-2.5 w-2.5 rounded-full bg-accent" />
           </span>
-          Available for opportunities · Arusha, Tanzania
+          {HERO.status}
         </p>
 
-        <h1 className="font-disp font-extrabold leading-[.95] tracking-tight text-[clamp(3rem,11vw,7.5rem)] opacity-0 animate-up [animation-delay:.4s]">
-          <span className="italic">Eddie</span>
-          <span className="text-accent">.</span>
+        <h1 className="font-disp text-[clamp(4.75rem,21vw,13.5rem)] font-extrabold italic leading-[.82] tracking-[-0.055em] text-text animate-fade-up [animation-delay:60ms]">
+          {SITE.name}
+          <span className="not-italic text-accent" aria-hidden="true">.</span>
         </h1>
 
-        <p className="mt-7 text-lg sm:text-xl md:text-2xl text-muted leading-snug max-w-2xl opacity-0 animate-up [animation-delay:.6s]">
-          AI &amp; automation developer, programming instructor, and designer building production AI agents and creative learning experiences from{' '}
-          <span className="text-text font-medium">Arusha, Tanzania</span>.
+        <RoleTicker reduced={reduced} />
+
+        <p className="mt-6 max-w-2xl text-[clamp(1.05rem,1.7vw,1.3rem)] leading-relaxed text-muted animate-fade-up [animation-delay:240ms]">
+          <Rich text={HERO.intro} />
         </p>
 
-        <div
-          className="flex flex-wrap gap-2 mt-8 opacity-0 animate-up [animation-delay:.8s]"
-          aria-label="Roles I take on"
-        >
-          {HERO_ROLES.map((r, i) => (
-            <span
-              key={r}
-              aria-current={i === activeRole}
-              className={[
-                'px-3 py-1 text-xs rounded-full border transition-all duration-300',
-                i === activeRole
-                  ? 'bg-accent text-bg border-accent font-semibold'
-                  : 'border-edge text-muted',
-              ].join(' ')}
-            >
-              {r}
-            </span>
-          ))}
+        <div className="mt-9 flex flex-wrap items-center gap-x-3 gap-y-3 animate-fade-up [animation-delay:320ms]">
+          <a href="#projects" className="btn-fill">
+            {HERO.actions.work}
+            <Icon name="arrowRight" size={17} />
+          </a>
+          <a href={publicUrl(SITE.cv.file)} download={SITE.cv.downloadName} className="btn-ghost">
+            <Icon name="download" size={17} />
+            {HERO.actions.cv}
+          </a>
+          <a href="#contact" className="btn-link sm:ml-2">
+            {HERO.actions.contact}
+            <Icon name="arrowUpRight" size={16} />
+          </a>
         </div>
 
-        <div className="flex flex-wrap gap-3 mt-10 opacity-0 animate-up [animation-delay:1s]">
-          <a href="#projects" className="btn-fill">
-            View work
-            <span aria-hidden="true">→</span>
-          </a>
-          <a
-            href={`${import.meta.env.BASE_URL}cv.pdf`}
-            download="Eddie-CV.pdf"
-            className="btn-ghost"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <polyline points="7 10 12 15 17 10" />
-              <line x1="12" y1="15" x2="12" y2="3" />
-            </svg>
-            Download CV
-          </a>
-          <a href="#contact" className="btn-ghost">
-            Get in touch
-            <span aria-hidden="true">↗</span>
-          </a>
-        </div>
+        <a
+          href="#about"
+          className="mt-12 hidden items-center gap-3 text-xs font-semibold uppercase tracking-label text-muted no-underline transition-colors hover:text-text sm:inline-flex animate-fade-up [animation-delay:500ms]"
+        >
+          <span className="grid h-9 w-9 place-items-center rounded-full border border-edge">
+            <Icon name="arrowDown" size={15} />
+          </span>
+          Scroll
+        </a>
       </div>
     </section>
+  );
+}
+
+/** Cycles through HERO_ROLES. Screen readers get the full list once. */
+function RoleTicker({ reduced }) {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (reduced) return undefined;
+    const id = setInterval(() => setIndex((i) => (i + 1) % HERO_ROLES.length), 2800);
+    return () => clearInterval(id);
+  }, [reduced]);
+
+  return (
+    <div className="mt-6 animate-fade-up [animation-delay:160ms] sm:mt-8">
+      <ul className="sr-only">
+        {HERO_ROLES.map((role) => <li key={role}>{role}</li>)}
+      </ul>
+      {reduced ? (
+        <p aria-hidden="true" className="flex flex-wrap gap-2">
+          {HERO_ROLES.map((role) => <span key={role} className="tag-pill">{role}</span>)}
+        </p>
+      ) : (
+        <p aria-hidden="true" className="flex h-8 items-center gap-3 overflow-hidden text-[clamp(1.05rem,2.2vw,1.5rem)] font-bold tracking-tight text-text">
+          <span className="h-px w-8 shrink-0 bg-accent sm:w-12" />
+          <span key={index} className="block animate-rise [animation-duration:.7s]">{HERO_ROLES[index]}</span>
+        </p>
+      )}
+    </div>
   );
 }

@@ -2,110 +2,213 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Fonts: self-hosted Montserrat (public/fonts) ─────────────────────────── */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/montserrat-latin-var.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: italic;
+  font-weight: 800;
+  font-display: swap;
+  src: url('/fonts/montserrat-latin-800-italic.woff2') format('woff2');
+}
+/* Metric-matched fallback so the swap to Montserrat does not shift layout. */
+@font-face {
+  font-family: 'Montserrat Fallback';
+  src: local('Arial'), local('Helvetica Neue'), local('Roboto');
+  size-adjust: 113.62%;
+  ascent-override: 85.2%;
+  descent-override: 22.09%;
+  line-gap-override: 0%;
+}
+
 @layer base {
   :root {
-    /* LIGHT theme — applied when html does NOT have .dark (default) */
-    --c-bg:      231 233 237; /* muted cool gray page (#e7e9ed) */
-    --c-bg2:     243 244 246; /* cards — lighter than the page so they read as raised */
-    --c-bg3:     221 224 229; /* recessed chips / icon tiles */
-    --c-accent:  255 107 0;   /* #ff6b00 */
-    --c-text:    0 0 0;
-    --c-muted:   88 96 112;   /* secondary text, darkened for AA on the gray bg */
-    --c-border:  207 212 218; /* hairline, tuned for the muted-gray bg */
+    /* LIGHT — warm paper, ink, signal orange */
+    --c-bg:         244 243 238; /* #f4f3ee page */
+    --c-bg2:        253 253 251; /* #fdfdfb cards */
+    --c-bg3:        233 231 223; /* #e9e7df chips, icon tiles */
+    --c-text:       19 19 17;    /* #131311 */
+    --c-muted:      85 85 79;    /* #55554f — 6.0:1+ on every surface */
+    --c-border:     217 214 204; /* #d9d6cc */
+    --c-accent:     255 107 0;   /* #ff6b00 — fills and graphics only */
+    --c-accent-ink: 163 65 0;    /* #a34100 — accent-coloured text, AA on bg/bg2/bg3 */
+    --c-on-accent:  26 11 0;     /* #1a0b00 — text on an orange fill (6.7:1) */
   }
 
   .dark {
-    /* DARK theme — applied via .dark on <html> */
-    --c-bg:      8 8 8;
-    --c-bg2:     16 16 16;
-    --c-bg3:     24 24 24;
-    --c-accent:  200 241 53; /* lime — Eddie's signature dark accent */
-    --c-text:    240 240 232;
-    --c-muted:   140 140 140;
-    --c-border:  32 32 32;
+    /* DARK (default) — near-black, warm white, lime */
+    --c-bg:         10 10 11;    /* #0a0a0b */
+    --c-bg2:        19 19 20;    /* #131314 */
+    --c-bg3:        28 28 30;    /* #1c1c1e */
+    --c-text:       240 240 232; /* #f0f0e8 */
+    --c-muted:      163 163 155; /* #a3a39b — 6.7:1+ on every surface */
+    --c-border:     44 44 47;    /* #2c2c2f */
+    --c-accent:     200 241 53;  /* #c8f135 */
+    --c-accent-ink: 200 241 53;  /* lime is already AAA on dark surfaces */
+    --c-on-accent:  10 10 11;
   }
 
   *, *::before, *::after { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  /* Keep section headings clear of the fixed nav when jumping to an anchor */
-  section[id] { scroll-margin-top: 4.5rem; }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-padding-top: 5.5rem;
+    scrollbar-gutter: stable;
+    background-color: rgb(var(--c-bg)); /* overscroll / rubber-band colour */
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+  /* Page scroll is locked while a modal <dialog> is open. */
+  html:has(dialog[open]) { overflow: hidden; }
+
   body {
     margin: 0;
+    min-height: 100svh;
     background-color: rgb(var(--c-bg));
-    /* Subtle dot grid — adds texture, fades into background */
-    background-image:
-      radial-gradient(circle at 1px 1px, rgb(var(--c-text) / 0.045) 1px, transparent 0);
-    background-size: 28px 28px;
     color: rgb(var(--c-text));
-    font-family: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
-    overflow-x: hidden;
-    transition: background-color .35s ease, color .35s ease;
-    font-feature-settings: 'ss01', 'cv11';
+    font-family: 'Montserrat', 'Montserrat Fallback', ui-sans-serif, system-ui, sans-serif;
+    font-size: 1rem;
+    line-height: 1.65;
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  ::selection { background: rgb(var(--c-accent)); color: rgb(var(--c-bg)); }
-  *:focus-visible { outline: 2px solid rgb(var(--c-accent)); outline-offset: 3px; }
+  h1, h2, h3, h4 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+
+  ::selection { background: rgb(var(--c-accent)); color: rgb(var(--c-on-accent)); }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--c-accent-ink));
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  dialog { color: inherit; }
+  dialog::backdrop { background: transparent; }
 }
 
 @layer components {
-  /* Constrained content container — Ankur-style 4xl */
+  /* Page container; side padding never sits under a notch. */
   .wrap {
-    @apply max-w-4xl mx-auto px-6 sm:px-8;
+    width: 100%;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-left: max(1.25rem, env(safe-area-inset-left));
+    padding-right: max(1.25rem, env(safe-area-inset-right));
+  }
+  @media (min-width: 640px) {
+    .wrap {
+      padding-left: max(2rem, env(safe-area-inset-left));
+      padding-right: max(2rem, env(safe-area-inset-right));
+    }
   }
 
-  /* Section eyebrow label */
+  .section { @apply relative py-20 sm:py-28 lg:py-32; }
+
+  /* Eyebrow: "01 — About" */
   .sec-label {
-    @apply text-[.7rem] tracking-[.22em] uppercase text-accent block mb-3 font-semibold;
+    @apply flex items-center gap-3 text-xs font-semibold uppercase tracking-label text-muted mb-5;
   }
+  .sec-label b { @apply font-semibold text-accent-ink tabular-nums; }
+  .sec-label i { @apply block h-px w-8 bg-edge not-italic; }
 
-  /* Section heading */
   .sec-title {
-    @apply font-disp font-extrabold leading-[1.08] mb-8 tracking-tight
-           text-[clamp(1.6rem,4vw,2.5rem)] text-text;
+    @apply font-disp font-extrabold tracking-display leading-[1.02] text-text
+           text-[clamp(2.1rem,6vw,4rem)];
   }
 
-  /* Primary button — black-on-white in light, white-on-black in dark */
-  .btn-fill {
-    @apply inline-flex items-center gap-2 bg-text text-bg px-5 py-2.5 rounded-full
-           text-sm font-medium transition-colors duration-200 no-underline
-           hover:bg-accent hover:text-bg;
+  .lede { @apply text-[clamp(1.05rem,1.5vw,1.25rem)] leading-relaxed text-muted; }
+
+  /* Buttons — 48px tall touch targets */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 min-h-[3rem] px-6 rounded-full
+           text-[.95rem] font-semibold no-underline cursor-pointer select-none
+           transition-[background-color,color,border-color,transform] duration-300 ease-out
+           active:scale-[.97];
+  }
+  .btn-fill  { @apply btn bg-accent text-accent-on hover:bg-text hover:text-bg; }
+  .btn-ghost { @apply btn border border-text/25 text-text hover:border-text hover:bg-text hover:text-bg; }
+  .btn-link  {
+    @apply inline-flex items-center gap-1.5 min-h-[3rem] px-1 text-[.95rem] font-semibold text-text no-underline
+           underline-offset-[6px] decoration-accent decoration-2 hover:underline;
   }
 
-  /* Ghost / secondary button */
-  .btn-ghost {
-    @apply inline-flex items-center gap-2 border border-edge text-text px-5 py-2.5 rounded-full
-           text-sm font-medium transition-colors duration-200 no-underline
-           hover:border-accent hover:text-accent;
+  /* Round icon button (44px) */
+  .icon-btn {
+    @apply grid place-items-center w-11 h-11 shrink-0 rounded-full border border-edge bg-bg2 text-text cursor-pointer
+           transition-colors duration-200 hover:border-text disabled:opacity-35 disabled:cursor-default disabled:hover:border-edge;
   }
 
-  /* Pill tag — for skill rows, project tags */
+  .card { @apply bg-bg2 border border-edge rounded-card; }
+
   .tag-pill {
-    @apply bg-bg2 border border-edge px-3 py-1 text-xs text-muted rounded-full
-           transition-colors duration-200 cursor-default
-           hover:border-accent hover:text-accent;
+    @apply inline-flex items-center px-3 py-1 text-[.8rem] leading-5 text-muted bg-bg3 rounded-full;
   }
+
+  .kicker { @apply text-xs font-semibold uppercase tracking-label text-accent-ink; }
 }
 
 @layer utilities {
-  /* Scroll-reveal — toggled by useScrollReveal hook */
-  .rv {
+  /* Scroll-reveal — only hides content when JS is running (html.js). */
+  .js .rv {
     opacity: 0;
-    transform: translateY(28px);
-    transition: opacity .8s ease, transform .8s ease;
+    transform: translate3d(0, 22px, 0);
+    transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
   }
-  .rv.in { opacity: 1; transform: none; }
-  .rv-d1 { transition-delay: .08s; }
-  .rv-d2 { transition-delay: .16s; }
-  .rv-d3 { transition-delay: .24s; }
-  .rv-d4 { transition-delay: .32s; }
+  .js .rv.in { opacity: 1; transform: none; }
+  .rv-d1 { transition-delay: .07s; }
+  .rv-d2 { transition-delay: .14s; }
+  .rv-d3 { transition-delay: .21s; }
+  .rv-d4 { transition-delay: .28s; }
 
-  /* Subtle scrollbar in modal */
-  .nice-scroll::-webkit-scrollbar { width: 8px; }
-  .nice-scroll::-webkit-scrollbar-track { background: transparent; }
-  .nice-scroll::-webkit-scrollbar-thumb { background: rgb(var(--c-border)); border-radius: 4px; }
-  .nice-scroll::-webkit-scrollbar-thumb:hover { background: rgb(var(--c-accent)); }
+  /* Cursor spotlight — useTilt sets --mx / --my / --spot */
+  .spotlight { position: relative; }
+  .spotlight::after {
+    content: '';
+    position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+    background: radial-gradient(22rem circle at var(--mx, 50%) var(--my, 50%), rgb(var(--c-accent) / .14), transparent 55%);
+    opacity: var(--spot, 0);
+    transition: opacity .35s ease;
+  }
+
+  /* Word-by-word highlight: the paragraph gets --p (0..1) and --n (word count)
+     from useScrollProgress; each word carries its index in --i. */
+  .reveal-words [data-w] {
+    opacity: clamp(.25, calc(var(--p, 1) * (var(--n) + 3) - var(--i)), 1);
+  }
+
+  .preserve-3d { transform-style: preserve-3d; }
+
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+
+  .pt-safe { padding-top: env(safe-area-inset-top); }
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+
+  /* Thin scrollbar for sheets */
+  .nice-scroll { scrollbar-width: thin; scrollbar-color: rgb(var(--c-border)) transparent; }
 }
 
+/* Everything settles instantly when the visitor asks for less motion. */
 @media (prefers-reduced-motion: reduce) {
-  .rv { transition: none; opacity: 1 !important; transform: none !important; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
+  }
+  .js .rv { opacity: 1; transform: none; }
 }

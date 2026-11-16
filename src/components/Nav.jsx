@@ -1,178 +1,154 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { NAV_LINKS, SECTIONS, SITE } from '../data/site';
+import { SOCIALS, EMAIL } from '../data/socials';
 import { useStuckNav } from '../hooks/useStuckNav';
 import { useActiveSection } from '../hooks/useActiveSection';
-import { SOCIALS, EMAIL } from '../data/socials';
+import { trackPageProgress } from '../lib/scroll';
 import ThemeToggle from './ThemeToggle';
+import Sheet from './Sheet';
 import Icon from './Icon';
 
-const LINKS = [
-  { href: '#about',      label: 'About' },
-  { href: '#experience', label: 'Work' },
-  { href: '#projects',   label: 'Projects' },
-  { href: '#gallery',    label: 'Gallery' },
-  { href: '#contact',    label: 'Contact' },
-];
+// Every section is observed, so no link is highlighted while the visitor is
+// in a section that has no nav entry (hero, skills, testimonials…).
+const SECTION_IDS = ['hero', ...Object.keys(SECTIONS)];
 
-const SECTION_IDS = LINKS.map((l) => l.href.slice(1));
+function Wordmark({ className = '' }) {
+  return (
+    <a
+      href="#hero"
+      aria-label={`${SITE.name}, back to top`}
+      className={`font-disp text-xl font-extrabold italic tracking-tight text-text no-underline ${className}`}
+    >
+      {SITE.name}<span className="not-italic text-accent">.</span>
+    </a>
+  );
+}
 
-// The mobile overlay covers the logo, so it needs its own way back to the top.
-const MOBILE_LINKS = [{ href: '#hero', label: 'Home' }, ...LINKS];
-
+/** Floating pill navigation with scroll-spy and a page-progress hairline. */
 export default function Nav() {
-  const stuck = useStuckNav();
+  const stuck = useStuckNav(24);
   const active = useActiveSection(SECTION_IDS);
-  const [mob, setMob] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const progressRef = useRef(null);
 
-  const closeMob = () => {
-    setMob(false);
-    document.body.style.overflow = '';
-  };
-  const toggleMob = () => {
-    const next = !mob;
-    setMob(next);
-    document.body.style.overflow = next ? 'hidden' : '';
-  };
+  useEffect(() => trackPageProgress((p) => {
+    if (progressRef.current) progressRef.current.style.transform = `scaleX(${p.toFixed(4)})`;
+  }), []);
 
   return (
-    <>
-      <nav
-        className={[
-          'fixed top-0 left-0 right-0 z-[200] transition-all duration-300',
-          stuck ? 'bg-bg/85 backdrop-blur-md border-b border-edge shadow-[0_1px_20px_-12px_rgba(0,0,0,0.45)]' : '',
-        ].join(' ')}
-      >
-        <div className={[
-          'wrap flex justify-between items-center transition-all duration-300',
-          stuck ? 'py-3' : 'py-5',
-        ].join(' ')}>
-          <a
-            href="#hero"
-            className="font-disp font-extrabold text-xl text-text no-underline tracking-tight italic"
-          >
-            Eddie<span className="text-accent not-italic">.</span>
-          </a>
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-50 pt-[max(.75rem,env(safe-area-inset-top))]">
+      <div className="wrap">
+        <nav
+          aria-label="Primary"
+          className={[
+            'pointer-events-auto relative flex h-14 items-center justify-between overflow-hidden rounded-full border pl-5 pr-1.5',
+            'transition-[background-color,border-color,box-shadow] duration-500 ease-out',
+            stuck
+              ? 'border-edge bg-bg2/85 shadow-lg shadow-black/10 backdrop-blur-md'
+              : 'border-transparent bg-transparent',
+          ].join(' ')}
+        >
+          <Wordmark />
 
-          <div className="flex items-center gap-7 max-[768px]:hidden">
-            <ul className="flex gap-7 list-none items-center m-0 p-0">
-              {LINKS.map((l) => {
-                const isActive = active === l.href.slice(1);
-                return (
-                  <li key={l.href}>
-                    <a
-                      href={l.href}
-                      aria-current={isActive ? 'page' : undefined}
-                      className={[
-                        'relative text-sm no-underline transition-colors duration-200',
-                        'after:absolute after:left-0 after:-bottom-1.5 after:h-[2px] after:rounded-full',
-                        'after:bg-accent after:transition-all after:duration-300',
-                        isActive
-                          ? 'text-text after:w-full'
-                          : 'text-muted hover:text-text after:w-0 hover:after:w-full',
-                      ].join(' ')}
-                    >
-                      {l.label}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-            <ThemeToggle />
-          </div>
+          <ul className="m-0 hidden list-none items-center gap-1 p-0 md:flex">
+            {NAV_LINKS.map((link) => {
+              const current = active === link.id;
+              return (
+                <li key={link.id}>
+                  <a
+                    href={`#${link.id}`}
+                    aria-current={current ? 'true' : undefined}
+                    className={[
+                      'relative flex h-11 items-center rounded-full px-4 text-sm font-medium no-underline transition-colors duration-200',
+                      current ? 'text-text' : 'text-muted hover:text-text',
+                    ].join(' ')}
+                  >
+                    {link.label}
+                    <span
+                      aria-hidden="true"
+                      className={`absolute bottom-1.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-accent transition-opacity duration-300 ${current ? 'opacity-100' : 'opacity-0'}`}
+                    />
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
 
-          <div className="hidden max-[768px]:flex items-center gap-3">
+          <div className="flex items-center">
             <ThemeToggle />
             <button
               type="button"
-              onClick={toggleMob}
-              aria-label="Menu"
-              aria-expanded={mob}
-              className="flex flex-col gap-[5px] cursor-pointer z-[300] bg-transparent border-none p-0"
+              onClick={() => setMenuOpen(true)}
+              aria-label="Open menu"
+              aria-haspopup="dialog"
+              aria-expanded={menuOpen}
+              className="grid h-11 w-11 cursor-pointer place-items-center rounded-full text-text transition-colors hover:bg-text/10 md:hidden"
             >
-              <span className={`w-[24px] h-[2px] bg-text block transition-all duration-300 ${mob ? 'translate-y-[7px] rotate-45' : ''}`} />
-              <span className={`w-[24px] h-[2px] bg-text block transition-all duration-300 ${mob ? 'opacity-0' : ''}`} />
-              <span className={`w-[24px] h-[2px] bg-text block transition-all duration-300 ${mob ? '-translate-y-[7px] -rotate-45' : ''}`} />
+              <Icon name="menu" size={22} />
             </button>
           </div>
-        </div>
-      </nav>
 
-      <div
-        className={[
-          'fixed inset-0 z-[250] bg-bg/95 backdrop-blur-xl flex flex-col',
-          'transition-transform duration-500 ease-[cubic-bezier(.77,0,.175,1)]',
-          mob ? 'translate-x-0' : 'translate-x-full',
-        ].join(' ')}
-        aria-hidden={!mob}
-      >
-        <div className="flex flex-col h-full px-8 pt-24 pb-10">
-          <span className="sec-label">Navigation</span>
+          <span
+            ref={progressRef}
+            aria-hidden="true"
+            className={`absolute inset-x-5 bottom-0 h-px origin-left bg-accent transition-opacity duration-500 ${stuck ? 'opacity-100' : 'opacity-0'}`}
+            style={{ transform: 'scaleX(0)' }}
+          />
+        </nav>
+      </div>
 
-          <nav className="flex flex-col mt-3 divide-y divide-edge">
-            {MOBILE_LINKS.map((l, i) => {
-              const isActive = active === l.href.slice(1);
-              return (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  onClick={closeMob}
-                  aria-current={isActive ? 'page' : undefined}
-                  style={{ transitionDelay: mob ? `${140 + i * 55}ms` : '0ms' }}
-                  className={[
-                    'group flex items-center justify-between py-4 no-underline transition-all duration-500',
-                    mob ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-6',
-                  ].join(' ')}
-                >
-                  <span className="flex items-baseline gap-4">
-                    <span className="text-xs font-mono text-muted w-6">{`0${i + 1}`}</span>
-                    <span
-                      className={[
-                        'font-disp text-3xl font-extrabold italic tracking-tight transition-colors',
-                        isActive ? 'text-accent' : 'text-text group-hover:text-accent',
-                      ].join(' ')}
-                    >
-                      {l.label}
-                    </span>
+      {menuOpen && <MobileMenu active={active} onClose={() => setMenuOpen(false)} />}
+    </header>
+  );
+}
+
+function MobileMenu({ active, onClose }) {
+  const links = [{ id: 'hero', label: 'Home' }, ...NAV_LINKS];
+
+  return (
+    <Sheet variant="full" label="Menu" closeLabel="Close menu" onClose={onClose} className="pointer-events-auto">
+      <div className="flex h-full flex-col overflow-y-auto overscroll-contain px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[max(1.6rem,env(safe-area-inset-top))]">
+        <Wordmark className="self-start" />
+
+        <nav aria-label="Menu" className="mt-10 flex flex-col">
+          {links.map((link, i) => {
+            const current = active === link.id;
+            return (
+              <a
+                key={link.id}
+                href={`#${link.id}`}
+                onClick={onClose}
+                aria-current={current ? 'true' : undefined}
+                style={{ animationDelay: `${80 + i * 45}ms` }}
+                className="group flex min-h-[3.75rem] items-center justify-between border-b border-edge no-underline animate-fade-up"
+              >
+                <span className="flex items-baseline gap-4">
+                  <span className="w-6 text-xs font-semibold tabular-nums text-muted">{String(i + 1).padStart(2, '0')}</span>
+                  <span className={`font-disp text-[1.9rem] font-extrabold tracking-display ${current ? 'text-accent-ink' : 'text-text'}`}>
+                    {link.label}
                   </span>
-                  <Icon
-                    name="arrowUpRight"
-                    size={20}
-                    className={[
-                      'transition-all duration-200 group-hover:translate-x-0.5',
-                      isActive ? 'text-accent' : 'text-muted group-hover:text-accent',
-                    ].join(' ')}
-                  />
-                </a>
-              );
-            })}
-          </nav>
+                </span>
+                <Icon name="arrowUpRight" size={20} className={current ? 'text-accent-ink' : 'text-muted'} />
+              </a>
+            );
+          })}
+        </nav>
 
-          <div
-            className="mt-auto pt-8 transition-all duration-500"
-            style={{ transitionDelay: mob ? `${140 + MOBILE_LINKS.length * 55}ms` : '0ms' }}
-          >
-            <a
-              href={`mailto:${EMAIL}`}
-              className="text-sm text-muted hover:text-accent transition-colors no-underline break-all"
-            >
-              {EMAIL}
-            </a>
-            <div className="flex items-center gap-2.5 mt-5">
-              {SOCIALS.slice(0, 5).map((s) => (
-                <a
-                  key={s.title}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={s.title}
-                  className="w-9 h-9 grid place-items-center border border-edge rounded-full text-muted transition-colors hover:bg-text hover:text-bg hover:border-text"
-                >
-                  <Icon name={s.icon} size={15} />
+        <div className="mt-auto pt-10">
+          <a href={`mailto:${EMAIL}`} className="inline-flex min-h-[2.75rem] items-center break-all text-sm text-muted no-underline">
+            {EMAIL}
+          </a>
+          <ul className="m-0 mt-3 flex list-none flex-wrap gap-2.5 p-0">
+            {SOCIALS.map((social) => (
+              <li key={social.title}>
+                <a href={social.href} target="_blank" rel="noopener noreferrer" aria-label={`${social.title} (opens in a new tab)`} className="icon-btn">
+                  <Icon name={social.icon} size={17} />
                 </a>
-              ))}
-            </div>
-          </div>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
-    </>
+    </Sheet>
   );
 }
