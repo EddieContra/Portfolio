@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="description" content="Computer Science graduate building thoughtful software, AI agents, and creative learning experiences from Arusha, Tanzania." />
-  <meta name="theme-color" content="#e7e9ed" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#080808" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#0a0a0b" />
+  <meta name="color-scheme" content="dark light" />
   <title>Eddie | Developer · AI Engineer · Designer · Educator</title>
 
   <link rel="canonical" href="https://eddiecontra.github.io/Portfolio/" />
@@ -27,21 +27,34 @@
   <meta name="twitter:title" content="Eddie | Developer · AI Engineer · Designer · Educator" />
   <meta name="twitter:description" content="Building thoughtful software, AI agents, and creative learning experiences from Arusha, Tanzania." />
   <meta name="twitter:image" content="https://eddiecontra.github.io/Portfolio/og-image.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
+
+  <!-- Self-hosted Montserrat (see public/fonts/README.md). Both files are used above the fold. -->
+  <link rel="preload" href="%BASE_URL%fonts/montserrat-latin-var.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="%BASE_URL%fonts/montserrat-latin-800-italic.woff2" as="font" type="font/woff2" crossorigin />
+
   <script>
-    // Restore theme before paint to avoid flash. Default = LIGHT.
+    // Runs before first paint: restore the theme (default = dark) and mark the
+    // document as scripted so reveal styles only hide content when JS can show it.
     (function () {
-      try {
-        var t = localStorage.getItem('theme');
-        if (t === 'dark') document.documentElement.classList.add('dark');
-      } catch (e) {}
+      var root = document.documentElement;
+      var dark = true;
+      try { dark = localStorage.getItem('theme') !== 'light'; } catch (e) {}
+      root.classList.add('js');
+      root.classList.toggle('dark', dark);
+      root.style.colorScheme = dark ? 'dark' : 'light';
+      var meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute('content', dark ? '#0a0a0b' : '#f4f3ee');
     })();
   </script>
 </head>
 <body>
   <div id="root"></div>
+  <noscript>
+    <p style="max-width:40rem;margin:4rem auto;padding:0 1.5rem;font-family:system-ui,sans-serif;line-height:1.6">
+      This portfolio needs JavaScript to display. You can reach Eddie at
+      <a href="mailto:emmanueledmund00@gmail.com">emmanueledmund00@gmail.com</a>.
+    </p>
+  </noscript>
   <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>

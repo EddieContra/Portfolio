@@ -1,35 +1,37 @@
 import { NOW_CARDS } from '../data/now';
+import { useTilt } from '../hooks/useTilt';
+import SectionHeader, { headingId } from './SectionHeader';
 import Icon from './Icon';
 
 export default function Currently() {
   return (
-    <section id="currently" className="py-20 sm:py-28 border-t border-edge">
+    <section id="currently" aria-labelledby={headingId('currently')} className="section !pt-0">
       <div className="wrap">
-        <span className="sec-label">Right now</span>
-        <h2 className="sec-title rv">Currently</h2>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-          {NOW_CARDS.map((c, i) => (
-            <article
-              key={c.title}
-              className={`flex gap-4 items-start p-5 rounded-2xl border border-edge bg-bg2 transition-colors hover:border-accent/50 rv rv-d${i + 1}`}
-            >
-              <div className="grid place-items-center w-11 h-11 shrink-0 rounded-xl bg-bg3 text-accent">
-                <Icon name={c.icon} size={22} />
-              </div>
-              <div className="min-w-0">
-                <div className="text-[.65rem] tracking-[.18em] uppercase text-accent mb-1 font-semibold">
-                  {c.label}
-                </div>
-                <h3 className="font-bold text-base text-text mb-1.5 leading-snug">
-                  {c.title}
-                </h3>
-                <p className="text-sm text-muted leading-relaxed">{c.sub}</p>
-              </div>
-            </article>
+        <SectionHeader id="currently" />
+        <ul className="m-0 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2 lg:grid-cols-4">
+          {NOW_CARDS.map((card, i) => (
+            <li key={card.title} className={`rv rv-d${(i % 4) + 1}`}>
+              <NowCard card={card} />
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
+  );
+}
+
+function NowCard({ card }) {
+  const ref = useTilt({ max: 5 });
+  return (
+    <article ref={ref} className="spotlight card flex h-full flex-col p-6">
+      <div className="mb-6 flex items-center justify-between">
+        <span className="grid h-11 w-11 place-items-center rounded-2xl bg-bg3 text-accent-ink">
+          <Icon name={card.icon} size={21} />
+        </span>
+        <span className="kicker">{card.label}</span>
+      </div>
+      <h3 className="mb-2 text-[1.1rem] font-bold leading-snug tracking-tight text-text">{card.title}</h3>
+      <p className="text-[.92rem] leading-relaxed text-muted">{card.sub}</p>
+    </article>
   );
 }

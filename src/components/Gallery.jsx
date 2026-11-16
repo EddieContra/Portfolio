@@ -1,74 +1,44 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { GALLERY, GALLERY_FILTERS } from '../data/gallery';
+import { asset } from '../lib/assets';
 import { useScrollReveal } from '../hooks/useScrollReveal';
-import { useModalFocus } from '../hooks/useModalFocus';
+import SectionHeader, { headingId } from './SectionHeader';
+import ContourArt from './ContourArt';
+import Lightbox from './Lightbox';
 import Icon from './Icon';
+
+const labelFor = (cat) => GALLERY_FILTERS.find((f) => f.key === cat)?.label ?? cat;
 
 export default function Gallery() {
   const [filter, setFilter] = useState('all');
   const [lightbox, setLightbox] = useState(null); // index within `items`, or null
 
   const items = useMemo(
-    () => (filter === 'all' ? GALLERY : GALLERY.filter((g) => g.cat === filter)),
+    () => GALLERY.map((item, id) => ({ ...item, id })).filter((item) => filter === 'all' || item.cat === filter),
     [filter]
   );
 
-  // Re-observe reveal targets when filter changes (new DOM)
+  // New tiles mount when the filter changes; reveal them too.
   useScrollReveal([filter]);
 
   return (
-    <section id="gallery" className="py-20 sm:py-28 border-t border-edge">
+    <section id="gallery" aria-labelledby={headingId('gallery')} className="section border-y border-edge bg-bg2">
       <div className="wrap">
-        <span className="sec-label">Creative work</span>
-        <h2 className="sec-title rv">Gallery</h2>
+        <SectionHeader id="gallery">
+          <FilterBar value={filter} onChange={setFilter} />
+        </SectionHeader>
 
-        <div className="flex gap-2 flex-wrap mb-8" role="tablist" aria-label="Filter gallery">
-          {GALLERY_FILTERS.map((f) => (
-            <button
-              key={f.key}
-              type="button"
-              role="tab"
-              aria-selected={filter === f.key}
-              onClick={() => setFilter(f.key)}
-              className={[
-                'px-4 py-1.5 text-xs tracking-wide rounded-full border transition-colors cursor-pointer font-sans',
-                filter === f.key
-                  ? 'bg-text text-bg border-text'
-                  : 'border-edge text-muted hover:border-text hover:text-text',
-              ].join(' ')}
-            >
-              {f.label}
-            </button>
-          ))}
-        </div>
+        <p className="sr-only" role="status">
+          {`Showing ${items.length} ${items.length === 1 ? 'item' : 'items'}: ${labelFor(filter)}`}
+        </p>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-          {items.map((g, i) => (
-            <button
-              key={`${g.label}-${i}`}
-              type="button"
-              onClick={() => setLightbox(i)}
-              aria-label={`View ${g.label}`}
-              className="group aspect-square bg-bg2 border border-edge rounded-xl grid place-items-center text-muted relative overflow-hidden cursor-pointer rv transition-colors"
-              data-cat={g.cat}
-            >
-              <Icon name={g.icon} size={30} className="transition-colors group-hover:text-accent" />
-              {g.img && (
-                <img
-                  src={`${import.meta.env.BASE_URL}${g.img}`}
-                  alt={g.label}
-                  loading="lazy"
-                  onError={(e) => { e.currentTarget.style.display = 'none'; }}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              )}
-              <div className="absolute inset-0 bg-text/95 flex flex-col items-center justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 px-3 text-center">
-                <span className="text-bg font-medium text-sm">{g.label}</span>
-                <small className="text-[.6rem] uppercase tracking-wide text-bg/70">{g.cat}</small>
-              </div>
-            </button>
+        <ul className="m-0 grid list-none grid-cols-2 gap-3 p-0 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+          {items.map((item, i) => (
+            <li key={`${filter}-${item.id}`} className={`rv rv-d${(i % 4) + 1}`}>
+              <Tile item={item} onOpen={() => setLightbox(i)} />
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
 
       {lightbox !== null && (
@@ -78,83 +48,92 @@ export default function Gallery() {
   );
 }
 
-function Lightbox({ items, index, onIndex, onClose }) {
-  const g = items[index];
-  const many = items.length > 1;
-  const boxRef = useRef(null);
-  const prev = () => onIndex((index - 1 + items.length) % items.length);
-  const next = () => onIndex((index + 1) % items.length);
+function Tile({ item, onOpen }) {
+  const src = asset(item.img);
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      aria-haspopup="dialog"
+      aria-label={`${item.label}, ${labelFor(item.cat)}. Open viewer`}
+      className="group relative block aspect-square w-full cursor-pointer overflow-hidden rounded-[1.1rem] border border-edge bg-bg3 text-left"
+    >
+      {src ? (
+        <img src={src} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
+      ) : (
+        <>
+          <ContourArt seed={item.id + 31} width={300} height={300} cols={20} levels={5} peaks={2} className="absolute inset-0 h-full w-full text-accent opacity-45 transition-transform duration-700 ease-out group-hover:scale-110" />
+          <span className="absolute inset-0 grid place-items-center text-text">
+            <Icon name={item.icon} size={28} />
+          </span>
+        </>
+      )}
+      {/* caption is always visible: there is no hover on touch screens */}
+      <span className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 bg-gradient-to-t from-bg3 via-bg3/90 to-transparent p-3 pt-8 sm:p-4 sm:pt-10">
+        <span className="min-w-0">
+          <span className="block truncate text-sm font-semibold text-text">{item.label}</span>
+          <span className="block text-xs text-muted">{labelFor(item.cat)}</span>
+        </span>
+        <span className="hidden h-8 w-8 shrink-0 place-items-center rounded-full bg-accent text-accent-on opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 sm:grid">
+          <Icon name="arrowUpRight" size={15} />
+        </span>
+      </span>
+    </button>
+  );
+}
 
-  useModalFocus(boxRef);
+/** Filter chips with a sliding highlight. Scrolls sideways on narrow screens. */
+function FilterBar({ value, onChange }) {
+  const groupRef = useRef(null);
+  const [pill, setPill] = useState(null);
 
-  useEffect(() => {
-    const onKey = (e) => {
-      if (e.key === 'Escape') onClose();
-      else if (e.key === 'ArrowRight') next();
-      else if (e.key === 'ArrowLeft') prev();
+  useLayoutEffect(() => {
+    const group = groupRef.current;
+    const measure = () => {
+      const button = group.querySelector('[aria-pressed="true"]');
+      if (button) setPill({ left: button.offsetLeft, width: button.offsetWidth });
     };
-    document.addEventListener('keydown', onKey);
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.removeEventListener('keydown', onKey);
-      document.body.style.overflow = '';
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index, items.length]);
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(group);
+    return () => observer.disconnect();
+  }, [value]);
+
+  const select = (key, event) => {
+    onChange(key);
+    event.currentTarget.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+  };
 
   return (
-    <div
-      ref={boxRef}
-      role="dialog"
-      aria-modal="true"
-      aria-label={g.label}
-      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
-      className="fixed inset-0 z-[500] bg-black/90 backdrop-blur-md flex items-center justify-center p-6 animate-[up_.3s_ease_forwards]"
-    >
-      <button
-        onClick={onClose}
-        aria-label="Close"
-        className="absolute top-5 right-5 w-11 h-11 grid place-items-center rounded-full border border-white/20 text-white/85 hover:text-accent hover:border-accent transition-colors cursor-pointer"
+    <div className="rv -mx-5 max-w-[100vw] overflow-x-auto px-5 no-scrollbar sm:mx-0 sm:px-0">
+      <div
+        ref={groupRef}
+        role="group"
+        aria-label="Filter gallery"
+        className="relative inline-flex rounded-full border border-edge bg-bg p-1"
       >
-        <Icon name="close" size={18} />
-      </button>
-
-      {many && (
-        <button
-          onClick={prev}
-          aria-label="Previous"
-          className="absolute left-3 sm:left-6 w-11 h-11 grid place-items-center rounded-full border border-white/20 text-white/85 hover:text-accent hover:border-accent transition-colors cursor-pointer"
-        >
-          <Icon name="arrowRight" size={20} className="rotate-180" />
-        </button>
-      )}
-      {many && (
-        <button
-          onClick={next}
-          aria-label="Next"
-          className="absolute right-3 sm:right-6 w-11 h-11 grid place-items-center rounded-full border border-white/20 text-white/85 hover:text-accent hover:border-accent transition-colors cursor-pointer"
-        >
-          <Icon name="arrowRight" size={20} />
-        </button>
-      )}
-
-      <figure className="w-full max-w-[min(92vw,1000px)] flex flex-col items-center gap-4">
-        <div className="relative w-full aspect-[4/3] bg-bg2 border border-edge rounded-xl grid place-items-center overflow-hidden text-muted">
-          <Icon name={g.icon} size={72} className="text-accent" />
-          {g.img && (
-            <img
-              src={`${import.meta.env.BASE_URL}${g.img}`}
-              alt={g.label}
-              onError={(e) => { e.currentTarget.style.display = 'none'; }}
-              className="absolute inset-0 w-full h-full object-contain bg-bg"
-            />
-          )}
-        </div>
-        <figcaption className="text-center">
-          <div className="text-white font-medium">{g.label}</div>
-          <div className="text-white/60 text-xs uppercase tracking-wide mt-0.5">{g.cat}</div>
-        </figcaption>
-      </figure>
+        {pill && (
+          <span
+            aria-hidden="true"
+            className="absolute bottom-1 top-1 rounded-full bg-text transition-[left,width] duration-500 ease-out"
+            style={{ left: pill.left, width: pill.width }}
+          />
+        )}
+        {GALLERY_FILTERS.map((option) => {
+          const pressed = value === option.key;
+          return (
+            <button
+              key={option.key}
+              type="button"
+              aria-pressed={pressed}
+              onClick={(event) => select(option.key, event)}
+              className={`relative z-[1] min-h-[2.75rem] cursor-pointer whitespace-nowrap rounded-full px-4 text-sm font-medium transition-colors duration-300 sm:px-5 ${pressed ? 'text-bg' : 'text-muted hover:text-text'}`}
+            >
+              {option.label}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }

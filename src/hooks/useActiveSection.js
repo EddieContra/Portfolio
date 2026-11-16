@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 // highlight the matching link. Uses IntersectionObserver against the given ids
 // and picks whichever section is most prominently on screen.
 export function useActiveSection(ids, { rootMargin = '-45% 0px -50% 0px' } = {}) {
-  const [active, setActive] = useState(ids[0] ?? '');
+  const [active, setActive] = useState('');
 
   useEffect(() => {
     if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return;

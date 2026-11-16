@@ -1,38 +1,51 @@
+import { useRef } from 'react';
 import { EXPERIENCE } from '../data/experience';
+import { useScrollProgress } from '../hooks/useScrollProgress';
+import { useReducedMotion } from '../hooks/useMediaQuery';
+import SectionHeader, { headingId } from './SectionHeader';
 
 export default function Experience() {
+  const listRef = useRef(null);
+  const reduced = useReducedMotion();
+  // --p fills the timeline rail as the list scrolls through the middle of the screen.
+  useScrollProgress(listRef, { start: 0.62, end: 0.62, enabled: !reduced });
+
   return (
-    <section id="experience" className="py-20 sm:py-28 border-t border-edge">
+    <section id="experience" aria-labelledby={headingId('experience')} className="section border-y border-edge bg-bg2">
       <div className="wrap">
-        <span className="sec-label">Experience &amp; education</span>
-        <h2 className="sec-title rv">Where I've worked</h2>
+        <SectionHeader id="experience" />
 
-        <ol className="relative border-l border-edge space-y-12 ml-2 pl-7 sm:pl-9">
-          {EXPERIENCE.map((e, i) => (
-            <li key={`${e.role}-${e.company}`} className={`rv rv-d${(i % 4) + 1} relative`}>
-              <span
-                className="absolute -left-[33px] sm:-left-[41px] top-1.5 w-3 h-3 rounded-full bg-accent ring-4 ring-bg"
-                aria-hidden="true"
-              />
+        <ol ref={listRef} className="relative m-0 list-none p-0">
+          <span aria-hidden="true" className="absolute bottom-2 left-[5px] top-2 w-px bg-edge md:left-[13.5rem]" />
+          <span
+            aria-hidden="true"
+            className="absolute bottom-2 left-[5px] top-2 w-px origin-top bg-accent md:left-[13.5rem]"
+            style={{ transform: 'scaleY(var(--p, 1))' }}
+          />
 
-              <div className="text-xs text-muted tracking-wide mb-1.5 italic">{e.date}</div>
+          {EXPERIENCE.map((item) => (
+            <li
+              key={`${item.role}-${item.company}`}
+              className="rv relative grid grid-cols-1 pb-14 pl-9 last:pb-0 md:grid-cols-[13.5rem_minmax(0,1fr)] md:pl-0"
+            >
+              <span aria-hidden="true" className="absolute left-0 top-[.45rem] h-[11px] w-[11px] rounded-full bg-accent ring-4 ring-bg2 md:left-[13.5rem] md:-translate-x-[5px]" />
 
-              <h3 className="text-lg sm:text-xl font-bold text-text leading-snug">
-                {e.role}
-              </h3>
+              <p className="mb-2 text-sm font-medium tabular-nums text-muted md:sticky md:top-28 md:mb-0 md:self-start md:pr-10 md:pt-0.5 md:text-right">
+                {item.date}
+              </p>
 
-              <div className="text-accent text-sm font-medium mb-4 mt-0.5">
-                {e.company}
+              <div className="md:pl-12">
+                <h3 className="text-[1.3rem] font-bold leading-snug tracking-tight text-text sm:text-[1.55rem]">{item.role}</h3>
+                <p className="mb-5 mt-1 font-semibold text-accent-ink">{item.company}</p>
+                <ul className="m-0 max-w-2xl list-none space-y-2.5 p-0 text-[.98rem] leading-relaxed text-muted">
+                  {item.points.map((point, i) => (
+                    <li key={i} className="relative pl-5">
+                      <span aria-hidden="true" className="absolute left-0 top-[.72em] h-1 w-1 rounded-full bg-muted" />
+                      {point}
+                    </li>
+                  ))}
+                </ul>
               </div>
-
-              <ul className="space-y-2 text-muted text-sm sm:text-[.92rem] leading-relaxed list-none">
-                {e.points.map((p, idx) => (
-                  <li key={idx} className="relative pl-5">
-                    <span className="absolute left-0 top-2 w-1.5 h-1.5 rounded-full bg-edge" aria-hidden="true" />
-                    {p}
-                  </li>
-                ))}
-              </ul>
             </li>
           ))}
         </ol>
