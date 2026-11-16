@@ -269,7 +269,7 @@ export function createTerrain(canvas, { color = [1, 1, 1], getProgress = () => 0
     // Camera: low orbit → top-down map as the hero scrolls away.
     const azimuth = 0.62 + state.time * 0.035 + e.x * 0.22;
     const elevation = mix(0.36, 1.25, ease(p)) - e.y * 0.05;
-    const distance = mix(wide ? 5.3 : 7.4, wide ? 5.9 : 8.0, p);
+    const distance = mix(wide ? 5.9 : 7.4, wide ? 6.4 : 8.0, p);
     const target = [0, 0.42, 0];
     const eye = [
       target[0] + distance * Math.cos(elevation) * Math.sin(azimuth),
@@ -279,7 +279,7 @@ export function createTerrain(canvas, { color = [1, 1, 1], getProgress = () => 0
     const viewProj = multiply(perspective(FOV, aspect, 0.1, 30), lookAt(eye, target));
 
     gl.uniformMatrix4fv(U.uViewProj, false, viewProj);
-    gl.uniform2f(U.uShift, wide ? mix(0.42, 0.12, p) : 0, wide ? mix(0.06, 0, p) : mix(0.36, 0.1, p));
+    gl.uniform2f(U.uShift, wide ? mix(0.5, 0.14, p) : 0, wide ? mix(0.06, 0, p) : mix(0.36, 0.1, p));
     gl.uniform3f(U.uEye, eye[0], eye[1], eye[2]);
     gl.uniform3f(U.uColor, state.color[0], state.color[1], state.color[2]);
     gl.uniform1f(U.uAlpha, 1 - Math.min(1, p * 1.15));
