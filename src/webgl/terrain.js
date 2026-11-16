@@ -304,10 +304,13 @@ export function createTerrain(canvas, { color = [1, 1, 1], getProgress = () => 0
   // Frame-budget watchdog: drop to 1x, then give up, on devices that can't keep up.
   function watch(ms) {
     state.frames += 1;
-    if (state.frames <= 12) return;             // let shader compilation settle
+    if (state.frames <= 4) return;              // let shader compilation settle
+    // Hopeless case first: a few very long frames in a row and we stop at once.
+    state.stalls = ms > 120 ? (state.stalls || 0) + 1 : 0;
+    if (state.stalls >= 3) { state.slowStage = 2; onSlow?.(); return; }
     state.slowSum += ms;
-    if (state.frames < 52) return;
-    const average = state.slowSum / 40;
+    if (state.frames < 34) return;
+    const average = state.slowSum / 30;
     state.frames = 0;
     state.slowSum = 0;
     if (state.slowStage === 0 && average > 30 && state.dpr > 1) {
@@ -327,8 +330,9 @@ export function createTerrain(canvas, { color = [1, 1, 1], getProgress = () => 0
     state.raf = requestAnimationFrame(frame);
     const ms = state.last ? now - state.last : 16.7;
     state.last = now;
-    if (ms > 250) return;                        // tab was in the background
+    if (ms > 1000) return;                       // tab was in the background
     if (watchdog && state.slowStage < 2) watch(ms);
+    if (state.destroyed) return;
     draw(Math.min(ms, 50) / 1000);
   }
 

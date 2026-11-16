@@ -32,10 +32,10 @@ export default function Gallery() {
           {`Showing ${items.length} ${items.length === 1 ? 'item' : 'items'}: ${labelFor(filter)}`}
         </p>
 
-        <ul className="m-0 grid list-none grid-flow-dense grid-cols-2 gap-3 p-0 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+        <ul className="m-0 grid list-none grid-cols-2 gap-3 p-0 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
           {items.map((item, i) => (
-            <li key={`${filter}-${item.id}`} className={`rv rv-d${(i % 4) + 1} ${i % 5 === 0 ? 'col-span-2 row-span-2' : ''}`}>
-              <Tile item={item} large={i % 5 === 0} onOpen={() => setLightbox(i)} />
+            <li key={`${filter}-${item.id}`} className={`rv rv-d${(i % 4) + 1}`}>
+              <Tile item={item} onOpen={() => setLightbox(i)} />
             </li>
           ))}
         </ul>
@@ -48,7 +48,7 @@ export default function Gallery() {
   );
 }
 
-function Tile({ item, large, onOpen }) {
+function Tile({ item, onOpen }) {
   const src = asset(item.img);
   return (
     <button
@@ -64,7 +64,7 @@ function Tile({ item, large, onOpen }) {
         <>
           <ContourArt seed={item.id + 31} width={300} height={300} cols={20} levels={5} peaks={2} className="absolute inset-0 h-full w-full text-accent opacity-45 transition-transform duration-700 ease-out group-hover:scale-110" />
           <span className="absolute inset-0 grid place-items-center text-text">
-            <Icon name={item.icon} size={large ? 44 : 28} />
+            <Icon name={item.icon} size={28} />
           </span>
         </>
       )}

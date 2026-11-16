@@ -65,14 +65,15 @@ export default function Testimonials() {
               const shown = i === active;
               const photo = asset(item.img);
               return (
-                <figure
+                <div
                   key={item.name + i}
                   role="group"
                   aria-roledescription="slide"
                   aria-label={`${i + 1} of ${total}`}
                   aria-hidden={!shown}
-                  className={`col-start-1 row-start-1 m-0 transition-[opacity,transform] duration-700 ease-out ${shown ? 'opacity-100' : 'pointer-events-none translate-y-3 opacity-0'}`}
+                  className={`col-start-1 row-start-1 transition-[opacity,transform] duration-700 ease-out ${shown ? 'opacity-100' : 'pointer-events-none translate-y-3 opacity-0'}`}
                 >
+                  <figure className="m-0">
                   <Icon name="quote" size={40} className="mb-6 text-accent" />
                   <blockquote className="m-0 max-w-4xl font-disp text-[clamp(1.45rem,3.4vw,2.6rem)] font-bold leading-[1.22] tracking-[-0.02em] text-text">
                     <p className="m-0">{item.quote}</p>
@@ -87,7 +88,8 @@ export default function Testimonials() {
                       <span className="block text-sm text-muted">{item.role}</span>
                     </span>
                   </figcaption>
-                </figure>
+                  </figure>
+                </div>
               );
             })}
           </div>

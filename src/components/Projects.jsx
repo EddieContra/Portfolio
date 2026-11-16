@@ -120,10 +120,10 @@ export default function Projects() {
             ref={trackRef}
             className={[
               'm-0 flex list-none gap-4 py-2 sm:gap-6',
-              'px-[max(1.25rem,env(safe-area-inset-left))] sm:px-8 xl:px-[calc((100vw-72rem)/2+2rem)]',
+              'px-[max(1.25rem,env(safe-area-inset-left))] sm:px-[max(2rem,calc((100%-72rem)/2+2rem))]',  // lines up with .wrap
               pinned
                 ? 'will-change-transform'
-                : 'no-scrollbar snap-x snap-mandatory overflow-x-auto overscroll-x-contain scroll-px-5 sm:scroll-px-8',
+                : 'no-scrollbar snap-x snap-mandatory overflow-x-auto overscroll-x-contain scroll-px-5 sm:scroll-px-[max(2rem,calc((100%-72rem)/2+2rem))]',
             ].join(' ')}
             style={pinned ? { transform: `translate3d(calc(var(--p, 0) * ${-distance}px), 0, 0)` } : undefined}
           >

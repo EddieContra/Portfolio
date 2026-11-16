@@ -16,7 +16,11 @@ function hasCapableGpu() {
     // failIfMajorPerformanceCaveat: no context on software / blocklisted GPUs.
     const gl = canvas.getContext('webgl', { failIfMajorPerformanceCaveat: true });
     if (!gl) return false;
-    const ok = !!gl.getExtension('OES_standard_derivatives');
+    // Some browsers still hand out a software context; check the renderer name too.
+    const info = gl.getExtension('WEBGL_debug_renderer_info');
+    const renderer = info ? String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL)) : '';
+    const software = /swiftshader|llvmpipe|software|basic render/i.test(renderer);
+    const ok = !software && !!gl.getExtension('OES_standard_derivatives');
     gl.getExtension('WEBGL_lose_context')?.loseContext();
     return ok;
   } catch {
